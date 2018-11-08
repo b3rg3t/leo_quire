@@ -21,3 +21,24 @@ var quill = new Quill('#editor', {
     },
     theme: 'snow'
 });
+
+function localSave() 
+{
+    //console.log("Save was pressed.");
+    console.log(quill.getContents());
+    console.log(JSON.stringify(quill.getContents()));
+}
+
+window.addEventListener("load",function(){
+    console.log("window loaded with listener");
+    
+    if (localStorage.cookieCheck == null) {
+        localStorage.cookieCheck = true;
+        console.log("localStorage Cookie was set!");
+        //display landing page
+    }
+    else{
+        console.log("LocalStorage Cookie exists, will not display landingpage!")
+        return;
+    }
+})
