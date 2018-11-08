@@ -3,35 +3,14 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="fill in description">
-    <title>Leo Quire</title>
-    <link rel="stylesheet" type="text/css" href="/css/main.css" />
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-
+    <title>LEO</title>
     <link rel="stylesheet" href="css/landingpage.css">
 </head>
 
 <body>
-    <div class="control-boxes">
-        <div class="box1">
-            <p>box1</p>
-        </div>
-        <div class="box2">
-            <p>box2</p>
-        </div>
-        <div class="box3">
-            <!-- Create the editor container -->
-            <div id="editor">
-                <p>Hello World!</p>
-                <p>Some initial <strong>bold</strong> text</p>
-                <p><br></p>
-            </div>
-
-            <button onclick="localSave()">Save</button>
-        </div>
-    </div>
+    <!-- LANDING PAGE KNAPP -->
+    <button class="application" onclick="document.getElementById('landingpage').style.display='block'" type="button" name="button">INFO</button>
+    <!--FORMULÄR-->
 
     <div id="landingpage" class="modal">
         <form class="modal-content" action="">
@@ -62,9 +41,7 @@
             </div>
         </form>
     </div>
-    
-    <!-- Include the Quill library -->
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
     <script src="/javascript/main.js"></script>
 </body>
 

@@ -1,4 +1,13 @@
 
+let modal = document.getElementById('landingpage');
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+  else if (document.getElementsByClassName('show')) {
+  }
+}
 var toolbarOptions = [
    [ "bold","italic","underline", "strike"],
    [ "blockquote", "code-block"],
@@ -36,6 +45,7 @@ window.addEventListener("load",function(){
         localStorage.cookieCheck = true;
         console.log("localStorage Cookie was set!");
         //display landing page
+        document.getElementById('landingpage').style.display='block';
     }
     else{
         console.log("LocalStorage Cookie exists, will not display landingpage!")
