@@ -31,24 +31,65 @@ var quill = new Quill('#editor', {
     theme: 'snow'
 });
 
-function localSave() 
+window.addEventListener("load",function(){
+    cookieCheck();
+
+    
+
+})
+
+function loadToQuill()
 {
-    //console.log("Save was pressed.");
-    console.log(quill.getContents());
-    console.log(JSON.stringify(quill.getContents()));
+    quill.setContents(JSON.parse())
 }
 
-window.addEventListener("load",function(){
-    console.log("window loaded with listener");
+function addNote()
+{
+    let tempStorage = loadNotes();
+    tempStorage.push(newNote(tempStorage));
+    saveNotes(tempStorage);
+    console.log(tempStorage);
     
+}
+
+function getFreeId()
+{
+
+}
+
+function saveNotes(notes) 
+{
+
+    console.log(quill.getContents());
+    console.log(JSON.stringify(quill.getContents()));
+
+    localStorage.setItem('myNotes', JSON.stringify(notes));
+}
+
+function loadNotes()
+{
+    return JSON.parse(localStorage.getItem('myNotes') ? localStorage.getItem('myNotes') : '[]');
+}
+
+function newNote(/*id*/)
+{
+    let note = {};
+    note.title = "New note";
+    note.content = quill.getContents();
+    //note.id = id;
+    return note;
+}
+
+function cookieCheck()
+{
     if (localStorage.cookieCheck == null) {
         localStorage.cookieCheck = true;
         console.log("localStorage Cookie was set!");
-        //display landing page
+
         document.getElementById('landingpage').style.display='block';
     }
     else{
         console.log("LocalStorage Cookie exists, will not display landingpage!")
         return;
     }
-})
+}
