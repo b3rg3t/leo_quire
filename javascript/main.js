@@ -34,13 +34,6 @@ window.addEventListener("load", function() {
 });
 window.onload = function() {
   updateView();
-  // document.getElementById().addEventListener('click', function () //todo
-  //     let notes = loadNotes();
-  //     notes.push(newNote(getAvailID(notes)));
-  //     console.log(notes);
-  //     saveNotes(notes);
-  //     updateView();
-  // })
   document.getElementById("nukeNotes").addEventListener("click", function() {
     nukeNotes();
     updateView();
