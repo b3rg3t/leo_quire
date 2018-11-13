@@ -1,6 +1,6 @@
 body{
     margin: 0;
-    overflow-x: hidden; // hide horizontal
+    overflow-x: hidden; 
 }
 .control-boxes{
     display: flex;
@@ -33,5 +33,14 @@ body{
     max-height: 90%;
     width: auto;
     min-width: 300px;
+}
+#notes div{
+    background-color: white;
+}
+button{
+    margin: 5px;
+}
+h1{
+    color: white;
 }
 

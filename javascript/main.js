@@ -8,6 +8,7 @@ window.onclick = function(event) {
   else if (document.getElementsByClassName('show')) {
   }
 }
+
 var toolbarOptions = [
    [ "bold","italic","underline", "strike"],
    [ "blockquote", "code-block"],
@@ -37,7 +38,20 @@ window.addEventListener("load",function(){
     
 
 })
-
+window.onload = function () {
+    updateView();
+    document.getElementById('newNote').addEventListener('click', function () {
+        let notes = loadNotes();
+        notes.push(newNote(getAvailID(notes)));
+        console.log(notes);
+        saveNotes(notes);
+        updateView();
+    })
+    document.getElementById('nukeNotes').addEventListener('click', function () {
+        nukeNotes();
+        updateView();
+    })
+}
 function loadToQuill(id)
 {
     let tempStorage = loadNotes();
@@ -64,16 +78,48 @@ function loadNotes()
 {
     return JSON.parse(localStorage.getItem('myNotes') ? localStorage.getItem('myNotes') : '[]');
 }
+function deleteNote (id) {
+    let notes = loadNotes();
+    let newNotes = notes.filter(note => (note.id != id));
+    saveNotes(newNotes);
+    updateView();
+
+}
 
 function newNote(id)
 {
     let note = {};
-    note.title = "New note";
+    note.title = "Note" + " " + (1 + id);
     note.content = quill.getContents();
     note.id = id;
     return note;
 }
-
+function nukeNotes () {
+    localStorage.setItem('notes', JSON.stringify([]));
+}
+function updateView () {
+    let notes = loadNotes();
+    document.getElementById("notes").innerHTML='<h1>Stored Notes</h1>';
+    notes.forEach((r) => {
+        let newDiv = document.createElement("div");
+        let newP = document.createElement("p");
+        let newTitle = document.createTextNode(r.title);
+        // let newCont = document.createTextNode(quill.getText());
+        let newButton = document.createElement("button");
+        let newButtonText = document.createTextNode('X');
+        newButton.setAttribute('onclick','deleteNote(' + r.id + ');');
+        newDiv.setAttribute('onclick','loadToQuill(' + r.id + ');');
+        newDiv.setAttribute('data-id', r.id);
+        newButton.appendChild(newButtonText);
+        newP.appendChild(newTitle);
+        newDiv.appendChild(newP);
+        // newDiv.appendChild(newCont);
+        newDiv.appendChild(newButton);
+        let currentSection = document.getElementById("notes");
+        currentSection.appendChild(newDiv);
+        console.log(quill.getText());
+    })
+}
 function cookieCheck()
 {
     if (localStorage.cookieCheck == null) {
@@ -87,3 +133,4 @@ function cookieCheck()
         return;
     }
 }
+
