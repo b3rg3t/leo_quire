@@ -63,7 +63,7 @@ function addNote()
     let tempStorage = loadNotes();
     tempStorage.push(newNote(getAvailID(tempStorage)));
     saveNotes(tempStorage);
-
+    updateView();
     console.log(loadNotes());
 }
 
@@ -99,7 +99,7 @@ function nukeNotes () {
 }
 function updateView () {
     let notes = loadNotes();
-    document.getElementById("notes").innerHTML='<h1>Stored Notes</h1>';
+    document.getElementById("notes").innerHTML='';
     notes.forEach((r) => {
         let newDiv = document.createElement("div");
         let newP = document.createElement("p");
@@ -117,7 +117,7 @@ function updateView () {
         newDiv.appendChild(newButton);
         let currentSection = document.getElementById("notes");
         currentSection.appendChild(newDiv);
-        console.log(quill.getText());
+        // console.log(quill.getText());
     })
 }
 function cookieCheck()
