@@ -38,9 +38,10 @@ window.addEventListener("load",function(){
 
 })
 
-function loadToQuill()
+function loadToQuill(id)
 {
-    quill.setContents(JSON.parse())
+    let tempStorage = loadNotes();
+    quill.setContents(tempStorage.filter(note => (note.id == id))[0].content);
 }
 
 function addNote()
