@@ -18,25 +18,33 @@ body{
   width: 20%;
   min-width: 200px;
   height: 100%;
-  background-color: rgb(81, 81, 82);
+  background-color: rgb(71, 134, 124);
+  border: 2px  solid rgb(255, 255, 255);
 
 }
 #height-notes{
     height: 80%;
     overflow: auto;
     margin-top: 40px;
-    border: 1px solid white;   
-     
+    border: 1px solid rgb(255, 255, 255);   
+    
+}
+::-webkit-scrollbar{
+    display: hidden;
+    width: 0px;
 }
 .box3 {
     padding: 5% 10% 3% 10%; 
     width: 75%;
     height: auto;
     overflow: auto;
-    background-color: rgb(116, 116, 116);
+    background-color:rgb(183, 250, 247);
+}
+.ql-toolbar{
+    background-color: rgb(250, 238, 76);
 }
 #editor{
-    background-color: rgb(0, 138, 0);
+    background-color: rgb(255, 255, 255);
     max-height: 90%;
     width: auto;
     min-width: 300px;
@@ -53,7 +61,7 @@ body{
 button{
     margin: 5px;
 }
-h1{
+#header{
     color: white;
     text-align: center;
 }
