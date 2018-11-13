@@ -38,8 +38,6 @@ window.addEventListener("load",function(){
     
 
 })
-
-//SAVE TEXT INTO DIV
 window.onload = function () {
     updateView();
     document.getElementById('newNote').addEventListener('click', function () {
@@ -54,9 +52,10 @@ window.onload = function () {
         updateView();
     })
 }
-function loadToQuill()
+function loadToQuill(id)
 {
-    quill.setContents(JSON.parse())
+    let tempStorage = loadNotes();
+    quill.setContents(tempStorage.filter(note => (note.id == id))[0].content);
 }
 
 function addNote()
@@ -86,6 +85,7 @@ function deleteNote (id) {
     updateView();
 
 }
+
 function newNote(id)
 {
     let note = {};
@@ -108,6 +108,7 @@ function updateView () {
         let newButton = document.createElement("button");
         let newButtonText = document.createTextNode('X');
         newButton.setAttribute('onclick','deleteNote(' + r.id + ');');
+        newDiv.setAttribute('onclick','loadToQuill(' + r.id + ');');
         newDiv.setAttribute('data-id', r.id);
         newButton.appendChild(newButtonText);
         newP.appendChild(newTitle);

@@ -1,6 +1,6 @@
 body{
     margin: 0;
-    overflow-x: hidden; // hide horizontal
+    overflow-x: hidden; 
 }
 .control-boxes{
     display: flex;
