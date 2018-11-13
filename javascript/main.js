@@ -46,23 +46,16 @@ function loadToQuill()
 function addNote()
 {
     let tempStorage = loadNotes();
-    tempStorage.push(newNote(tempStorage));
+    tempStorage.push(newNote(getAvailID(tempStorage)));
     saveNotes(tempStorage);
-    console.log(tempStorage);
-    
+
+    console.log(loadNotes());
 }
 
-function getFreeId()
-{
-
-}
+const getAvailID = (noteArray) => (noteArray.length > 0) ? (Math.max(...noteArray.map(note => note.id), 0) + 1) : 0;
 
 function saveNotes(notes) 
 {
-
-    console.log(quill.getContents());
-    console.log(JSON.stringify(quill.getContents()));
-
     localStorage.setItem('myNotes', JSON.stringify(notes));
 }
 
@@ -71,12 +64,12 @@ function loadNotes()
     return JSON.parse(localStorage.getItem('myNotes') ? localStorage.getItem('myNotes') : '[]');
 }
 
-function newNote(/*id*/)
+function newNote(id)
 {
     let note = {};
     note.title = "New note";
     note.content = quill.getContents();
-    //note.id = id;
+    note.id = id;
     return note;
 }
 
