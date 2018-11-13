@@ -85,7 +85,6 @@ function updateView() {
     let newDiv = document.createElement("div");
     let newP = document.createElement("p");
     let newTitle = document.createTextNode(r.title);
-    // let newCont = document.createTextNode(quill.getText());
     let newButton = document.createElement("button");
     let newButtonText = document.createTextNode("X");
     newButton.setAttribute("onclick", "deleteNote(" + r.id + ");");
@@ -94,13 +93,13 @@ function updateView() {
     newButton.appendChild(newButtonText);
     newP.appendChild(newTitle);
     newDiv.appendChild(newP);
-    // newDiv.appendChild(newCont);
     newDiv.appendChild(newButton);
     let currentSection = document.getElementById("notes");
     currentSection.appendChild(newDiv);
-    // console.log(quill.getText());
   });
 }
+
+//CHECK FOR LANDING PAGE
 function cookieCheck() {
   if (localStorage.cookieCheck == null) {
     localStorage.cookieCheck = true;
