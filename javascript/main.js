@@ -99,6 +99,7 @@ function updateView() {
   });
 }
 
+
 //CHECK FOR LANDING PAGE
 function cookieCheck() {
   if (localStorage.cookieCheck == null) {
@@ -111,3 +112,4 @@ function cookieCheck() {
     return;
   }
 }
+
