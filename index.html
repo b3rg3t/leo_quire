@@ -9,7 +9,8 @@
     <title>Leo Quire</title>
     <link rel="stylesheet" type="text/css" href="/css/main.css" />
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+        crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
     <link rel="stylesheet" href="css/landingpage.css">
 </head>
@@ -19,12 +20,12 @@
         <div class="box1">
             <nav id="nav-bar">
                 <div id="nav-logo">
-                  <span>Q</span> 
+                    <span>Q</span>
                 </div>
                 <div id="nav-main">
                     <button class="nav-button"><i class="fas fa-search"></i></button>
                     <button class="nav-button"><i class="fas fa-star"></i></button>
-                    <button class="nav-button"><i class="fas fa-cog"></i></button>  
+                    <button class="nav-button"><i class="fas fa-cog"></i></button>
                 </div>
                 <div id="nav-footer">
                     <i class="fab fa-github"></i>
@@ -32,33 +33,31 @@
             </nav>
         </div>
         <div class="box2">
-                <nav id="hamburger-nav">
-                        <i class="fas fa-bars"></i>
-                    </nav>
-                <h1 id="header">Saved Notes</h1>
+            <nav id="hamburger-nav">
+                <i class="fas fa-bars"></i>
+            </nav>
+            <h1 id="header">Saved Notes</h1>
             <div id="height-notes">
-                
+                <!-- Container for stored notes(sidebar) -->
                 <section id="notes">
-               
+
                 </section>
             </div>
-            <button id="nukeNotes">DELETE ALL NOTES</button>
+
         </div>
         <div class="box3">
-            <!-- Create the editor container -->
+            <!-- Div for Quill editor, set placeholder text from js -->
             <div id="editor">
-                <!-- <p>Hello World!</p> -->
-                <p>Some initial <strong>bold</strong> text</p>
-                <p><br></p>
+
             </div>
             <button onclick="addNote()">Save</button>
         </div>
     </div>
 
-    <div id="landingpage" class="modal">
+    <div id="landing-page" class="modal">
         <form class="modal-content" action="">
             <div class="xMark">
-                <span onclick="document.getElementById('landingpage').style.display='none'" class="close" title="Close Modal">&times;</span>
+                <span onclick="document.getElementById('landing-page').style.display='none'" class="close" title="Close">&times;</span>
             </div>
             <div class="container">
                 <div class="welcome">
@@ -75,17 +74,17 @@
                             <li>Load</li>
                         </ol>
                         How to manipulate your notes:
-                        
+
                     </p>
                 </div>
 
                 <div class="clearfix">
-                    <button onclick="getdata ()" class="signup" type="submit" class="signupbtn">CLOSE</button>
+                    <button>CLOSE</button>
                 </div>
             </div>
         </form>
     </div>
-    
+
     <!-- Include the Quill library -->
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="/javascript/main.js"></script>
