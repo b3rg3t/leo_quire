@@ -19,7 +19,7 @@ body{
   min-width: 200px;
   height: 100%;
   background-color: rgb(71, 134, 124);
-  border: 2px  solid rgb(255, 255, 255);
+    
 
 }
 #height-notes{
@@ -37,7 +37,7 @@ body{
     padding: 5% 10% 3% 10%; 
     width: 75%;
     height: auto;
-    overflow: auto;
+    overflow: hidden;
     background-color:rgb(183, 250, 247);
 }
 .ql-toolbar{
