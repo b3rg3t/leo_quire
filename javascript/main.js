@@ -82,7 +82,7 @@ function deleteNote(id) {
 function newNote(id) {
   let note = {};
   note.title = "Note" + " " + (1 + id); // Writes note + id starting from 1 and adds +1 for every note.
-  // note.content = " " + quill.getContents().ops[0].insert; TODO next sprint
+  note.content = quill.getContents()
   note.id = id;
   return note;
 }
