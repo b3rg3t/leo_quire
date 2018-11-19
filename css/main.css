@@ -12,23 +12,38 @@ body{
   height: 100%;
   background-color: blue;
   min-width: 50px;
+  z-index: 2;
+  box-shadow: 2px 0px 5px grey;
 }
 
 .box2 {
-  width: 20%;
-  min-width: 200px;
-  height: 100%;
-  background-color: rgb(71, 134, 124);
- 
-
-}
-#height-notes{
-    height: 80%;
-    overflow: auto;
-    margin-top: 40px;
-    border: 1px solid rgb(255, 255, 255);   
+    width: 20%;
+    min-width: 200px;
+    height: 100%;
+    background-color: #2561c4;
+    z-index: 1;
+    box-shadow: 2px 0px 5px 2px grey;
+    /* padding-bottom: 50px; */
+    /* overflow:scroll; */
+    box-sizing: border-box;
     
 }
+#height-notes{
+    /* max-height: inherit;
+    box-sizing: inherit; */
+    overflow: scroll;
+    box-sizing: border-box;
+    
+    /* margin-top: 20px; */
+    /* border: 1px solid rgb(255, 255, 255); */
+    background-color: #ededed;
+    /* max-height: 100%; */
+    max-height: 80%;
+    
+}
+
+
+
 ::-webkit-scrollbar{
     display: hidden;
     width: 0px;
@@ -38,28 +53,47 @@ body{
     width: 75%;
     height: auto;
     overflow: auto;
-    background-color:rgb(183, 250, 247);
+    background-color:#f9f9f9;
 }
 .ql-toolbar{
-    background-color: rgb(250, 238, 76);
+    background-color: #f7eb9b;
+    max-width: 80%;
+    min-width: 300px;
+    
 }
 #editor{
-    background-color: rgb(255, 255, 255);
+    background-color: #fcf8e0;
     max-height: 90%;
-    width: auto;
+    max-width: 80%;
     min-width: 300px;
 }
-
+#notes p{
+    margin: 0px;
+    font-size: 18px;
+    font-family: 'Gentium Book Basic';
+}
+#notes hr{
+    color:gray;
+    margin: 0px;
+    width: 90%;
+    margin: auto;
+}
 #notes div{
     background-color: white;
-    width: 90%;
+    width: 100%;
+    height: 100px;
     margin: 0 auto;
+    padding-left: 10px;
+    padding-top: 10px;
+    box-sizing: border-box;
 }
+
 #notes div:hover{
-    transform: scale(1.1);
+    /* transform: scale(1.1); */
 }
-button{
-    margin: 5px;
+#notes button{
+    margin: 5px 0px 5px;
+
 }
 #header{
     color: white;
@@ -74,23 +108,28 @@ button{
     align-items: center;
     justify-content: space-between;
     color:white;
-    
+    background-color: #1b4c9b;
 }
-
+#logo-bg{
+    background-color: #14356b;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 10px;
+    height: 70px;
+}
 #nav-logo{
-    font-family: 'PT Serif', serif;
-    font-size: 45px;
-    margin-top: 20px;
+    font-family: 'Playfair Display';
+    font-size: 50px;
     color: white;
-
+    /* transition: transform .25s ease-out; */
+    user-select: none;
 }
 #nav-logo:hover{
-    transform: rotate(-15deg);
+    transform: rotate(-10deg);
 }
 #nav-main{
     display: flex;
     flex-flow: column wrap;
-    
 }
 
 #nav-main i{
@@ -98,16 +137,27 @@ button{
     font-size: 25px;
 }
 
+.fa-github 
+{
+    font-size: 28px;
+    transition: font-size .5s;
+}
+.fa-github:hover
+{
+    font-size: 35px;
+}
+
 #nav-footer{
     margin-bottom: 20px;
 }
 .nav-button {
-    background-color: blue;
+    background-color: #1b4c9b;
     border: none;
     color: white;
     text-align: center;
     font-size: 16px;
     cursor: pointer;
+    border-radius: 2px;
 }
 #hamburger-nav{
     display: none;
