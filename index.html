@@ -62,10 +62,14 @@
         </div>
         <div class="box3">
             <!-- Div for Quill editor, set placeholder text from js -->
+            <div id="title-box">
+                <input id="title" type="text" placeholder="Title..." value="">
+            </div>
             <div id="editor">
 
             </div>
-            <button onclick="addNote()">Save</button>
+            <button onclick="addNote()">New note</button>
+            <button onclick="saveNote()">Save note</button>
         </div>
     </div>
 
