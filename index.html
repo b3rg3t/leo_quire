@@ -2,25 +2,40 @@
 <html lang="en" dir="ltr">
 
 <head>
+    <!-- META -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="fill in description">
+    <!-- SEO META -->
     <title>Leo Quire</title>
-    <link rel="stylesheet" type="text/css" href="/css/main.css" />
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
-        crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">
+    <meta name="description" content="fill in description">
+    <!-- Main CSS -->
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
     <link rel="stylesheet" href="css/landingpage.css">
+    <!-- Quill -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Gentium+Book+Basic" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
+    
+    <!-- Favicons (All platforms) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#14356b">
+    <meta name="theme-color" content="#ffffff">
 </head>
 
 <body>
     <div class="control-boxes">
         <div class="box1">
             <nav id="nav-bar">
-                <div id="nav-logo">
-                    <span>Q</span>
+                <div id="logo-bg">
+                    <div id="nav-logo">Q</div>
                 </div>
                 <div id="nav-main">
                     <button class="nav-button"><i class="fas fa-search"></i></button>
@@ -61,25 +76,14 @@
             </div>
             <div class="container">
                 <div class="welcome">
-                    <h2>Welcome</h2>
+                    <h2><span id="title-h2">Welcome to:</span><br><span id="title-em">Quire</span></h2>
                 </div>
-
+                <hr>
                 <div class="content-landing">
-                    <p>
-                        This is Quire, the new amazing online notepad editor. <br>
-                        Here is how to get started /
-                        <ol id="ol-contol">
-                            <li>Write</li>
-                            <li>Save</li>
-                            <li>Load</li>
-                        </ol>
-                        How to manipulate your notes:
-
-                    </p>
+                    <h2>TODO</h2>
                 </div>
-
                 <div class="clearfix">
-                    <button>CLOSE</button>
+                    <button>Ok, I get it!</button>
                 </div>
             </div>
         </form>
@@ -87,7 +91,8 @@
 
     <!-- Include the Quill library -->
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    <script src="/javascript/main.js"></script>
+    <!-- Main JS -->
+    <script src="javascript/main.js"></script>
 </body>
 
 </html>

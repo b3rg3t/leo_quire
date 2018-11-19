@@ -9,6 +9,7 @@ window.onclick = function (event) {
   else if (document.getElementsByClassName("show")) {
   }
 };
+
 // Check local storage for previous visit
 function cookieCheck() {
   if (localStorage.cookieCheck == null) {
@@ -82,7 +83,7 @@ function deleteNote(id) {
 function newNote(id) {
   let note = {};
   note.title = "Note" + " " + (1 + id); // Writes note + id starting from 1 and adds +1 for every note.
-  // note.content = " " + quill.getContents().ops[0].insert; TODO next sprint
+  note.content = quill.getContents()
   note.id = id;
   return note;
 }
@@ -98,14 +99,21 @@ function updateView() {
     // let newContent = document.createTextNode(r.content); TODO next sprint
     let newButton = document.createElement("button");
     let newButtonText = document.createTextNode("X");
+    let newSeparator = document.createElement("hr"); //new
     newButton.setAttribute("onclick", "deleteNote(" + note.id + ");");
     newDiv.setAttribute("onclick", "loadToQuill(" + note.id + ");");
-    newButton.appendChild(newButtonText);
+    
     newP.appendChild(newTitle);
+    // newSeparator.appendChild()
     // newP.appendChild(newContent); TODO next sprint
+    newButton.appendChild(newButtonText);
+    
     newDiv.appendChild(newP);
     newDiv.appendChild(newButton);
+    
+    
     let currentSection = document.getElementById("notes");
     currentSection.appendChild(newDiv);
+    currentSection.appendChild(newSeparator);
   });
 }
