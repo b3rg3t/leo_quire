@@ -32,7 +32,6 @@ var toolbarOptions = [
   [{ list: "ordered" }, { list: "bullet" }],
   ["link", "image"],
   [{ color: [] }, { background: [] }],
-  [{ font: [] }],
   [{ align: [] }]
 ];
 // Loads and configures the Quill editor
