@@ -47,21 +47,52 @@ window.onload = function () {
   cookieCheck();
   updateView();
 };
+
+function setActiveId(id){
+  sessionStorage.activeId = id;
+  console.log("Active set to " + sessionStorage.activeId);
+}
+
+function getActiveId(){
+  return Number(sessionStorage.activeId);
+}
+
 // Loads a specific note from local storage to the editor 
 function loadToQuill(id) {
   let tempStorage = loadNotes();
   quill.setContents(tempStorage.find(loadNote => loadNote.id == id).content);
+  setActiveId(id);
+  document.getElementById("title").value = tempStorage.find(loadNote => loadNote.id == id).title;
+  yyyymmdd() = tempStorage.find(loadNote => loadNote.id == id).date;
 }
 
 function addNote() {
   let tempStorage = loadNotes(); // Loads array from loadNotes()
-  tempStorage.push(newNote(getAvailID(tempStorage))); // Adds a new note at the end of the array. 
+  let freeID = getAvailID(tempStorage);
+  setActiveId(freeID);
+  
+  tempStorage.push(newNote(freeID)); // Adds a new note at the end of the array. 
   saveNotes(tempStorage); // Overwrites localStorage with tempStorage content
+  loadToQuill(getActiveId());
+  quill.setContents("");
+  
+  saveNote();
   updateView();
   console.log(loadNotes());
 }
 // Adds and checks the length of an array. If the length is over 0 - find the highest id. Return id +1.   
 const getAvailID = noteArray => noteArray.length > 0 ? Math.max(...noteArray.map(note => note.id), 0) + 1 : 0;
+
+function saveNote() {
+  // console.log("saveNote was called.");
+  let id = getActiveId();
+  let tempStorage = loadNotes();
+  tempStorage.find(loadNote => loadNote.id == id).content = quill.getContents();
+  tempStorage.find(loadNote => loadNote.id == id).title = document.getElementById("title").value;
+  tempStorage.find(loadNote => loadNote.id == id).date = yyyymmdd();
+  saveNotes(tempStorage);
+  updateView();
+}
 
 // Converts JSON to string and saves to localStorage.
 function saveNotes(notes) {
@@ -81,9 +112,10 @@ function deleteNote(id) {
 
 function newNote(id) {
   let note = {};
-  note.title = "Note" + " " + (1 + id); // Writes note + id starting from 1 and adds +1 for every note.
-  note.content = quill.getContents()
+  note.title = "Untitled " + (id + 1); // Writes note + id starting from 1 and adds +1 for every note.
+  note.content = quill.getContents();
   note.id = id;
+  note.date = yyyymmdd();
   return note;
 }
 
@@ -95,6 +127,7 @@ function updateView() {
     let newDiv = document.createElement("div");
     let newP = document.createElement("p");
     let newTitle = document.createTextNode(note.title);
+    let newDate = document.createTextNode(note.date);
     // let newContent = document.createTextNode(r.content); TODO next sprint
     let newButton = document.createElement("button");
     let newButtonText = document.createTextNode("X");
@@ -103,6 +136,7 @@ function updateView() {
     newDiv.setAttribute("onclick", "loadToQuill(" + note.id + ");");
     
     newP.appendChild(newTitle);
+    newP.appendChild(newDate);
     // newSeparator.appendChild()
     // newP.appendChild(newContent); TODO next sprint
     newButton.appendChild(newButtonText);
@@ -114,5 +148,22 @@ function updateView() {
     let currentSection = document.getElementById("notes");
     currentSection.appendChild(newDiv);
     currentSection.appendChild(newSeparator);
+    
   });
+}
+
+function yyyymmdd() {
+  var x = new Date();
+  var y = x.getFullYear().toString();
+  var m = (x.getMonth() + 1).toString();
+  var d = x.getDate().toString();
+  if (d.length == 1) {
+    (d = '0' + d);
+  }
+  if (m.length == 1){
+    (m = '0' + m);
+  }
+  // (m.length == 1) && (m = '0' + m);
+  var yyyymmdd = y + "-" + m + "-" + d;
+  return yyyymmdd;
 }
