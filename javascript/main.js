@@ -63,7 +63,6 @@ function loadToQuill(id) {
   quill.setContents(tempStorage.find(loadNote => loadNote.id == id).content);
   setActiveId(id);
   document.getElementById("title").value = tempStorage.find(loadNote => loadNote.id == id).title;
-  yyyymmdd() = tempStorage.find(loadNote => loadNote.id == id).date;
 }
 
 function addNote() {
@@ -90,6 +89,7 @@ function saveNote() {
   tempStorage.find(loadNote => loadNote.id == id).content = quill.getContents();
   tempStorage.find(loadNote => loadNote.id == id).title = document.getElementById("title").value;
   tempStorage.find(loadNote => loadNote.id == id).date = yyyymmdd();
+  tempStorage.find(loadNote => loadNote.id == id).preview = getPreview();
   saveNotes(tempStorage);
   updateView();
 }
@@ -116,6 +116,7 @@ function newNote(id) {
   note.content = quill.getContents();
   note.id = id;
   note.date = yyyymmdd();
+  note.preview = getPreview();
   return note;
 }
 
@@ -125,29 +126,34 @@ function updateView() {
   // Generates content in saved notes area
   notes.forEach(note => {
     let newDiv = document.createElement("div");
-    let newP = document.createElement("p");
+    let pTitle = document.createElement("p");
+    pTitle.setAttribute("class","note-titel");
+    let pDate = document.createElement("p");
+    pDate.setAttribute("class", "note-date");
+    let pPreview = document.createElement("p");
+    pPreview.setAttribute("class", "note-preview");
     let newTitle = document.createTextNode(note.title);
     let newDate = document.createTextNode(note.date);
-    // let newContent = document.createTextNode(r.content); TODO next sprint
+    let newPreview = document.createTextNode(note.preview);
+
     let newButton = document.createElement("button");
     let newButtonText = document.createTextNode("X");
-    let newSeparator = document.createElement("hr"); //new
     newButton.setAttribute("onclick", "deleteNote(" + note.id + ");");
     newDiv.setAttribute("onclick", "loadToQuill(" + note.id + ");");
-    
-    newP.appendChild(newTitle);
-    newP.appendChild(newDate);
-    // newSeparator.appendChild()
-    // newP.appendChild(newContent); TODO next sprint
+    pTitle.appendChild(newTitle);
+    pDate.appendChild(newDate);
+    pPreview.appendChild(newPreview);
     newButton.appendChild(newButtonText);
-    
-    newDiv.appendChild(newP);
+
     newDiv.appendChild(newButton);
+    newDiv.appendChild(pTitle);
+    newDiv.appendChild(pPreview);
+    newDiv.appendChild(pDate);
+
     
     
     let currentSection = document.getElementById("notes");
     currentSection.appendChild(newDiv);
-    currentSection.appendChild(newSeparator);
     
   });
 }
@@ -166,4 +172,11 @@ function yyyymmdd() {
   // (m.length == 1) && (m = '0' + m);
   var yyyymmdd = y + "-" + m + "-" + d;
   return yyyymmdd;
+}
+
+function getPreview(){
+  let preview = quill.getContents().ops[0].insert;
+  preview.toString();
+  let slice = preview.substring(0, 10) + "...";
+  return slice; 
 }
