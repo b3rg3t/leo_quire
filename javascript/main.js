@@ -63,6 +63,7 @@ function loadToQuill(id) {
   quill.setContents(tempStorage.find(loadNote => loadNote.id == id).content);
   setActiveId(id);
   document.getElementById("title").value = tempStorage.find(loadNote => loadNote.id == id).title;
+  yyyymmdd() = tempStorage.find(loadNote => loadNote.id == id).date;
 }
 
 function addNote() {
@@ -88,6 +89,7 @@ function saveNote() {
   let tempStorage = loadNotes();
   tempStorage.find(loadNote => loadNote.id == id).content = quill.getContents();
   tempStorage.find(loadNote => loadNote.id == id).title = document.getElementById("title").value;
+  tempStorage.find(loadNote => loadNote.id == id).date = yyyymmdd();
   saveNotes(tempStorage);
   updateView();
 }
@@ -113,6 +115,7 @@ function newNote(id) {
   note.title = "Untitled " + (id + 1); // Writes note + id starting from 1 and adds +1 for every note.
   note.content = quill.getContents();
   note.id = id;
+  note.date = yyyymmdd();
   return note;
 }
 
@@ -124,6 +127,7 @@ function updateView() {
     let newDiv = document.createElement("div");
     let newP = document.createElement("p");
     let newTitle = document.createTextNode(note.title);
+    let newDate = document.createTextNode(note.date);
     // let newContent = document.createTextNode(r.content); TODO next sprint
     let newButton = document.createElement("button");
     let newButtonText = document.createTextNode("X");
@@ -132,6 +136,7 @@ function updateView() {
     newDiv.setAttribute("onclick", "loadToQuill(" + note.id + ");");
     
     newP.appendChild(newTitle);
+    newP.appendChild(newDate);
     // newSeparator.appendChild()
     // newP.appendChild(newContent); TODO next sprint
     newButton.appendChild(newButtonText);
@@ -143,5 +148,22 @@ function updateView() {
     let currentSection = document.getElementById("notes");
     currentSection.appendChild(newDiv);
     currentSection.appendChild(newSeparator);
+    
   });
+}
+
+function yyyymmdd() {
+  var x = new Date();
+  var y = x.getFullYear().toString();
+  var m = (x.getMonth() + 1).toString();
+  var d = x.getDate().toString();
+  if (d.length == 1) {
+    (d = '0' + d);
+  }
+  if (m.length == 1){
+    (m = '0' + m);
+  }
+  // (m.length == 1) && (m = '0' + m);
+  var yyyymmdd = y + "-" + m + "-" + d;
+  return yyyymmdd;
 }
