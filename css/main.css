@@ -87,7 +87,6 @@ body {
   float: right;
   padding-top: 8px;
 }
-
 .box2 {
   width: 20%;
   min-width: 200px;
@@ -108,6 +107,7 @@ body {
     box-sizing: inherit; */
   overflow: scroll;
   box-sizing: border-box;
+  overflow-x: hidden;
 
   /* margin-top: 20px; */
   /* border: 1px solid rgb(255, 255, 255); */
@@ -129,7 +129,8 @@ body {
   box-sizing: border-box;
   border-bottom: 1px solid rgba(0, 0, 0, 0.657);
   transition: background-color 0.5s;
-  margin-bottom: 5px;
+  /* margin-bottom: 5px; */
+  /* border-right: 1px solid black; */
   display: flex;
   flex-flow: column nowrap;
 }
@@ -160,9 +161,38 @@ body {
   color: green;
   font-size: 16px;
 }
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   display: hidden;
+  overflow-x: hidden;
   width: 0px;
+} */
+
+/* width */
+::-webkit-scrollbar:hover {
+    width: 10px;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #2561c4;
+    /* background: white; */
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.342);
+  border-radius: 1px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.418); 
+    width: 10px;
 }
 .box3 {
   /* padding: 5% 10% 3% 10%;  */
@@ -214,3 +244,4 @@ body {
     width: 100%;
   }
 }
+
