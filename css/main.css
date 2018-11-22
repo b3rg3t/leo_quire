@@ -114,7 +114,6 @@ body {
   float: right;
   padding-top: 8px;
 }
-
 .box2 {
   width: 20%;
   min-width: 200px;
@@ -142,10 +141,20 @@ body {
   padding: 0;
   overflow: scroll;
   box-sizing: border-box;
+<<<<<<< HEAD
+  overflow-x: hidden;
+
+  /* margin-top: 20px; */
+  /* border: 1px solid rgb(255, 255, 255); */
+  background-color: #ededed;
+  /* max-height: 100%; */
+  max-height: 80%;
+=======
   border-top: 1 px solid;
   background-color: rgba(252, 252, 252, 0.76);
   margin-top: 28px;
   height: 80%;
+>>>>>>> master
 }
 #notes p {
   margin: 0px;
@@ -159,6 +168,11 @@ body {
   box-sizing: border-box;
   border-bottom: 1px solid #14356b;
   transition: background-color 0.5s;
+<<<<<<< HEAD
+  /* margin-bottom: 5px; */
+  /* border-right: 1px solid black; */
+=======
+>>>>>>> master
   display: flex;
   flex-flow: column nowrap;
 }
@@ -190,9 +204,38 @@ body {
   color: green;
   font-size: 16px;
 }
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   display: hidden;
+  overflow-x: hidden;
   width: 0px;
+} */
+
+/* width */
+::-webkit-scrollbar:hover {
+    width: 10px;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #2561c4;
+    /* background: white; */
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.342);
+  border-radius: 1px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.418); 
+    width: 10px;
 }
 #copyright{
   color: white;
@@ -287,3 +330,4 @@ body {
     width: 100%;
   }
 }
+
