@@ -88,6 +88,7 @@ function saveNote() {
   tempStorage.find(loadNote => loadNote.id == id).title = document.getElementById("title").value;
   tempStorage.find(loadNote => loadNote.id == id).date = yyyymmdd();
   tempStorage.find(loadNote => loadNote.id == id).preview = getPreview();
+  tempStorage.find(loadNote => loadNote.id == id).titlePreview = getTitle();
   saveNotes(tempStorage);
   updateView();
 }
@@ -111,6 +112,7 @@ function deleteNote(id) {
 function newNote(id) {
   let note = {};
   note.title = "Untitled " + (id + 1); // Writes note + id starting from 1 and adds +1 for every note.
+  note.titlePreview = getTitle();
   note.content = quill.getContents();
   note.id = id;
   note.date = yyyymmdd();
@@ -130,7 +132,7 @@ function updateView() {
     pDate.setAttribute("class", "note-date");
     let pPreview = document.createElement("p");
     pPreview.setAttribute("class", "note-preview");
-    let newTitle = document.createTextNode(note.title);
+    let newTitle = document.createTextNode(note.titlePreview);
     let newDate = document.createTextNode(note.date);
     let newPreview = document.createTextNode(note.preview);
 
@@ -177,4 +179,10 @@ function getPreview(){
   preview.toString();
   let slice = preview.substring(0, 10) + "...";
   return slice; 
+}
+
+function getTitle(){
+  let title = document.getElementById("title").value;
+  title = title.substring(0, 25);
+  return title;
 }
