@@ -9,6 +9,7 @@
   height: 100vh;
   background-color: #474e5da1;
   padding-top: 50px;
+  text-align: center;
 }
 
 /* STYLING CONTENT-BOX */
@@ -22,30 +23,29 @@
   border-radius: 5px;
 }
 .content-landing {
-
+  color: black;
 }
 
 
 #title-h2 {
-  text-align: left;
+  /* text-align: left;
   font-size: 20px;
   font-family: 'Josefin Slab', serif;
-  background-color: #2561c4;
-  color:white;
+  color:black; */
 }
 
 #title-em {
   font-family: 'Playfair Display', sans-serif;
   font-size: 40px;
-  font-weight: 700;
   letter-spacing: 5px;
-  color: #2561c4;
+  color: white;
+  background-color: #14356b;
   margin-top: 0px;
 }
 
-h2 {
+/* h2 {
   text-align: center;
-}
+} */
 
 #ol-contol{
   background-color: #16103a;

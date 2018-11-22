@@ -21,11 +21,11 @@
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
     
     <!-- Favicons (All platforms) -->
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <link rel="manifest" href="site.webmanifest">
-    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_package_v0.16/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_package_v0.16/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_package_v0.16/favicon-16x16.png">
+    <link rel="manifest" href="favicon_package_v0.16/site.webmanifest">
+    <link rel="mask-icon" href="favicon_package_v0.16/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#14356b">
     <meta name="theme-color" content="#ffffff">
 </head>
@@ -35,7 +35,7 @@
         <div class="box1">
             <nav id="nav-bar">
                 <div id="logo-bg">
-                    <div id="nav-logo">Q</div>
+                    <h1 id="nav-logo">Q</h1>
                 </div>
                 <div id="nav-main">
                     <button class="nav-button" title="Search"><i class="fas fa-search"></i></button>
@@ -49,9 +49,12 @@
         </div>
         <div class="box2">
             <nav id="hamburger-nav">
-                <i class="fas fa-bars"></i>
+                <button><i class="fas fa-bars"></i></button>
             </nav>
-            <h1 id="header">Saved Notes</h1>
+            <nav id="add-nav">
+                    <button title="Create new note">+</button>
+                </nav>
+            <h2 id="header">Saved Notes</h2>
             <div id="height-notes">
                 <!-- Container for stored notes(sidebar) -->
                 <section id="notes">
@@ -80,14 +83,14 @@
             </div>
             <div class="container">
                 <div class="welcome">
-                    <h2><span id="title-h2">Welcome to:</span><br><span id="title-em">Quire</span></h2>
+                    <h2>Welcome to:</h2><br><h2 id="title-em">Quire</span></h2>
                 </div>
                 <hr>
                 <div class="content-landing">
-                    <h2>TODO</h2>
+                    <h3>TODO</h3>
                 </div>
                 <div class="clearfix">
-                    <button>Ok, I get it!</button>
+                    <button title="Close info">Ok, I get it!</button>
                 </div>
             </div>
         </form>
