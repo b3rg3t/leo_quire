@@ -6,8 +6,6 @@ window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
-  else if (document.getElementsByClassName("show")) {
-  }
 };
 
 // Check local storage for previous visit
