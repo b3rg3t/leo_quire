@@ -306,6 +306,25 @@ body {
   transform: scale(1.2);
 }
 
+#doPrint{
+  border-radius: 50%;
+  background-color: #000000; 
+  border: none;
+  color: rgb(255, 255, 255);
+  padding: 11px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 5px;
+  transition: transform 0.25s ease-out;
+  font-size: 30px;
+}
+#doPrint:hover{
+  color: #000000;
+  background-color: #ffffff94;
+  transform: scale(1.2);
+}
 @media screen and (max-width: 900px) {
   #hamburger-nav,
   #add-nav {
@@ -322,3 +341,8 @@ body {
   }
 }
 
+@media print {
+  html, body {
+      height: 100%;
+      
+  }
