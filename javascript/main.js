@@ -44,15 +44,19 @@ var quill = new Quill("#editor", {
 window.onload = function () {
   cookieCheck();
   updateView();
+
+  if (loadNotes().length > 0) {
+    loadToQuill(getActiveId());
+  }
 };
 
 function setActiveId(id){
-  sessionStorage.activeId = id;
-  console.log("Active set to " + sessionStorage.activeId);
+  localStorage.activeId = id;
+  console.log("Active set to " + localStorage.activeId);
 }
 
 function getActiveId(){
-  return Number(sessionStorage.activeId);
+  return Number(localStorage.activeId);
 }
 
 // Loads a specific note from local storage to the editor 
@@ -72,7 +76,7 @@ function addNote() {
   saveNotes(tempStorage); // Overwrites localStorage with tempStorage content
   loadToQuill(getActiveId());
   quill.setContents("");
-  
+
   saveNote();
   updateView();
   console.log(loadNotes());
@@ -81,15 +85,41 @@ function addNote() {
 const getAvailID = noteArray => noteArray.length > 0 ? Math.max(...noteArray.map(note => note.id), 0) + 1 : 0;
 
 function saveNote() {
-  // console.log("saveNote was called.");
-  let id = getActiveId();
+
   let tempStorage = loadNotes();
-  tempStorage.find(loadNote => loadNote.id == id).content = quill.getContents();
-  tempStorage.find(loadNote => loadNote.id == id).title = document.getElementById("title").value;
+
+  if (loadNotes().length == 0) {
+    var tempTitle = document.getElementById("title").value;
+    var tempContent = quill.getContents();
+    var tempPreview = getPreview();
+    var tempTitlePreview = getTitle();
+    addNote();
+  }
+  
+  let id = getActiveId(); //0
+  console.log("templength: " + tempStorage.length);
+  //If user tries to save note without having any notes
+  if (tempStorage.length == 0) { //bypass addNote wipe
+    tempStorage = loadNotes();
+    
+    tempStorage.find(loadNote => loadNote.id == id).title = tempTitle;
+    tempStorage.find(loadNote => loadNote.id == id).content = tempContent;
+    tempStorage.find(loadNote => loadNote.id == id).preview = tempPreview;
+    tempStorage.find(loadNote => loadNote.id == id).titlePreview = tempTitlePreview;
+    
+  }
+  //For all other cases when user is editing an existing note
+  else {
+    tempStorage.find(loadNote => loadNote.id == id).title = document.getElementById("title").value;
+    tempStorage.find(loadNote => loadNote.id == id).content = quill.getContents();
+    tempStorage.find(loadNote => loadNote.id == id).preview = getPreview();
+    tempStorage.find(loadNote => loadNote.id == id).titlePreview = getTitle();
+  }
+  
   tempStorage.find(loadNote => loadNote.id == id).date = yyyymmdd();
-  tempStorage.find(loadNote => loadNote.id == id).preview = getPreview();
-  tempStorage.find(loadNote => loadNote.id == id).titlePreview = getTitle();
+  
   saveNotes(tempStorage);
+  loadToQuill(getActiveId());
   updateView();
 }
 
@@ -104,8 +134,31 @@ function loadNotes() {
 
 function deleteNote(id) {
   let notes = loadNotes(); // Loads all notes
-  let newNotes = notes.filter(note => note.id != id); // newNotes = allNotes except those that match delete id.
-  saveNotes(newNotes); // Save the new filtered list to localStorage
+  let newNotes = notes.filter(note => note.id != id);
+
+  console.log(notes);
+  let deletedIndex = notes.findIndex(note => note.id === id);
+  console.log("Index of deleted: " + deletedIndex);
+  console.log(notes[deletedIndex - 1]);
+  
+  //Find note to jump to if user deletes active note
+  if (id == getActiveId() && notes[deletedIndex - 1] != undefined) { //If theres a previous element in array, go there
+    setActiveId(deletedIndex - 1);
+    loadToQuill(notes[deletedIndex - 1].id);
+  }
+  else if (id == getActiveId() && notes[deletedIndex + 1] != undefined){ //If there was no previous, go to element after
+    setActiveId(deletedIndex + 1);
+    loadToQuill(notes[deletedIndex + 1].id);
+  }
+  else if (notes[deletedIndex + 1] == undefined && notes[deletedIndex - 1] == undefined) { //If all notes were deleted
+    console.log("it happened...");
+    quill.setContents("");
+    document.getElementById("title").value ="";
+  }
+  else if (id != getActiveId()) { //If user wasn't standing on deleted note
+    
+  }
+  saveNotes(newNotes);
   updateView();
 }
 
