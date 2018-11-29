@@ -50,12 +50,32 @@ window.onload = function () {
   }
 };
 
-function setActiveId(id){
+
+
+document.getElementById('checkStarred').addEventListener('click',
+
+
+  function () {
+
+    if (document.getElementById("checkStarred").checked) {
+
+      (updateView((note) => (note.star == true)));
+      console.log("Showing starred items");
+      // note = true;
+    } else {
+
+      updateView();
+      console.log("Hallå");
+    }
+  });
+
+
+function setActiveId(id) {
   localStorage.activeId = id;
   console.log("Active set to " + localStorage.activeId);
 }
 
-function getActiveId(){
+function getActiveId() {
   return Number(localStorage.activeId);
 }
 
@@ -71,7 +91,7 @@ function addNote() {
   let tempStorage = loadNotes(); // Loads array from loadNotes()
   let freeID = getAvailID(tempStorage);
   setActiveId(freeID);
-  
+
   tempStorage.push(newNote(freeID)); // Adds a new note at the end of the array. 
   saveNotes(tempStorage); // Overwrites localStorage with tempStorage content
   loadToQuill(getActiveId());
@@ -81,8 +101,6 @@ function addNote() {
   updateView();
   console.log(loadNotes());
 }
-// Adds and checks the length of an array. If the length is over 0 - find the highest id. Return id +1.   
-const getAvailID = noteArray => noteArray.length > 0 ? Math.max(...noteArray.map(note => note.id), 0) + 1 : 0;
 
 function saveNote() {
 
@@ -95,18 +113,18 @@ function saveNote() {
     var tempTitlePreview = getTitle();
     addNote();
   }
-  
+
   let id = getActiveId(); //0
   console.log("templength: " + tempStorage.length);
   //If user tries to save note without having any notes
   if (tempStorage.length == 0) { //bypass addNote wipe
     tempStorage = loadNotes();
-    
+
     tempStorage.find(loadNote => loadNote.id == id).title = tempTitle;
     tempStorage.find(loadNote => loadNote.id == id).content = tempContent;
     tempStorage.find(loadNote => loadNote.id == id).preview = tempPreview;
     tempStorage.find(loadNote => loadNote.id == id).titlePreview = tempTitlePreview;
-    
+
   }
   //For all other cases when user is editing an existing note
   else {
@@ -115,9 +133,9 @@ function saveNote() {
     tempStorage.find(loadNote => loadNote.id == id).preview = getPreview();
     tempStorage.find(loadNote => loadNote.id == id).titlePreview = getTitle();
   }
-  
+
   tempStorage.find(loadNote => loadNote.id == id).date = yyyymmdd();
-  
+
   saveNotes(tempStorage);
   loadToQuill(getActiveId());
   updateView();
@@ -140,47 +158,61 @@ function deleteNote(id) {
   let deletedIndex = notes.findIndex(note => note.id === id);
   console.log("Index of deleted: " + deletedIndex);
   console.log(notes[deletedIndex - 1]);
-  
+
   //Find note to jump to if user deletes active note
   if (id == getActiveId() && notes[deletedIndex - 1] != undefined) { //If theres a previous element in array, go there
     setActiveId(deletedIndex - 1);
     loadToQuill(notes[deletedIndex - 1].id);
   }
-  else if (id == getActiveId() && notes[deletedIndex + 1] != undefined){ //If there was no previous, go to element after
+  else if (id == getActiveId() && notes[deletedIndex + 1] != undefined) { //If there was no previous, go to element after
     setActiveId(deletedIndex + 1);
     loadToQuill(notes[deletedIndex + 1].id);
   }
   else if (notes[deletedIndex + 1] == undefined && notes[deletedIndex - 1] == undefined) { //If all notes were deleted
     console.log("it happened...");
     quill.setContents("");
-    document.getElementById("title").value ="";
+    document.getElementById("title").value = "";
   }
   else if (id != getActiveId()) { //If user wasn't standing on deleted note
-    
+
   }
   saveNotes(newNotes);
   updateView();
 }
 
-function newNote(id) {
-  let note = {};
-  note.title = "Untitled " + (id + 1); // Writes note + id starting from 1 and adds +1 for every note.
-  note.titlePreview = getTitle();
-  note.content = quill.getContents();
-  note.id = id;
-  note.date = yyyymmdd();
-  note.preview = getPreview();
-  return note;
-}
 
-function updateView() {
+function toggleStarred(id) {
   let notes = loadNotes();
-  document.getElementById("notes").innerHTML = ""; //Empty base for created content
-  // Generates content in saved notes area
-  notes.forEach(note => {
+
+  const objIndex = notes.findIndex(obj => obj.id == id);
+
+  const updatedObj = { ...notes[objIndex], star: (notes[objIndex].star ? false : true) };
+
+  const updatedNotes = [
+    ...notes.slice(0, objIndex),
+    updatedObj,
+    ...notes.slice(objIndex + 1),
+  ];
+  saveNotes(updatedNotes);
+  updateView();
+}
+// Adds and checks the length of an array. If the length is over 0 - find the highest id. Return id +1.   
+const getAvailID = noteArray => noteArray.length > 0 ? Math.max(...noteArray.map(note => note.id), 0) + 1 : 0;
+
+// function updateView() {
+//   let notes = loadNotes();
+//   document.getElementById("notes").innerHTML = ""; //Empty base for created content
+//   // Generates content in saved notes area
+//   notes.forEach(note => {
+
+function updateView(func = () => true) {
+  let notes = loadNotes();
+  document.getElementById("notes").innerHTML = '';
+  notes.filter((note) => func(note)).forEach((note) => {
+
     let newDiv = document.createElement("div");
     let pTitle = document.createElement("p");
-    pTitle.setAttribute("class","note-titel");
+    pTitle.setAttribute("class", "note-titel");
     let pDate = document.createElement("p");
     pDate.setAttribute("class", "note-date");
     let pPreview = document.createElement("p");
@@ -188,29 +220,42 @@ function updateView() {
     let newTitle = document.createTextNode(note.titlePreview);
     let newDate = document.createTextNode(note.date);
     let newPreview = document.createTextNode(note.preview);
+    let starButton = document.createElement("button");
+    let starButtonText = document.createTextNode((note.star ? "Un-star" : "Star"));
 
     let newButton = document.createElement("button");
     let newButtonText = document.createTextNode("X");
     newButton.setAttribute("onclick", "deleteNote(" + note.id + ");");
+    starButton.setAttribute('onclick', 'toggleStarred(' + note.id + ');');
     newDiv.setAttribute("onclick", "loadToQuill(" + note.id + ");");
     pTitle.appendChild(newTitle);
     pDate.appendChild(newDate);
     pPreview.appendChild(newPreview);
     newButton.appendChild(newButtonText);
+    starButton.appendChild(starButtonText);
 
     newDiv.appendChild(newButton);
     newDiv.appendChild(pTitle);
     newDiv.appendChild(pPreview);
     newDiv.appendChild(pDate);
-
-    
-    
+    newDiv.appendChild(starButton);
     let currentSection = document.getElementById("notes");
     currentSection.appendChild(newDiv);
-    
+
   });
 }
 
+function newNote(id) {
+  let newNote = {};
+  newNote.title = "Untitled " + (id + 1); // Writes note + id starting from 1 and adds +1 for every note.
+  newNote.titlePreview = getTitle();
+  newNote.content = quill.getContents();
+  newNote.id = id;
+  newNote.date = yyyymmdd();
+  newNote.preview = getPreview();
+  newNote.star = false;
+  return newNote;
+}
 function yyyymmdd() {
   var x = new Date();
   var y = x.getFullYear().toString();
@@ -219,7 +264,7 @@ function yyyymmdd() {
   if (d.length == 1) {
     (d = '0' + d);
   }
-  if (m.length == 1){
+  if (m.length == 1) {
     (m = '0' + m);
   }
   // (m.length == 1) && (m = '0' + m);
@@ -227,20 +272,20 @@ function yyyymmdd() {
   return yyyymmdd;
 }
 
-function getPreview(){
+function getPreview() {
   let preview = quill.getContents().ops[0].insert;
   preview.toString();
   let slice = preview.substring(0, 10) + "...";
-  return slice; 
+  return slice;
 }
 
-function getTitle(){
+function getTitle() {
   let title = document.getElementById("title").value;
   title = title.substring(0, 25);
   return title;
 }
 
-document.getElementById("doPrint").addEventListener("click", function() {
+document.getElementById("doPrint").addEventListener("click", function () {
   var printContents = document.getElementById('editor').innerHTML;
   var originalContents = document.body.innerHTML;
   document.body.innerHTML = printContents;

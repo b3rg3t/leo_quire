@@ -167,7 +167,7 @@ body {
   background-color: #f7eb9b;
 }
 #notes button {
-  margin-top: 10px;
+  /* margin-top: 10px; */
   align-self: flex-end;
 }
 #header {
@@ -263,6 +263,21 @@ body {
   max-width: 100%;
   min-width: 300px;
 }
+ #showStarred, input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-size: 28px;
+    text-decoration: none;
+    color: white;
+    text-shadow: 2px 2px 2px rgb(0, 0, 0);
+    transition: transform 0.25s ease-out;
+}
+#showStarred, input:checked {
+
+  color: gold;
+}
+
 .new-note{
   border-radius: 50%;
   background-color: #144e75; 

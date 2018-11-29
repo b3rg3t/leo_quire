@@ -14,12 +14,13 @@
     <link rel="stylesheet" href="css/landingpage.css">
     <!-- Quill -->
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+        crossorigin="anonymous">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Gentium+Book+Basic" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
-    
+
     <!-- Favicons (All platforms) -->
     <link rel="apple-touch-icon" sizes="180x180" href="favicon_package_v0.16/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_package_v0.16/favicon-32x32.png">
@@ -39,7 +40,8 @@
                 </div>
                 <div id="nav-main">
                     <button id="search" class="nav-button" title="Search"><i class="fas fa-search"></i></button>
-                    <button class="nav-button" title="Favorite"><i class="fas fa-star"></i></button>
+                    <!-- <button id="showStarred" class="nav-button" title="Favorite"><i class="fas fa-star"></i></button> -->
+                    <input type="checkbox" id="checkStarred" class="nav-button fas fa-star" title="Favorite">
                     <button class="nav-button" title="Settings"><i class="fas fa-cog"></i></button>
                 </div>
                 <div id="nav-footer">
@@ -52,8 +54,8 @@
                 <button><i class="fas fa-bars"></i></button>
             </nav>
             <nav id="add-nav">
-                    <button title="Create new note">+</button>
-                </nav>
+                <button title="Create new note">+</button>
+            </nav>
             <h2 id="header">Saved Notes</h2>
             <div id="height-notes">
                 <!-- Container for stored notes(sidebar) -->
@@ -87,7 +89,8 @@
             </div>
             <div class="container">
                 <div class="welcome">
-                    <h2>Welcome to:</h2><br><h2 id="title-em">Quire</span></h2>
+                    <h2>Welcome to:</h2><br>
+                    <h2 id="title-em">Quire</span></h2>
                 </div>
                 <hr>
                 <div class="content-landing">
