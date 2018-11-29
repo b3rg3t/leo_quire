@@ -42,6 +42,21 @@ var quill = new Quill("#editor", {
 });
 // Loads content from the Quill editor
 window.onload = function () {
+  //Setting Event Listeners
+  document.getElementById("search-bar").addEventListener("input", function(){
+    updateView();
+  })
+
+  document.getElementById("tag-search").addEventListener("change", function(){
+    if (this.checked == true) {
+      document.getElementById("search-bar").placeholder="Ex: work,-boring";
+    }
+    else
+    {
+      document.getElementById("search-bar").placeholder="Search by title or content";
+    }
+  });
+
   cookieCheck();
   updateView();
 
@@ -65,6 +80,7 @@ function loadToQuill(id) {
   quill.setContents(tempStorage.find(loadNote => loadNote.id == id).content);
   setActiveId(id);
   document.getElementById("title").value = tempStorage.find(loadNote => loadNote.id == id).title;
+  document.getElementById("tag-input").value = tempStorage.find(loadNote => loadNote.id == id).tagsPresplit;
 }
 
 function addNote() {
@@ -76,6 +92,7 @@ function addNote() {
   saveNotes(tempStorage); // Overwrites localStorage with tempStorage content
   loadToQuill(getActiveId());
   quill.setContents("");
+  document.getElementById("tag-input").value = "";
 
   saveNote();
   updateView();
@@ -88,24 +105,27 @@ function saveNote() {
 
   let tempStorage = loadNotes();
 
-  if (loadNotes().length == 0) {
+  if (loadNotes().length == 0) { //temp workaround for saving without adding a note todo: make simpler solution //jesper
     var tempTitle = document.getElementById("title").value;
     var tempContent = quill.getContents();
     var tempPreview = getPreview();
     var tempTitlePreview = getTitle();
+    var tempTags = document.getElementById("tag-input").value;
     addNote();
   }
   
   let id = getActiveId(); //0
   console.log("templength: " + tempStorage.length);
   //If user tries to save note without having any notes
-  if (tempStorage.length == 0) { //bypass addNote wipe
+  if (tempStorage.length == 0) { //bypass addNote wipe (temp)
     tempStorage = loadNotes();
-    
+    //todo: don't need to use find every time //jesper
     tempStorage.find(loadNote => loadNote.id == id).title = tempTitle;
     tempStorage.find(loadNote => loadNote.id == id).content = tempContent;
     tempStorage.find(loadNote => loadNote.id == id).preview = tempPreview;
     tempStorage.find(loadNote => loadNote.id == id).titlePreview = tempTitlePreview;
+    tempStorage.find(loadNote => loadNote.id == id).tagsPresplit = tempTags;
+    tempStorage.find(loadNote => loadNote.id == id).tags = tempStorage.find(loadNote => loadNote.id == id).tagsPresplit.split(",");
     
   }
   //For all other cases when user is editing an existing note
@@ -114,6 +134,8 @@ function saveNote() {
     tempStorage.find(loadNote => loadNote.id == id).content = quill.getContents();
     tempStorage.find(loadNote => loadNote.id == id).preview = getPreview();
     tempStorage.find(loadNote => loadNote.id == id).titlePreview = getTitle();
+    tempStorage.find(loadNote => loadNote.id == id).tagsPresplit = document.getElementById("tag-input").value;
+    tempStorage.find(loadNote => loadNote.id == id).tags = tempStorage.find(loadNote => loadNote.id == id).tagsPresplit.split(",");
   }
   
   tempStorage.find(loadNote => loadNote.id == id).date = yyyymmdd();
@@ -151,7 +173,6 @@ function deleteNote(id) {
     loadToQuill(notes[deletedIndex + 1].id);
   }
   else if (notes[deletedIndex + 1] == undefined && notes[deletedIndex - 1] == undefined) { //If all notes were deleted
-    console.log("it happened...");
     quill.setContents("");
     document.getElementById("title").value ="";
   }
@@ -170,11 +191,14 @@ function newNote(id) {
   note.id = id;
   note.date = yyyymmdd();
   note.preview = getPreview();
+  note.tagsPresplit = "";
+  note.tags = [];
   return note;
 }
 
 function updateView() {
-  let notes = loadNotes();
+  let searchBar = document.getElementById("search-bar").value;
+  let notes = searchContent(searchBar);
   document.getElementById("notes").innerHTML = ""; //Empty base for created content
   // Generates content in saved notes area
   notes.forEach(note => {
@@ -248,3 +272,48 @@ document.getElementById("doPrint").addEventListener("click", function() {
   document.body.innerHTML = originalContents;
 
 });
+
+function searchContent(searchTerm) {
+  let searchList = loadNotes();
+  let searchHits = [];
+
+  if (searchTerm === undefined) {
+    return searchList; //If seach is called with an empty search term
+  }
+  else {
+    searchTerm = searchTerm.toLowerCase();
+
+    for (let i = 0; i < searchList.length; i++) {
+      //search in content and title
+      if ((searchList[i].content.ops[0].insert).toLowerCase().includes(searchTerm) || searchList[i].title.toLowerCase().includes(searchTerm)) {
+        searchHits.push(searchList[i]); //Add to array of hits
+      }
+    }
+    //console.log(searchHits);
+    return searchHits;
+  }
+}
+
+//Tagstring formatting:  -:exclude | Ex. Input: "todo,-css" Result: Display all notes tagged 'todo', excluding those tagged 'css'
+//Char ',' is used for splitting and defining new tags
+function searchTags(tagString) {
+  let searchList = loadNotes();
+
+  let inclusions = [];
+  let exclusions = [];
+
+  if (tagString === undefined) {
+    return searchList; //If search is called with an empty search term
+  }
+  else {
+    tagString = tagString.split(",");
+
+    inclusions = tagString.filter(tag => !tag.startsWith("-"));
+    exclusions = tagString.filter(tag => tag.startsWith("-"));
+
+
+
+    console.log(allTags);
+  }
+  
+}

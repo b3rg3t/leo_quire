@@ -55,6 +55,10 @@
                     <button title="Create new note">+</button>
                 </nav>
             <h2 id="header">Saved Notes</h2>
+            <input type="text" id="search-bar" placeholder="Search by title or content">
+            <!-- <button id="search-button">Go</button> -->
+            <br>
+            <input type="checkbox" id="tag-search">Search by tags
             <div id="height-notes">
                 <!-- Container for stored notes(sidebar) -->
                 <div id="notes">
@@ -70,6 +74,10 @@
             <!-- Div for Quill editor, set placeholder text from js -->
             <div id="title-box">
                 <input id="title" type="text" placeholder="Title..." value="">
+                <div id="tag-box">
+                    <h3 id="tag-title">Tags</h3>
+                    <input id="tag-input"type="text" placeholder="Enter tags separated by ','">
+                </div>
             </div>
             <div id="editor">
 
