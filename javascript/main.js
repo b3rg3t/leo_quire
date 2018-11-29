@@ -2,7 +2,7 @@
 // Show/not show landing page
 let modal = document.getElementById("landing-page");
 
-window.onclick = function (event) {
+window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
@@ -15,8 +15,7 @@ function cookieCheck() {
     console.log("LocalStorage Cookie was set!");
 
     document.getElementById("landing-page").style.display = "block";
-  }
-  else {
+  } else {
     console.log("LocalStorage Cookie exists, will not display landingpage!");
     return;
   }
@@ -65,16 +64,16 @@ window.onload = function () {
   }
 };
 
-function setActiveId(id){
+function setActiveId(id) {
   localStorage.activeId = id;
   console.log("Active set to " + localStorage.activeId);
 }
 
-function getActiveId(){
+function getActiveId() {
   return Number(localStorage.activeId);
 }
 
-// Loads a specific note from local storage to the editor 
+// Loads a specific note from local storage to the editor
 function loadToQuill(id) {
   let tempStorage = loadNotes();
   quill.setContents(tempStorage.find(loadNote => loadNote.id == id).content);
@@ -87,8 +86,8 @@ function addNote() {
   let tempStorage = loadNotes(); // Loads array from loadNotes()
   let freeID = getAvailID(tempStorage);
   setActiveId(freeID);
-  
-  tempStorage.push(newNote(freeID)); // Adds a new note at the end of the array. 
+
+  tempStorage.push(newNote(freeID)); // Adds a new note at the end of the array.
   saveNotes(tempStorage); // Overwrites localStorage with tempStorage content
   loadToQuill(getActiveId());
   quill.setContents("");
@@ -98,11 +97,11 @@ function addNote() {
   updateView();
   console.log(loadNotes());
 }
-// Adds and checks the length of an array. If the length is over 0 - find the highest id. Return id +1.   
-const getAvailID = noteArray => noteArray.length > 0 ? Math.max(...noteArray.map(note => note.id), 0) + 1 : 0;
+// Adds and checks the length of an array. If the length is over 0 - find the highest id. Return id +1.
+const getAvailID = noteArray =>
+  noteArray.length > 0 ? Math.max(...noteArray.map(note => note.id), 0) + 1 : 0;
 
 function saveNote() {
-
   let tempStorage = loadNotes();
 
   if (loadNotes().length == 0) { //temp workaround for saving without adding a note todo: make simpler solution //jesper
@@ -113,7 +112,7 @@ function saveNote() {
     var tempTags = document.getElementById("tag-input").value;
     addNote();
   }
-  
+
   let id = getActiveId(); //0
   console.log("templength: " + tempStorage.length);
   //If user tries to save note without having any notes
@@ -130,16 +129,20 @@ function saveNote() {
   }
   //For all other cases when user is editing an existing note
   else {
-    tempStorage.find(loadNote => loadNote.id == id).title = document.getElementById("title").value;
-    tempStorage.find(loadNote => loadNote.id == id).content = quill.getContents();
+    tempStorage.find(
+      loadNote => loadNote.id == id
+    ).title = document.getElementById("title").value;
+    tempStorage.find(
+      loadNote => loadNote.id == id
+    ).content = quill.getContents();
     tempStorage.find(loadNote => loadNote.id == id).preview = getPreview();
     tempStorage.find(loadNote => loadNote.id == id).titlePreview = getTitle();
     tempStorage.find(loadNote => loadNote.id == id).tagsPresplit = document.getElementById("tag-input").value;
     tempStorage.find(loadNote => loadNote.id == id).tags = tempStorage.find(loadNote => loadNote.id == id).tagsPresplit.split(",");
   }
-  
+
   tempStorage.find(loadNote => loadNote.id == id).date = yyyymmdd();
-  
+
   saveNotes(tempStorage);
   loadToQuill(getActiveId());
   updateView();
@@ -151,7 +154,9 @@ function saveNotes(notes) {
 }
 // Checks if localStorage array exists and converts back to JSON. Else returns empty array.
 function loadNotes() {
-  return JSON.parse(localStorage.getItem("myNotes") ? localStorage.getItem("myNotes") : "[]");
+  return JSON.parse(
+    localStorage.getItem("myNotes") ? localStorage.getItem("myNotes") : "[]"
+  );
 }
 
 function deleteNote(id) {
@@ -162,22 +167,22 @@ function deleteNote(id) {
   let deletedIndex = notes.findIndex(note => note.id === id);
   console.log("Index of deleted: " + deletedIndex);
   console.log(notes[deletedIndex - 1]);
-  
+
   //Find note to jump to if user deletes active note
-  if (id == getActiveId() && notes[deletedIndex - 1] != undefined) { //If theres a previous element in array, go there
+  if (id == getActiveId() && notes[deletedIndex - 1] != undefined) {
+    //If theres a previous element in array, go there
     setActiveId(deletedIndex - 1);
     loadToQuill(notes[deletedIndex - 1].id);
-  }
-  else if (id == getActiveId() && notes[deletedIndex + 1] != undefined){ //If there was no previous, go to element after
+  } else if (id == getActiveId() && notes[deletedIndex + 1] != undefined) {
+    //If there was no previous, go to element after
     setActiveId(deletedIndex + 1);
     loadToQuill(notes[deletedIndex + 1].id);
   }
   else if (notes[deletedIndex + 1] == undefined && notes[deletedIndex - 1] == undefined) { //If all notes were deleted
     quill.setContents("");
-    document.getElementById("title").value ="";
-  }
-  else if (id != getActiveId()) { //If user wasn't standing on deleted note
-    
+    document.getElementById("title").value = "";
+  } else if (id != getActiveId()) {
+    //If user wasn't standing on deleted note
   }
   saveNotes(newNotes);
   updateView();
@@ -204,7 +209,7 @@ function updateView() {
   notes.forEach(note => {
     let newDiv = document.createElement("div");
     let pTitle = document.createElement("p");
-    pTitle.setAttribute("class","note-titel");
+    pTitle.setAttribute("class", "note-titel");
     let pDate = document.createElement("p");
     pDate.setAttribute("class", "note-date");
     let pPreview = document.createElement("p");
@@ -227,11 +232,11 @@ function updateView() {
     newDiv.appendChild(pPreview);
     newDiv.appendChild(pDate);
 
-    
-    
+    newButton.id = "btn" + note.id;
+    newButton.title = "Delete note";
+
     let currentSection = document.getElementById("notes");
     currentSection.appendChild(newDiv);
-    
   });
 }
 
@@ -241,37 +246,89 @@ function yyyymmdd() {
   var m = (x.getMonth() + 1).toString();
   var d = x.getDate().toString();
   if (d.length == 1) {
-    (d = '0' + d);
+    d = "0" + d;
   }
-  if (m.length == 1){
-    (m = '0' + m);
+  if (m.length == 1) {
+    m = "0" + m;
   }
   // (m.length == 1) && (m = '0' + m);
   var yyyymmdd = y + "-" + m + "-" + d;
   return yyyymmdd;
 }
 
-function getPreview(){
+function getPreview() {
   let preview = quill.getContents().ops[0].insert;
-  preview.toString();
-  let slice = preview.substring(0, 10) + "...";
-  return slice; 
+  // preview = preview.toString();
+  preview = preview.trim();
+  let slice = preview.substring(0, 20) + "...";
+  return slice;
 }
 
-function getTitle(){
+function getTitle() {
   let title = document.getElementById("title").value;
   title = title.substring(0, 25);
   return title;
 }
 
 document.getElementById("doPrint").addEventListener("click", function() {
-  var printContents = document.getElementById('editor').innerHTML;
+  var printContents = document.getElementById("editor").innerHTML;
   var originalContents = document.body.innerHTML;
   document.body.innerHTML = printContents;
   window.print();
   document.body.innerHTML = originalContents;
-
+  updateView();
 });
+//LOAD DIFFERENT TEMPLATES
+function loadTemplate1() {
+  let content = quill.setContents({
+    ops: [{"attributes":{"bold":true},"insert":"Hur man gör en schysst sallad!"},{"attributes":{"header":1},"insert":"\n"},{"attributes":{"italic":true},"insert":"Recept:"},{"attributes":{"header":2},"insert":"\n"},{"attributes":{"italic":true},"insert":"Gurka"},{"attributes":{"list":"bullet"},"insert":"\n"},{"attributes":{"italic":true},"insert":"Tomat"},{"attributes":{"list":"bullet"},"insert":"\n"},{"attributes":{"italic":true},"insert":"Sallad"},{"attributes":{"list":"bullet"},"insert":"\n"},{"attributes":{"italic":true},"insert":"Paprika"},{"attributes":{"list":"bullet"},"insert":"\n"},{"attributes":{"header":3},"insert":"\n"},{"attributes":{"italic":true},"insert":"Tillagning:"},{"attributes":{"header":3},"insert":"\n"},{"insert":"Hacka grönsakerna"},{"attributes":{"list":"ordered"},"insert":"\n"},{"insert":"Blanda ihop i skål"},{"attributes":{"list":"ordered"},"insert":"\n"}]
+  });
+  updateView()
+  return;
+}
+function loadTemplate2() {
+  let content = quill.setContents({
+    ops: [{"attributes":{"italic":true},"insert":"JAAAAAAAAAAAA"},{"attributes":{"header":3},"insert":"\n"},{"attributes":{"italic":true,"bold":true},"insert":"Heter"},{"insert":"\nDAVID BERG"},{"attributes":{"header":1},"insert":"\n"}]
+  });
+  updateView()
+  return;
+}
+function loadTemplate3() {
+  let content = quill.setContents({
+    ops: [{"insert":"Bästa filmtipsen:"},{"attributes":{"header":2},"insert":"\n"},{"insert":"Avatar"},{"attributes":{"list":"ordered"},"insert":"\n"},{"insert":"Pearl Harbour"},{"attributes":{"list":"ordered"},"insert":"\n"},{"insert":"Jurassic park"},{"attributes":{"list":"ordered"},"insert":"\n"},{"insert":"Alien"},{"attributes":{"list":"ordered"},"insert":"\n"},{"insert":"\n\n\n"},{"attributes":{"italic":true},"insert":"Vem vet mest?"},{"insert":"\n"},{"attributes":{"bold":true},"insert":"Albert Einstein"},{"attributes":{"list":"ordered"},"insert":"\n"},{"attributes":{"bold":true},"insert":"David Berg"},{"attributes":{"list":"ordered"},"insert":"\n"},{"attributes":{"bold":true},"insert":"Donald Trump"},{"attributes":{"italic":true},"insert":"\t"},{"attributes":{"list":"ordered"},"insert":"\n"}]
+  });
+  updateView()
+  return;
+}
+//DELETE ALL NOTES
+document.getElementById("nuke-all").addEventListener("click", function(id) {
+  message = confirm("Are you sure you want to delete all notes?");
+  if (message == true) {
+    localStorage.removeItem("myNotes", JSON.stringify([]));
+    console.log("Nuked all notes");
+    updateView()
+  } else {
+    console.log("Cancel");
+  }
+});
+// DROPDOWN FUNCTIONS
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+
 
 function searchContent(searchTerm) {
   let searchList = loadNotes();
@@ -316,4 +373,5 @@ function searchTags(tagString) {
     console.log(allTags);
   }
   
-}
+
+  }
