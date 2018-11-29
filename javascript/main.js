@@ -2,7 +2,7 @@
 // Show/not show landing page
 let modal = document.getElementById("landing-page");
 
-window.onclick = function(event) {
+window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
@@ -42,17 +42,16 @@ var quill = new Quill("#editor", {
 // Loads content from the Quill editor
 window.onload = function () {
   //Setting Event Listeners
-  document.getElementById("search-bar").addEventListener("input", function(){
+  document.getElementById("search-bar").addEventListener("input", function () {
     updateView();
   })
 
-  document.getElementById("tag-search").addEventListener("change", function(){
+  document.getElementById("tag-search").addEventListener("change", function () {
     if (this.checked == true) {
-      document.getElementById("search-bar").placeholder="Ex: work,-boring";
+      document.getElementById("search-bar").placeholder = "Ex: work,-boring";
     }
-    else
-    {
-      document.getElementById("search-bar").placeholder="Search by title or content";
+    else {
+      document.getElementById("search-bar").placeholder = "Search by title or content";
     }
   });
 
@@ -63,6 +62,26 @@ window.onload = function () {
     loadToQuill(getActiveId());
   }
 };
+
+
+
+document.getElementById('checkStarred').addEventListener('click',
+
+
+  function () {
+
+    if (document.getElementById("checkStarred").checked) {
+
+      (updateView((note) => (note.star == true)));
+      console.log("Showing starred items");
+      // note = true;
+    } else {
+
+      updateView();
+      console.log("Hallå");
+    }
+  });
+
 
 function setActiveId(id) {
   localStorage.activeId = id;
@@ -97,9 +116,6 @@ function addNote() {
   updateView();
   console.log(loadNotes());
 }
-// Adds and checks the length of an array. If the length is over 0 - find the highest id. Return id +1.
-const getAvailID = noteArray =>
-  noteArray.length > 0 ? Math.max(...noteArray.map(note => note.id), 0) + 1 : 0;
 
 function saveNote() {
   let tempStorage = loadNotes();
@@ -125,7 +141,7 @@ function saveNote() {
     tempStorage.find(loadNote => loadNote.id == id).titlePreview = tempTitlePreview;
     tempStorage.find(loadNote => loadNote.id == id).tagsPresplit = tempTags;
     tempStorage.find(loadNote => loadNote.id == id).tags = tempStorage.find(loadNote => loadNote.id == id).tagsPresplit.split(",");
-    
+
   }
   //For all other cases when user is editing an existing note
   else {
@@ -188,6 +204,22 @@ function deleteNote(id) {
   updateView();
 }
 
+
+function toggleStarred(id) {
+  let notes = loadNotes();
+
+  const objIndex = notes.findIndex(obj => obj.id == id);
+
+  const updatedObj = { ...notes[objIndex], star: (notes[objIndex].star ? false : true) };
+
+  const updatedNotes = [
+    ...notes.slice(0, objIndex),
+    updatedObj,
+    ...notes.slice(objIndex + 1),
+  ];
+  saveNotes(updatedNotes);
+  updateView();
+}
 function newNote(id) {
   let note = {};
   note.title = "Untitled " + (id + 1); // Writes note + id starting from 1 and adds +1 for every note.
@@ -200,13 +232,21 @@ function newNote(id) {
   note.tags = [];
   return note;
 }
+// Adds and checks the length of an array. If the length is over 0 - find the highest id. Return id +1.   
+const getAvailID = noteArray => noteArray.length > 0 ? Math.max(...noteArray.map(note => note.id), 0) + 1 : 0;
 
-function updateView() {
+
+// function updateView(func = () => true) {
+//   let notes = loadNotes();
+//   document.getElementById("notes").innerHTML = '';
+
+
+function updateView(func = () => true) {
   let searchBar = document.getElementById("search-bar").value;
   let notes = searchContent(searchBar);
   document.getElementById("notes").innerHTML = ""; //Empty base for created content
   // Generates content in saved notes area
-  notes.forEach(note => {
+  notes.filter((note) => func(note)).forEach((note) => {
     let newDiv = document.createElement("div");
     let pTitle = document.createElement("p");
     pTitle.setAttribute("class", "note-titel");
@@ -217,29 +257,45 @@ function updateView() {
     let newTitle = document.createTextNode(note.titlePreview);
     let newDate = document.createTextNode(note.date);
     let newPreview = document.createTextNode(note.preview);
+    let starButton = document.createElement("button");
+    let starButtonText = document.createTextNode((note.star ? "Un-star" : "Star"));
 
     let newButton = document.createElement("button");
     let newButtonText = document.createTextNode("X");
     newButton.setAttribute("onclick", "deleteNote(" + note.id + ");");
+    starButton.setAttribute('onclick', 'toggleStarred(' + note.id + ');');
     newDiv.setAttribute("onclick", "loadToQuill(" + note.id + ");");
     pTitle.appendChild(newTitle);
     pDate.appendChild(newDate);
     pPreview.appendChild(newPreview);
     newButton.appendChild(newButtonText);
+    starButton.appendChild(starButtonText);
 
     newDiv.appendChild(newButton);
+    newDiv.appendChild(starButton);
     newDiv.appendChild(pTitle);
     newDiv.appendChild(pPreview);
     newDiv.appendChild(pDate);
-
     newButton.id = "btn" + note.id;
     newButton.title = "Delete note";
 
     let currentSection = document.getElementById("notes");
     currentSection.appendChild(newDiv);
-  });
+  })
+
 }
 
+function newNote(id) {
+  let newNote = {};
+  newNote.title = "Untitled " + (id + 1); // Writes note + id starting from 1 and adds +1 for every note.
+  newNote.titlePreview = getTitle();
+  newNote.content = quill.getContents();
+  newNote.id = id;
+  newNote.date = yyyymmdd();
+  newNote.preview = getPreview();
+  newNote.star = false;
+  return newNote;
+}
 function yyyymmdd() {
   var x = new Date();
   var y = x.getFullYear().toString();
@@ -270,7 +326,7 @@ function getTitle() {
   return title;
 }
 
-document.getElementById("doPrint").addEventListener("click", function() {
+document.getElementById("doPrint").addEventListener("click", function () {
   var printContents = document.getElementById("editor").innerHTML;
   var originalContents = document.body.innerHTML;
   document.body.innerHTML = printContents;
@@ -281,27 +337,27 @@ document.getElementById("doPrint").addEventListener("click", function() {
 //LOAD DIFFERENT TEMPLATES
 function loadTemplate1() {
   let content = quill.setContents({
-    ops: [{"attributes":{"bold":true},"insert":"Hur man gör en schysst sallad!"},{"attributes":{"header":1},"insert":"\n"},{"attributes":{"italic":true},"insert":"Recept:"},{"attributes":{"header":2},"insert":"\n"},{"attributes":{"italic":true},"insert":"Gurka"},{"attributes":{"list":"bullet"},"insert":"\n"},{"attributes":{"italic":true},"insert":"Tomat"},{"attributes":{"list":"bullet"},"insert":"\n"},{"attributes":{"italic":true},"insert":"Sallad"},{"attributes":{"list":"bullet"},"insert":"\n"},{"attributes":{"italic":true},"insert":"Paprika"},{"attributes":{"list":"bullet"},"insert":"\n"},{"attributes":{"header":3},"insert":"\n"},{"attributes":{"italic":true},"insert":"Tillagning:"},{"attributes":{"header":3},"insert":"\n"},{"insert":"Hacka grönsakerna"},{"attributes":{"list":"ordered"},"insert":"\n"},{"insert":"Blanda ihop i skål"},{"attributes":{"list":"ordered"},"insert":"\n"}]
+    ops: [{ "attributes": { "bold": true }, "insert": "Hur man gör en schysst sallad!" }, { "attributes": { "header": 1 }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Recept:" }, { "attributes": { "header": 2 }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Gurka" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Tomat" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Sallad" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Paprika" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "header": 3 }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Tillagning:" }, { "attributes": { "header": 3 }, "insert": "\n" }, { "insert": "Hacka grönsakerna" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "insert": "Blanda ihop i skål" }, { "attributes": { "list": "ordered" }, "insert": "\n" }]
   });
   updateView()
   return;
 }
 function loadTemplate2() {
   let content = quill.setContents({
-    ops: [{"attributes":{"italic":true},"insert":"JAAAAAAAAAAAA"},{"attributes":{"header":3},"insert":"\n"},{"attributes":{"italic":true,"bold":true},"insert":"Heter"},{"insert":"\nDAVID BERG"},{"attributes":{"header":1},"insert":"\n"}]
+    ops: [{ "attributes": { "italic": true }, "insert": "JAAAAAAAAAAAA" }, { "attributes": { "header": 3 }, "insert": "\n" }, { "attributes": { "italic": true, "bold": true }, "insert": "Heter" }, { "insert": "\nDAVID BERG" }, { "attributes": { "header": 1 }, "insert": "\n" }]
   });
   updateView()
   return;
 }
 function loadTemplate3() {
   let content = quill.setContents({
-    ops: [{"insert":"Bästa filmtipsen:"},{"attributes":{"header":2},"insert":"\n"},{"insert":"Avatar"},{"attributes":{"list":"ordered"},"insert":"\n"},{"insert":"Pearl Harbour"},{"attributes":{"list":"ordered"},"insert":"\n"},{"insert":"Jurassic park"},{"attributes":{"list":"ordered"},"insert":"\n"},{"insert":"Alien"},{"attributes":{"list":"ordered"},"insert":"\n"},{"insert":"\n\n\n"},{"attributes":{"italic":true},"insert":"Vem vet mest?"},{"insert":"\n"},{"attributes":{"bold":true},"insert":"Albert Einstein"},{"attributes":{"list":"ordered"},"insert":"\n"},{"attributes":{"bold":true},"insert":"David Berg"},{"attributes":{"list":"ordered"},"insert":"\n"},{"attributes":{"bold":true},"insert":"Donald Trump"},{"attributes":{"italic":true},"insert":"\t"},{"attributes":{"list":"ordered"},"insert":"\n"}]
+    ops: [{ "insert": "Bästa filmtipsen:" }, { "attributes": { "header": 2 }, "insert": "\n" }, { "insert": "Avatar" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "insert": "Pearl Harbour" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "insert": "Jurassic park" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "insert": "Alien" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "insert": "\n\n\n" }, { "attributes": { "italic": true }, "insert": "Vem vet mest?" }, { "insert": "\n" }, { "attributes": { "bold": true }, "insert": "Albert Einstein" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "attributes": { "bold": true }, "insert": "David Berg" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "attributes": { "bold": true }, "insert": "Donald Trump" }, { "attributes": { "italic": true }, "insert": "\t" }, { "attributes": { "list": "ordered" }, "insert": "\n" }]
   });
   updateView()
   return;
 }
 //DELETE ALL NOTES
-document.getElementById("nuke-all").addEventListener("click", function(id) {
+document.getElementById("nuke-all").addEventListener("click", function (id) {
   message = confirm("Are you sure you want to delete all notes?");
   if (message == true) {
     localStorage.removeItem("myNotes", JSON.stringify([]));
@@ -315,7 +371,7 @@ document.getElementById("nuke-all").addEventListener("click", function(id) {
 function myFunction() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
-window.onclick = function(event) {
+window.onclick = function (event) {
   if (!event.target.matches('.dropbtn')) {
     var dropdowns = document.getElementsByClassName("dropdown-content");
     var i;
@@ -372,6 +428,6 @@ function searchTags(tagString) {
 
     console.log(allTags);
   }
-  
 
-  }
+
+}
