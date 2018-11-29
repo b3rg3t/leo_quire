@@ -42,7 +42,10 @@
                     <button id="search" class="nav-button" title="Search"><i class="fas fa-search"></i></button>
                     <!-- <button id="showStarred" class="nav-button" title="Favorite"><i class="fas fa-star"></i></button> -->
                     <input type="checkbox" id="checkStarred" class="nav-button fas fa-star" title="Favorite">
+                    <button class="nav-button" title="Stats"><i class="fas fa-chart-bar"></i></button>
                     <button class="nav-button" title="Settings"><i class="fas fa-cog"></i></button>
+                    <button class="nav-button" title="Delete all" id="nuke-all"><i class="far fa-trash-alt"></i></button>
+
                 </div>
                 <div id="nav-footer">
                     <a href="https://github.com/Seuanr/leo_quire"><i class="fab fa-github" title="Github"></i></a>
@@ -57,6 +60,10 @@
                 <button title="Create new note">+</button>
             </nav>
             <h2 id="header">Saved Notes</h2>
+            <input type="text" id="search-bar" placeholder="Search by title or content">
+            <!-- <button id="search-button">Go</button> -->
+            <br>
+            <input type="checkbox" id="tag-search"><span id="tag-search-text">Search by tags</span>
             <div id="height-notes">
                 <!-- Container for stored notes(sidebar) -->
                 <div id="notes">
@@ -72,41 +79,54 @@
             <!-- Div for Quill editor, set placeholder text from js -->
             <div id="title-box">
                 <input id="title" type="text" placeholder="Title..." value="">
+                <div id="tag-box">
+                    <h3 id="tag-title">Tags</h3>
+                    <input id="tag-input" type="text" placeholder="Enter tags separated by ','">
+
+                    <div class="dropdown">
+                        <button onclick="myFunction()" class="dropbtn">Template <i class="fas fa-sort"></i></button>
+                        <div id="myDropdown" class="dropdown-content">
+                            <a id="loadTemplate" class="template" onclick="loadTemplate1()" title="Template">Reciepe</a>
+                            <a id="loadTemplate" class="template" onclick="loadTemplate2()" title="Template">Spaceship</a>
+                            <a id="loadTemplate" class="template" onclick="loadTemplate3()" title="Template">Hacking</a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="editor">
 
             </div>
             <button class="new-note" onclick="addNote()" title="New note"><i class="fas fa-pencil-alt"></i></button>
             <button class="save-note" onclick="saveNote()" title="Save note"><i class="far fa-save"></i></button>
-            <button id="doPrint"><i class="fas fa-print"></i></button>
+            <button id="doPrint" title="Print note"><i class="fas fa-print"></i></button>
+
         </div>
-    </div>
 
-    <div id="landing-page" class="modal">
-        <form class="modal-content" action="">
-            <div class="xMark">
-                <span onclick="document.getElementById('landing-page').style.display='none'" class="close" title="Close">&times;</span>
-            </div>
-            <div class="container">
-                <div class="welcome">
-                    <h2>Welcome to:</h2><br>
-                    <h2 id="title-em">Quire</span></h2>
+        <div id="landing-page" class="modal">
+            <form class="modal-content" action="">
+                <div class="xMark">
+                    <span onclick="document.getElementById('landing-page').style.display='none'" class="close" title="Close">&times;</span>
                 </div>
-                <hr>
-                <div class="content-landing">
-                    <h3>TODO</h3>
+                <div class="container">
+                    <div class="welcome">
+                        <h2>Welcome to:</h2><br>
+                        <h2 id="title-em">Quire</h2>
+                    </div>
+                    <hr>
+                    <div class="content-landing">
+                        <h3>TODO</h3>
+                    </div>
+                    <div class="clearfix">
+                        <button title="Close info">Ok, I get it!</button>
+                    </div>
                 </div>
-                <div class="clearfix">
-                    <button title="Close info">Ok, I get it!</button>
-                </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
 
-    <!-- Include the Quill library -->
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    <!-- Main JS -->
-    <script src="javascript/main.js"></script>
+        <!-- Include the Quill library -->
+        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+        <!-- Main JS -->
+        <script src="javascript/main.js"></script>
 </body>
 
 </html>
