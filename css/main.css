@@ -489,3 +489,13 @@ body {
   margin: auto;
   padding: 0;
 }
+
+@media print {
+  .box1, .box2, .ql-toolbar, .new-note, .save-note, .doPrintClass, .buttons, #tag-box {
+    display: none !important;
+  }
+  #editor {
+    border: none !important;
+    background-color: white;
+  }
+}
