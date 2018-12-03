@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
-<head>
+<head id="head"> 
     <!-- META -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -39,7 +39,7 @@
                     <h1 id="nav-logo">Q</h1>
                 </div>
                 <div id="nav-main">
-                    <button id="search" class="nav-button" title="Search"><i class="fas fa-search"></i></button>
+                    <button id="New Note" class="nav-button" onclick=addNote() title="New Note"><i class="fas fa-pencil-alt"></i></button>
                     <!-- <button id="showStarred" class="nav-button" title="Favorite"><i class="fas fa-star"></i></button> -->
                     <input type="checkbox" id="checkStarred" class="nav-button fas fa-star" title="Favorite">
                     <button class="nav-button" title="Stats"><i class="fas fa-chart-bar"></i></button>
@@ -59,11 +59,16 @@
             <nav id="add-nav">
                 <button title="Create new note">+</button>
             </nav>
+            
             <h2 id="header">Saved Notes</h2>
+            <div id="search-bar-container">
+            <i class="fas fa-search"></i>
             <input type="text" id="search-bar" placeholder="Search by title or content">
             <!-- <button id="search-button">Go</button> -->
-            <br>
-            <input type="checkbox" id="tag-search"><span id="tag-search-text">Search by tags</span>
+            </div>  
+            <div id="tag-box-container">
+            <span id="tag-search-text"><input type="checkbox" id="tag-search">Search by tags</span>
+            </div>
             <div id="height-notes">
                 <!-- Container for stored notes(sidebar) -->
                 <div id="notes">
@@ -96,7 +101,7 @@
             <div id="editor">
 
             </div>
-            <button class="new-note" onclick="addNote()" title="New note"><i class="fas fa-pencil-alt"></i></button>
+            <!-- <button class="new-note" onclick="addNote()" title="New note"><i class="fas fa-pencil-alt"></i></button> -->
             <button class="save-note" onclick="saveNote()" title="Save note"><i class="far fa-save"></i></button>
             <button class="doPrintClass" id="doPrint" title="Print note"><i class="fas fa-print"></i></button>
 
