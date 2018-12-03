@@ -2,7 +2,7 @@
 // Show/not show landing page
 let modal = document.getElementById("landing-page");
 
-window.onclick = function (event) {
+document.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
@@ -29,6 +29,7 @@ var toolbarOptions = [
   [{ list: "ordered" }, { list: "bullet" }],
   ["link", "image"],
   [{ color: [] }, { background: [] }],
+  [{ 'font': [] }],
   [{ align: [] }]
 ];
 // Loads and configures the Quill editor
