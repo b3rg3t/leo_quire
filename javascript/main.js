@@ -323,12 +323,8 @@ function getTitle() {
 }
 
 document.getElementById("doPrint").addEventListener("click", function () {
-  var printContents = document.getElementById("editor").innerHTML;
-  var originalContents = document.body.innerHTML;
-  document.body.innerHTML = printContents;
   window.print();
-  document.body.innerHTML = originalContents;
-  updateView();
+
 });
 //LOAD DIFFERENT TEMPLATES
 function loadTemplate1() {
