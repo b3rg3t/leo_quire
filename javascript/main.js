@@ -2,11 +2,11 @@
 // Show/not show landing page
 let modal = document.getElementById("landing-page");
 
-window.onclick = function (event) {
+document.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
-};
+}
 
 // Check local storage for previous visit
 function cookieCheck() {
@@ -69,7 +69,7 @@ document.getElementById('checkStarred').addEventListener('click',
 
 
   function () {
-
+    let note = true;
     if (document.getElementById("checkStarred").checked) {
 
       (updateView((note) => (note.star == true)));

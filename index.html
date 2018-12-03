@@ -41,7 +41,7 @@
                 <div id="nav-main">
                     <button id="search" class="nav-button" title="Search"><i class="fas fa-search"></i></button>
                     <!-- <button id="showStarred" class="nav-button" title="Favorite"><i class="fas fa-star"></i></button> -->
-                    <input type="checkbox" id="checkStarred" class="nav-button fas fa-star" title="Favorite">
+                    <input id="checkStarred" class="nav-button fas fa-star" type="checkbox" title="Favorite">
                     <button class="nav-button" title="Stats"><i class="fas fa-chart-bar"></i></button>
                     <button class="nav-button" title="Settings"><i class="fas fa-cog"></i></button>
                     <button class="nav-button" title="Delete all" id="nuke-all"><i class="far fa-trash-alt"></i></button>
@@ -94,7 +94,13 @@
                 </div>
             </div>
             <div id="editor">
-
+                <div id="toolbar-container">
+                    <select class="ql-font">
+                        <option selected>Aref Ruqaa</option>
+                        <option value="mirza">Mirza</option>
+                        <option value="roboto">Roboto</option>
+                    </select>
+                </div>
             </div>
             <button class="new-note" onclick="addNote()" title="New note"><i class="fas fa-pencil-alt"></i></button>
             <button class="save-note" onclick="saveNote()" title="Save note"><i class="far fa-save"></i></button>
