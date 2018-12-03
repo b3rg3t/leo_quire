@@ -283,7 +283,7 @@ body {
   max-width: 100%;
   min-width: 300px;
 }
- #showStarred, input[type="checkbox"] {
+ #checkStarred{
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -293,7 +293,7 @@ body {
     text-shadow: 2px 2px 2px rgb(0, 0, 0);
     transition: transform 0.25s ease-out;
 }
-#showStarred, input:checked {
+#checkStarred:checked {
 
   color: gold;
 }

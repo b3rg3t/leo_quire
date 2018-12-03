@@ -47,12 +47,7 @@ window.onload = function () {
   })
 
   document.getElementById("tag-search").addEventListener("change", function () {
-    if (this.checked == true) {
-      document.getElementById("search-bar").placeholder = "Ex: work,-boring";
-    }
-    else {
-      document.getElementById("search-bar").placeholder = "Search by title or content";
-    }
+    this.checked ? document.getElementById("search-bar").placeholder = "Ex: work,-boring" : document.getElementById("search-bar").placeholder = "Search by title or content";
   });
 
   cookieCheck();
@@ -398,9 +393,16 @@ function searchContent(searchTerm) {
 
     for (let i = 0; i < searchList.length; i++) {
       //search in content and title
-      if ((searchList[i].content.ops[0].insert).toLowerCase().includes(searchTerm) || searchList[i].title.toLowerCase().includes(searchTerm)) {
-        searchHits.push(searchList[i]); //Add to array of hits
+      for (let j = 0; j < searchList[i].content.ops.length; j++) {
+        if (searchList[i].content.ops[j].insert.toLowerCase().includes(searchTerm)) {
+          searchHits.push(searchList[i]);
+          break;
+        }
+        
       }
+      // if ((searchList[i].content.ops[0].insert).toLowerCase().includes(searchTerm) || searchList[i].title.toLowerCase().includes(searchTerm)) {
+      //   searchHits.push(searchList[i]); //Add to array of hits
+      // }
     }
     //console.log(searchHits);
     return searchHits;
