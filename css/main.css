@@ -131,7 +131,8 @@ body {
   transition: background-color 0.5s;
   margin-bottom: 5px;
   display: flex;
-  flex-flow: column nowrap;
+  flex-wrap: wrap;
+  flex-basis: 100%;
 }
 
 #notes div:hover {
@@ -139,7 +140,12 @@ body {
 }
 #notes button {
   margin-top: 10px;
-  align-self: flex-end;
+  margin-left: auto;
+  order: 2;
+  border: none;
+  background-color: #fff5bd00;
+  color: rgb(13, 13, 14);
+  height: 0px;
 }
 #header {
   color: white;
@@ -150,15 +156,19 @@ body {
   font-weight: bold;
   padding-top: 10px;
   color: violet;
+  flex-basis:85%;
+  order: 1;
 }
 .note-date {
   color: blue;
-  float: right;
-  align-self: flex-end;
+  flex-basis:100%;
+  order: 4;
 }
 .note-preview {
   color: green;
   font-size: 16px;
+  flex-basis:100%;
+  order: 3;
 }
 ::-webkit-scrollbar {
   display: hidden;

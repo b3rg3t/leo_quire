@@ -135,7 +135,8 @@ function updateView() {
     let newPreview = document.createTextNode(note.preview);
 
     let newButton = document.createElement("button");
-    let newButtonText = document.createTextNode("X");
+    let newButtonText = document.createTextNode("");
+    newButton.setAttribute("class", "fas fa-trash");
     newButton.setAttribute("onclick", "deleteNote(" + note.id + ");");
     newDiv.setAttribute("onclick", "loadToQuill(" + note.id + ");");
     pTitle.appendChild(newTitle);
