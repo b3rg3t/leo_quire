@@ -106,7 +106,7 @@ function addNote() {
   saveNotes(tempStorage); // Overwrites localStorage with tempStorage content
   loadToQuill(getActiveId());
   quill.setContents("");
-  document.getElementById("tag-input").value = "";
+  document.getElementById("tag-input").value = "untagged";
 
   saveNote();
   updateView();
@@ -239,7 +239,15 @@ const getAvailID = noteArray => noteArray.length > 0 ? Math.max(...noteArray.map
 
 function updateView(func = () => true) {
   let searchBar = document.getElementById("search-bar").value;
-  let notes = searchContent(searchBar);
+  let notes = [];
+  if (document.getElementById("tag-search").checked) {
+    notes = searchTags(searchBar);
+    console.log("searching by tags");
+  }
+  else {
+    notes = searchContent(searchBar);
+    console.log("searching by content");
+  }
   document.getElementById("notes").innerHTML = ""; //Empty base for created content
   // Generates content in saved notes area
   notes.filter((note) => func(note)).forEach((note) => {
@@ -391,17 +399,12 @@ function searchContent(searchTerm) {
     for (let i = 0; i < searchList.length; i++) {
       //search in content and title
       for (let j = 0; j < searchList[i].content.ops.length; j++) {
-        if (searchList[i].content.ops[j].insert.toLowerCase().includes(searchTerm)) {
+        if (searchList[i].content.ops[j].insert.toLowerCase().includes(searchTerm) || searchList[i].title.toLowerCase().includes(searchTerm)) {
           searchHits.push(searchList[i]);
           break;
         }
-        
       }
-      // if ((searchList[i].content.ops[0].insert).toLowerCase().includes(searchTerm) || searchList[i].title.toLowerCase().includes(searchTerm)) {
-      //   searchHits.push(searchList[i]); //Add to array of hits
-      // }
     }
-    //console.log(searchHits);
     return searchHits;
   }
 }
@@ -413,6 +416,7 @@ function searchTags(tagString) {
 
   let inclusions = [];
   let exclusions = [];
+  let searchHits = [];
 
   if (tagString === undefined) {
     return searchList; //If search is called with an empty search term
@@ -422,10 +426,41 @@ function searchTags(tagString) {
 
     inclusions = tagString.filter(tag => !tag.startsWith("-"));
     exclusions = tagString.filter(tag => tag.startsWith("-"));
+    
+    for (let i = 0; i < exclusions.length; i++) {
+      exclusions[i] = exclusions[i].replace("-","");
+    }
+    console.log("inclusions " + inclusions);
+    console.log("exclusions " + exclusions);
+    //Creates initial array of hits
+    for (let i = 0; i < searchList.length; i++) {
+      for (let j = 0; j < inclusions.length; j++) {
+        for (let k = 0; k < searchList[i].tags.length; k++) {
+          if (searchList[i].tags[k] == inclusions[j]) {
+            searchHits.push(searchList[i]);
+            break;
+          }
+        }
+      }
+    }
+    //removes exclusions
+    for (let i = 0; i < searchHits.length; i++) {
+      for (let j = 0; j < exclusions.length; j++) {
+        for (let k = 0; k < searchHits[i].tags.length; k++) {
+          if (searchList[i].tags[k] == exclusions[j]) {
+            searchHits.splice(i,1);
+            break;
+          }
+        }
+      }
+    }
 
-
-
-    console.log(allTags);
+    if (searchHits.length > 0) {
+      return searchHits;
+    }
+    else {
+      return searchList;
+    }
   }
 
 
