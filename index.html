@@ -12,6 +12,9 @@
     <!-- Main CSS -->
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <link rel="stylesheet" href="css/landingpage.css">
+    <link href="stylesheet.css" rel="stylesheet">
+	<!-- THIS IS A DYNAMIC LINK ELEMENT-->
+	<link id="cssLink" href="#" rel="stylesheet">
     <!-- Quill -->
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
@@ -78,28 +81,26 @@
             <div id="copyright">
                 <p>&copy; Copyright 2018</p>
             </div>
-
         </div>
         <div class="box3">
             <!-- Div for Quill editor, set placeholder text from js -->
             <div id="title-box">
                 <input id="title" type="text" placeholder="Title..." value="">
-                <div id="tag-box">
-                    <h3 id="tag-title">Tags</h3>
-                    <input id="tag-input" type="text" placeholder="Enter tags separated by ','">
-
-                    <div class="dropdown">
+                <div class="dropdown">
                         <button onclick="myFunction()" class="dropbtn">Template <i class="fas fa-sort"></i></button>
                         <div id="myDropdown" class="dropdown-content">
-                            <a id="loadTemplate" class="template" onclick="loadTemplate1()" title="Template">Reciepe</a>
-                            <a id="loadTemplate" class="template" onclick="loadTemplate2()" title="Template">Spaceship</a>
-                            <a id="loadTemplate" class="template" onclick="loadTemplate3()" title="Template">Hacking</a>
+                                <button id="standard">Standard</button>
+                                <button id="green">Green</button>
+                                <button id="blue">Blue</button>
                         </div>
                     </div>
+                <div id="tag-box">
+                    <span id="tag-title">Tags:</span>
+                    <input id="tag-input" type="text" placeholder="Enter tags separated by ','">
+
                 </div>
             </div>
             <div id="editor">
-
             </div>
             <!-- <button class="new-note" onclick="addNote()" title="New note"><i class="fas fa-pencil-alt"></i></button> -->
             <button class="save-note" onclick="saveNote()" title="Save note"><i class="far fa-save"></i></button>
@@ -127,11 +128,11 @@
                 </div>
             </form>
         </div>
-
         <!-- Include the Quill library -->
         <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
         <!-- Main JS -->
         <script src="javascript/main.js"></script>
+    
 </body>
 
 </html>

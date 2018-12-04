@@ -327,27 +327,29 @@ document.getElementById("doPrint").addEventListener("click", function () {
 
 });
 //LOAD DIFFERENT TEMPLATES
-function loadTemplate1() {
-  let content = quill.setContents({
-    ops: [{"attributes": {font: "monospace"}, "insert": "Hur man gör en schysst sallad!" }, { "attributes": { "header": 1 }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Recept:" }, { "attributes": { "header": 2 }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Gurka" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Tomat" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Sallad" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Paprika" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "header": 3 }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Tillagning:" }, { "attributes": { "header": 3 }, "insert": "\n" }, { "insert": "Hacka grönsakerna" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "insert": "Blanda ihop i skål" }, { "attributes": { "list": "ordered" }, "insert": "\n" }]
-  });
-  updateView()
-  return;
-}
-function loadTemplate2() {
-  let content = quill.setContents({
-    ops: [{"attributes": {font: "serif"}, "insert": "JAAAAAAAAAAAA" }, { "attributes": { "header": 3 }, "insert": "\n" }, { "attributes": { "italic": true, "bold": true }, "insert": "Heter" }, { "insert": "\nDAVID BERG" }, { "attributes": { "header": 1 }, "insert": "\n" }]
-  });
-  updateView()
-  return;
-}
-function loadTemplate3() {
-  let content = quill.setContents({
-    ops: [{ "insert": "Bästa filmtipsen:" }, { "attributes": { "header": 2 }, "insert": "\n" }, { "insert": "Avatar" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "insert": "Pearl Harbour" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "insert": "Jurassic park" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "insert": "Alien" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "insert": "\n\n\n" }, { "attributes": { "italic": true }, "insert": "Vem vet mest?" }, { "insert": "\n" }, { "attributes": { "bold": true }, "insert": "Albert Einstein" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "attributes": { "bold": true }, "insert": "David Berg" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "attributes": { "bold": true }, "insert": "Donald Trump" }, { "attributes": { "italic": true }, "insert": "\t" }, { "attributes": { "list": "ordered" }, "insert": "\n" }]
-  });
-  updateView()
-  return;
-}
+                // ANCHORS
+                var stand = document.getElementById('standard');
+                var green = document.getElementById('green');
+                var blue = document.getElementById('blue');
+
+
+
+                // EVENT LISTENERS
+                stand.addEventListener('click', function(){
+                  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
+                  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
+                  document.getElementsByClassName('ql-editor')[0].classList.add('template1');
+                });
+                blue.addEventListener('click', function(){
+                  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
+                  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
+                  document.getElementsByClassName('ql-editor')[0].classList.add('template2');
+                });
+                green.addEventListener('click', function(){
+                  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
+                  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
+                  document.getElementsByClassName('ql-editor')[0].classList.add('template3');
+                });
 //DELETE ALL NOTES
 document.getElementById("nuke-all").addEventListener("click", function (id) {
   message = confirm("Are you sure you want to delete all notes?");
