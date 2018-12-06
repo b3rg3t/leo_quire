@@ -61,10 +61,7 @@ window.onload = function () {
 
 
 
-document.getElementById('checkStarred').addEventListener('click',
-
-
-  function () {
+document.getElementById('checkStarred').addEventListener('click', function () {
 
     if (document.getElementById("checkStarred").checked) {
 
@@ -215,19 +212,7 @@ function toggleStarred(id) {
   ];
   saveNotes(updatedNotes);
   updateView();
-}
-function newNote(id) {
-  let note = {};
-  note.title = "Untitled " + (id + 1); // Writes note + id starting from 1 and adds +1 for every note.
-  note.titlePreview = getTitle();
-  note.content = quill.getContents();
-  note.id = id;
-  note.date = yyyymmdd();
-  note.preview = getPreview();
-  note.tagsPresplit = "";
-  note.tags = [];
-  return note;
-}
+} 
 // Adds and checks the length of an array. If the length is over 0 - find the highest id. Return id +1.   
 const getAvailID = noteArray => noteArray.length > 0 ? Math.max(...noteArray.map(note => note.id), 0) + 1 : 0;
 
@@ -301,6 +286,7 @@ function newNote(id) {
   newNote.date = yyyymmdd();
   newNote.preview = getPreview();
   newNote.star = false;
+  newNote.template = defaultTemplate();
   return newNote;
 }
 function yyyymmdd() {
@@ -338,26 +324,42 @@ document.getElementById("doPrint").addEventListener("click", function () {
 
 });
 //LOAD DIFFERENT TEMPLATES
-function loadTemplate1() {
-  let content = quill.setContents({
-    ops: [{"attributes": {font: "monospace"}, "insert": "Hur man gör en schysst sallad!" }, { "attributes": { "header": 1 }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Recept:" }, { "attributes": { "header": 2 }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Gurka" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Tomat" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Sallad" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Paprika" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "header": 3 }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Tillagning:" }, { "attributes": { "header": 3 }, "insert": "\n" }, { "insert": "Hacka grönsakerna" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "insert": "Blanda ihop i skål" }, { "attributes": { "list": "ordered" }, "insert": "\n" }]
-  });
-  updateView()
-  return;
-}
-function loadTemplate2() {
-  let content = quill.setContents({
-    ops: [{"attributes": {font: "serif"}, "insert": "JAAAAAAAAAAAA" }, { "attributes": { "header": 3 }, "insert": "\n" }, { "attributes": { "italic": true, "bold": true }, "insert": "Heter" }, { "insert": "\nDAVID BERG" }, { "attributes": { "header": 1 }, "insert": "\n" }]
-  });
-  updateView()
-  return;
-}
-function loadTemplate3() {
-  let content = quill.setContents({
-    ops: [{ "insert": "Bästa filmtipsen:" }, { "attributes": { "header": 2 }, "insert": "\n" }, { "insert": "Avatar" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "insert": "Pearl Harbour" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "insert": "Jurassic park" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "insert": "Alien" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "insert": "\n\n\n" }, { "attributes": { "italic": true }, "insert": "Vem vet mest?" }, { "insert": "\n" }, { "attributes": { "bold": true }, "insert": "Albert Einstein" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "attributes": { "bold": true }, "insert": "David Berg" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "attributes": { "bold": true }, "insert": "Donald Trump" }, { "attributes": { "italic": true }, "insert": "\t" }, { "attributes": { "list": "ordered" }, "insert": "\n" }]
-  });
-  updateView()
-  return;
+                // ANCHORS
+                var stand = document.getElementById('standard');
+                var green = document.getElementById('green');
+                var blue = document.getElementById('blue');
+                var template = document.getElementById('template');
+
+                // EVENT LISTENERS
+                template.addEventListener('click', function(){
+                  document.getElementsByClassName('dropbtn')[0].value="Template";
+                  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
+                  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
+                  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
+                });
+                stand.addEventListener('click', function(){
+                  document.getElementsByClassName('dropbtn')[0].value="Template 1";
+                  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
+                  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
+                  document.getElementsByClassName('ql-editor')[0].classList.add('template1');
+                });
+                green.addEventListener('click', function(){
+                  document.getElementsByClassName('dropbtn')[0].value="Template 2";
+                  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
+                  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
+                  document.getElementsByClassName('ql-editor')[0].classList.add('template3');
+                });
+                blue.addEventListener('click', function(){
+                  document.getElementsByClassName('dropbtn')[0].value="Template 3";
+                  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
+                  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
+                  document.getElementsByClassName('ql-editor')[0].classList.add('template2');
+                });
+
+function defaultTemplate(){
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
 }
 //DELETE ALL NOTES
 document.getElementById("nuke-all").addEventListener("click", function (id) {
