@@ -87,22 +87,19 @@ window.onload = function () {
 
 
 
-document.getElementById('checkStarred').addEventListener('click',
+document.getElementById('checkStarred').addEventListener('click', function () {
 
+  if (document.getElementById("checkStarred").checked) {
 
-  function () {
+    (updateView((note) => (note.star == true)));
+    console.log("Showing starred items");
+    // note = true;
+  } else {
 
-    if (document.getElementById("checkStarred").checked) {
-
-      (updateView((note) => (note.star == true)));
-      console.log("Showing starred items");
-      // note = true;
-    } else {
-
-      updateView();
-      console.log("Hallå");
-    }
-  });
+    updateView();
+    console.log("Hallå");
+  }
+});
 
 
 function setActiveId(id) {
@@ -132,7 +129,7 @@ function addNote() {
   saveNotes(tempStorage); // Overwrites localStorage with tempStorage content
   loadToQuill(getActiveId());
   quill.setContents("");
-  document.getElementById("tag-input").value = "";
+  document.getElementById("tag-input").value = "untagged";
 
   saveNote();
   updateView();
@@ -242,18 +239,6 @@ function toggleStarred(id) {
   saveNotes(updatedNotes);
   updateView();
 }
-function newNote(id) {
-  let note = {};
-  note.title = "Untitled " + (id + 1); // Writes note + id starting from 1 and adds +1 for every note.
-  note.titlePreview = getTitle();
-  note.content = quill.getContents();
-  note.id = id;
-  note.date = yyyymmdd();
-  note.preview = getPreview();
-  note.tagsPresplit = "";
-  note.tags = [];
-  return note;
-}
 // Adds and checks the length of an array. If the length is over 0 - find the highest id. Return id +1.   
 const getAvailID = noteArray => noteArray.length > 0 ? Math.max(...noteArray.map(note => note.id), 0) + 1 : 0;
 
@@ -265,7 +250,15 @@ const getAvailID = noteArray => noteArray.length > 0 ? Math.max(...noteArray.map
 
 function updateView(func = () => true) {
   let searchBar = document.getElementById("search-bar").value;
-  let notes = searchContent(searchBar);
+  let notes = [];
+  if (document.getElementById("tag-search").checked) {
+    notes = searchTags(searchBar);
+    console.log("searching by tags");
+  }
+  else {
+    notes = searchContent(searchBar);
+    console.log("searching by content");
+  }
   document.getElementById("notes").innerHTML = ""; //Empty base for created content
   // Generates content in saved notes area
   notes.filter((note) => func(note)).forEach((note) => {
@@ -280,10 +273,13 @@ function updateView(func = () => true) {
     let newDate = document.createTextNode(note.date);
     let newPreview = document.createTextNode(note.preview);
     let starButton = document.createElement("button");
-    let starButtonText = document.createTextNode((note.star ? "Un-star" : "Star"));
+    let starButtonText = document.createTextNode("");
+    note.star ? starButton.setAttribute("class", "fas fa-star") : starButton.setAttribute("class", "far fa-star");
+    note.star ? starButton.classList.add("test-star") : starButton.classList.remove("test-star");
 
     let newButton = document.createElement("button");
-    let newButtonText = document.createTextNode("X");
+    let newButtonText = document.createTextNode("");
+    newButton.setAttribute("class", "far fa-trash-alt");
     newButton.setAttribute("onclick", "deleteNote(" + note.id + ");");
     starButton.setAttribute('onclick', 'toggleStarred(' + note.id + ');');
     newDiv.setAttribute("onclick", "loadToQuill(" + note.id + ");");
@@ -316,6 +312,7 @@ function newNote(id) {
   newNote.date = yyyymmdd();
   newNote.preview = getPreview();
   newNote.star = false;
+  newNote.template = defaultTemplate();
   return newNote;
 }
 function yyyymmdd() {
@@ -353,26 +350,42 @@ document.getElementById("doPrint").addEventListener("click", function () {
 
 });
 //LOAD DIFFERENT TEMPLATES
-function loadTemplate1() {
-  let content = quill.setContents({
-    ops: [{ "attributes": { font: "monospace" }, "insert": "Hur man gör en schysst sallad!" }, { "attributes": { "header": 1 }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Recept:" }, { "attributes": { "header": 2 }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Gurka" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Tomat" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Sallad" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Paprika" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "header": 3 }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Tillagning:" }, { "attributes": { "header": 3 }, "insert": "\n" }, { "insert": "Hacka grönsakerna" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "insert": "Blanda ihop i skål" }, { "attributes": { "list": "ordered" }, "insert": "\n" }]
-  });
-  updateView()
-  return;
-}
-function loadTemplate2() {
-  let content = quill.setContents({
-    ops: [{ "attributes": { font: "serif" }, "insert": "JAAAAAAAAAAAA" }, { "attributes": { "header": 3 }, "insert": "\n" }, { "attributes": { "italic": true, "bold": true }, "insert": "Heter" }, { "insert": "\nDAVID BERG" }, { "attributes": { "header": 1 }, "insert": "\n" }]
-  });
-  updateView()
-  return;
-}
-function loadTemplate3() {
-  let content = quill.setContents({
-    ops: [{ "insert": "Bästa filmtipsen:" }, { "attributes": { "header": 2 }, "insert": "\n" }, { "insert": "Avatar" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "insert": "Pearl Harbour" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "insert": "Jurassic park" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "insert": "Alien" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "insert": "\n\n\n" }, { "attributes": { "italic": true }, "insert": "Vem vet mest?" }, { "insert": "\n" }, { "attributes": { "bold": true }, "insert": "Albert Einstein" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "attributes": { "bold": true }, "insert": "David Berg" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "attributes": { "bold": true }, "insert": "Donald Trump" }, { "attributes": { "italic": true }, "insert": "\t" }, { "attributes": { "list": "ordered" }, "insert": "\n" }]
-  });
-  updateView()
-  return;
+// ANCHORS
+var stand = document.getElementById('standard');
+var green = document.getElementById('green');
+var blue = document.getElementById('blue');
+var template = document.getElementById('template');
+
+// EVENT LISTENERS
+template.addEventListener('click', function () {
+  document.getElementsByClassName('dropbtn')[0].value = "Template";
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
+});
+stand.addEventListener('click', function () {
+  document.getElementsByClassName('dropbtn')[0].value = "Template 1";
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
+  document.getElementsByClassName('ql-editor')[0].classList.add('template1');
+});
+green.addEventListener('click', function () {
+  document.getElementsByClassName('dropbtn')[0].value = "Template 2";
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
+  document.getElementsByClassName('ql-editor')[0].classList.add('template3');
+});
+blue.addEventListener('click', function () {
+  document.getElementsByClassName('dropbtn')[0].value = "Template 3";
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
+  document.getElementsByClassName('ql-editor')[0].classList.add('template2');
+});
+
+function defaultTemplate() {
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
 }
 //DELETE ALL NOTES
 document.getElementById("nuke-all").addEventListener("click", function (id) {
@@ -417,17 +430,12 @@ function searchContent(searchTerm) {
     for (let i = 0; i < searchList.length; i++) {
       //search in content and title
       for (let j = 0; j < searchList[i].content.ops.length; j++) {
-        if (searchList[i].content.ops[j].insert.toLowerCase().includes(searchTerm)) {
+        if (searchList[i].content.ops[j].insert.toLowerCase().includes(searchTerm) || searchList[i].title.toLowerCase().includes(searchTerm)) {
           searchHits.push(searchList[i]);
           break;
         }
-
       }
-      // if ((searchList[i].content.ops[0].insert).toLowerCase().includes(searchTerm) || searchList[i].title.toLowerCase().includes(searchTerm)) {
-      //   searchHits.push(searchList[i]); //Add to array of hits
-      // }
     }
-    //console.log(searchHits);
     return searchHits;
   }
 }
@@ -439,6 +447,7 @@ function searchTags(tagString) {
 
   let inclusions = [];
   let exclusions = [];
+  let searchHits = [];
 
   if (tagString === undefined) {
     return searchList; //If search is called with an empty search term
@@ -449,9 +458,40 @@ function searchTags(tagString) {
     inclusions = tagString.filter(tag => !tag.startsWith("-"));
     exclusions = tagString.filter(tag => tag.startsWith("-"));
 
+    for (let i = 0; i < exclusions.length; i++) {
+      exclusions[i] = exclusions[i].replace("-", "");
+    }
+    console.log("inclusions " + inclusions);
+    console.log("exclusions " + exclusions);
+    //Creates initial array of hits
+    for (let i = 0; i < searchList.length; i++) {
+      for (let j = 0; j < inclusions.length; j++) {
+        for (let k = 0; k < searchList[i].tags.length; k++) {
+          if (searchList[i].tags[k] == inclusions[j]) {
+            searchHits.push(searchList[i]);
+            break;
+          }
+        }
+      }
+    }
+    //removes exclusions
+    for (let i = 0; i < searchHits.length; i++) {
+      for (let j = 0; j < exclusions.length; j++) {
+        for (let k = 0; k < searchHits[i].tags.length; k++) {
+          if (searchList[i].tags[k] == exclusions[j]) {
+            searchHits.splice(i, 1);
+            break;
+          }
+        }
+      }
+    }
 
-
-    console.log(allTags);
+    if (searchHits.length > 0) {
+      return searchHits;
+    }
+    else {
+      return searchList;
+    }
   }
 
 
