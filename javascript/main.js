@@ -61,10 +61,7 @@ window.onload = function () {
 
 
 
-document.getElementById('checkStarred').addEventListener('click',
-
-
-  function () {
+document.getElementById('checkStarred').addEventListener('click', function () {
 
     if (document.getElementById("checkStarred").checked) {
 
@@ -215,19 +212,7 @@ function toggleStarred(id) {
   ];
   saveNotes(updatedNotes);
   updateView();
-}
-function newNote(id) {
-  let note = {};
-  note.title = "Untitled " + (id + 1); // Writes note + id starting from 1 and adds +1 for every note.
-  note.titlePreview = getTitle();
-  note.content = quill.getContents();
-  note.id = id;
-  note.date = yyyymmdd();
-  note.preview = getPreview();
-  note.tagsPresplit = "";
-  note.tags = [];
-  return note;
-}
+} 
 // Adds and checks the length of an array. If the length is over 0 - find the highest id. Return id +1.   
 const getAvailID = noteArray => noteArray.length > 0 ? Math.max(...noteArray.map(note => note.id), 0) + 1 : 0;
 
@@ -298,7 +283,7 @@ function newNote(id) {
   newNote.date = yyyymmdd();
   newNote.preview = getPreview();
   newNote.star = false;
-  newNote.template = 
+  newNote.template = defaultTemplate();
   return newNote;
 }
 function yyyymmdd() {
@@ -340,25 +325,34 @@ document.getElementById("doPrint").addEventListener("click", function () {
                 var stand = document.getElementById('standard');
                 var green = document.getElementById('green');
                 var blue = document.getElementById('blue');
-
-
+                var template = document.getElementById('template');
 
                 // EVENT LISTENERS
+                template.addEventListener('click', function(){
+                  document.getElementsByClassName('dropbtn')[0].value="Template";
+                  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
+                  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
+                  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
+                });
                 stand.addEventListener('click', function(){
+                  document.getElementsByClassName('dropbtn')[0].value="Template 1";
                   document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
                   document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
                   document.getElementsByClassName('ql-editor')[0].classList.add('template1');
                 });
-                blue.addEventListener('click', function(){
-                  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
-                  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
-                  document.getElementsByClassName('ql-editor')[0].classList.add('template2');
-                });
                 green.addEventListener('click', function(){
+                  document.getElementsByClassName('dropbtn')[0].value="Template 2";
                   document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
                   document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
                   document.getElementsByClassName('ql-editor')[0].classList.add('template3');
                 });
+                blue.addEventListener('click', function(){
+                  document.getElementsByClassName('dropbtn')[0].value="Template 3";
+                  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
+                  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
+                  document.getElementsByClassName('ql-editor')[0].classList.add('template2');
+                });
+
 function defaultTemplate(){
   document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
   document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
