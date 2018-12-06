@@ -21,6 +21,32 @@ function cookieCheck() {
   }
 }
 
+//Statistics modal page
+// Get the modal
+var statsModal = document.getElementById('stats-page');
+
+// Get the button that opens the modal
+var btn = document.getElementById("stats");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("xMark")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function () {
+  statsModal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+  statsModal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+document.onclick = function (event) {
+  if (event.target == statsModal) {
+    statsModal.style.display = "none";
+  }
+}
 // QUILL OPTIONS
 //rubriker, punktlistor, numrerade listor samt göra text kursiv eller fetstil.
 var toolbarOptions = [
@@ -329,14 +355,14 @@ document.getElementById("doPrint").addEventListener("click", function () {
 //LOAD DIFFERENT TEMPLATES
 function loadTemplate1() {
   let content = quill.setContents({
-    ops: [{"attributes": {font: "monospace"}, "insert": "Hur man gör en schysst sallad!" }, { "attributes": { "header": 1 }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Recept:" }, { "attributes": { "header": 2 }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Gurka" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Tomat" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Sallad" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Paprika" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "header": 3 }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Tillagning:" }, { "attributes": { "header": 3 }, "insert": "\n" }, { "insert": "Hacka grönsakerna" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "insert": "Blanda ihop i skål" }, { "attributes": { "list": "ordered" }, "insert": "\n" }]
+    ops: [{ "attributes": { font: "monospace" }, "insert": "Hur man gör en schysst sallad!" }, { "attributes": { "header": 1 }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Recept:" }, { "attributes": { "header": 2 }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Gurka" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Tomat" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Sallad" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Paprika" }, { "attributes": { "list": "bullet" }, "insert": "\n" }, { "attributes": { "header": 3 }, "insert": "\n" }, { "attributes": { "italic": true }, "insert": "Tillagning:" }, { "attributes": { "header": 3 }, "insert": "\n" }, { "insert": "Hacka grönsakerna" }, { "attributes": { "list": "ordered" }, "insert": "\n" }, { "insert": "Blanda ihop i skål" }, { "attributes": { "list": "ordered" }, "insert": "\n" }]
   });
   updateView()
   return;
 }
 function loadTemplate2() {
   let content = quill.setContents({
-    ops: [{"attributes": {font: "serif"}, "insert": "JAAAAAAAAAAAA" }, { "attributes": { "header": 3 }, "insert": "\n" }, { "attributes": { "italic": true, "bold": true }, "insert": "Heter" }, { "insert": "\nDAVID BERG" }, { "attributes": { "header": 1 }, "insert": "\n" }]
+    ops: [{ "attributes": { font: "serif" }, "insert": "JAAAAAAAAAAAA" }, { "attributes": { "header": 3 }, "insert": "\n" }, { "attributes": { "italic": true, "bold": true }, "insert": "Heter" }, { "insert": "\nDAVID BERG" }, { "attributes": { "header": 1 }, "insert": "\n" }]
   });
   updateView()
   return;
@@ -395,7 +421,7 @@ function searchContent(searchTerm) {
           searchHits.push(searchList[i]);
           break;
         }
-        
+
       }
       // if ((searchList[i].content.ops[0].insert).toLowerCase().includes(searchTerm) || searchList[i].title.toLowerCase().includes(searchTerm)) {
       //   searchHits.push(searchList[i]); //Add to array of hits
@@ -430,3 +456,73 @@ function searchTags(tagString) {
 
 
 }
+//Google charts
+google.charts.load('current', { 'packages': ['corechart'] });
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+  let currentDate = "";
+  let dateCount = [];
+  // let dataArray = [];
+  let uniqueDates = [];
+  let tempStorage = loadNotes(); //Hämtar arrayen till tempStorage
+  //(tempStorage[0].date) logga ut första elementets date string
+
+  for (let i = 0; i < tempStorage.length; i++) {
+    if (tempStorage[i].date != currentDate) {
+      dateCount.push(1);
+      uniqueDates.push(tempStorage[i].date);
+      currentDate = tempStorage[i].date;
+    }
+    else {
+      dateCount[dateCount.length - 1]++;
+    }
+  }
+  console.log(dateCount);
+  console.log(uniqueDates);
+
+  let formattedDate = [];
+  for (let i = 0; i < uniqueDates.length; i++) {
+    formattedDate.push([uniqueDates[i], [dateCount[i]]])
+  }
+  console.log(formattedDate);
+
+
+  let dataArray = [
+
+    [{ label: 'Date', id: 'date' },
+    { label: 'Antal anteckningar', id: localStorage.getItem('myNotes'), type: 'number' },
+    ]
+  ];
+
+  dataArray.splice(1, 0, ...formattedDate);
+  console.log("dataArrays " + dataArray);
+
+
+  let data = google.visualization.arrayToDataTable(dataArray);
+
+
+
+
+  var options = {
+    width: 700,
+    height: 440,
+    title: 'Antal anteckningar',
+    curveType: 'function',
+    legend: { position: 'bottom' }
+
+  };
+
+  var chart = new google.visualization.LineChart(document.getElementById('curve-chart'));
+
+  chart.draw(data, options);
+  console.log(data);
+}
+
+// var Combined = new Array();
+// Combined[0] = ['Results', 'First', 'Second'];
+// for (var i = 0; i < loadNotes().length; i++) {
+//   Combined[i + 1] = [Results[i], First[i], Second[i]];
+// }
+// //second parameter is false because first row is headers, not data.
+// var table = google.visualization.arrayToDataTable(Combined, false);
