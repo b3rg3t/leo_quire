@@ -176,7 +176,8 @@ body {
   border-bottom: 1px solid #14356b;
   transition: background-color 0.5s;
   display: flex;
-  flex-flow: column nowrap;
+  flex-wrap: wrap;
+  flex-basis: 100%;
 }
 
 #notes div:hover {
@@ -184,7 +185,14 @@ body {
 }
 #notes button {
   /* margin-top: 10px; */
-  align-self: flex-end;
+  /* align-self: flex-end; */
+  margin-top: 10px;
+  margin-left: auto;
+  order: 2;
+  border: none;
+  background-color: #fff5bd00;
+  color: rgb(13, 13, 14);
+  height: 0px;
 }
 #header {
   color: white;
@@ -196,16 +204,24 @@ body {
   font-weight: bold;
   padding-top: 10px;
   color: violet;
+  flex-basis:71%;
+  order: 1;
 }
 .note-date {
   color: blue;
-  float: right;
-  align-self: flex-end;
+  flex-basis:100%;
+  order: 4;
+  
 }
 .note-preview {
   color: green;
   font-size: 16px;
+  flex-basis:100%;
+  order: 3;
 }
+.test-star::before {
+  color: gold;
+ }
 /* ::-webkit-scrollbar {
   display: hidden;
   overflow-x: hidden;
