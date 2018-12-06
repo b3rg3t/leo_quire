@@ -262,10 +262,13 @@ function updateView(func = () => true) {
     let newDate = document.createTextNode(note.date);
     let newPreview = document.createTextNode(note.preview);
     let starButton = document.createElement("button");
-    let starButtonText = document.createTextNode((note.star ? "Un-star" : "Star"));
+    let starButtonText = document.createTextNode("");
+    note.star ? starButton.setAttribute("class", "fas fa-star") : starButton.setAttribute("class", "far fa-star" );
+    note.star ? starButton.classList.add("test-star") : starButton.classList.remove("test-star");
 
     let newButton = document.createElement("button");
-    let newButtonText = document.createTextNode("X");
+    let newButtonText = document.createTextNode("");
+    newButton.setAttribute("class", "far fa-trash-alt");
     newButton.setAttribute("onclick", "deleteNote(" + note.id + ");");
     starButton.setAttribute('onclick', 'toggleStarred(' + note.id + ');');
     newDiv.setAttribute("onclick", "loadToQuill(" + note.id + ");");
