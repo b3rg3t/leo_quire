@@ -463,10 +463,9 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   let currentDate = "";
   let dateCount = [];
-  // let dataArray = [];
   let uniqueDates = [];
-  let tempStorage = loadNotes(); //Hämtar arrayen till tempStorage
-  //(tempStorage[0].date) logga ut första elementets date string
+  let tempStorage = loadNotes();
+
 
   for (let i = 0; i < tempStorage.length; i++) {
     if (tempStorage[i].date != currentDate) {
@@ -501,9 +500,6 @@ function drawChart() {
 
   let data = google.visualization.arrayToDataTable(dataArray);
 
-
-
-
   var options = {
     width: 700,
     height: 440,
@@ -518,11 +514,3 @@ function drawChart() {
   chart.draw(data, options);
   console.log(data);
 }
-
-// var Combined = new Array();
-// Combined[0] = ['Results', 'First', 'Second'];
-// for (var i = 0; i < loadNotes().length; i++) {
-//   Combined[i + 1] = [Results[i], First[i], Second[i]];
-// }
-// //second parameter is false because first row is headers, not data.
-// var table = google.visualization.arrayToDataTable(Combined, false);
