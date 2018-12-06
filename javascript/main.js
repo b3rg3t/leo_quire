@@ -21,6 +21,32 @@ function cookieCheck() {
   }
 }
 
+//Statistics modal page
+// Get the modal
+var statsModal = document.getElementById('stats-page');
+
+// Get the button that opens the modal
+var btn = document.getElementById("stats");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("xMark")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function () {
+  statsModal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+  statsModal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+document.onclick = function (event) {
+  if (event.target == statsModal) {
+    statsModal.style.display = "none";
+  }
+}
 // QUILL OPTIONS
 //rubriker, punktlistor, numrerade listor samt göra text kursiv eller fetstil.
 var toolbarOptions = [
@@ -63,17 +89,17 @@ window.onload = function () {
 
 document.getElementById('checkStarred').addEventListener('click', function () {
 
-    if (document.getElementById("checkStarred").checked) {
+  if (document.getElementById("checkStarred").checked) {
 
-      (updateView((note) => (note.star == true)));
-      console.log("Showing starred items");
-      // note = true;
-    } else {
+    (updateView((note) => (note.star == true)));
+    console.log("Showing starred items");
+    // note = true;
+  } else {
 
-      updateView();
-      console.log("Hallå");
-    }
-  });
+    updateView();
+    console.log("Hallå");
+  }
+});
 
 
 function setActiveId(id) {
@@ -212,7 +238,7 @@ function toggleStarred(id) {
   ];
   saveNotes(updatedNotes);
   updateView();
-} 
+}
 // Adds and checks the length of an array. If the length is over 0 - find the highest id. Return id +1.   
 const getAvailID = noteArray => noteArray.length > 0 ? Math.max(...noteArray.map(note => note.id), 0) + 1 : 0;
 
@@ -248,7 +274,7 @@ function updateView(func = () => true) {
     let newPreview = document.createTextNode(note.preview);
     let starButton = document.createElement("button");
     let starButtonText = document.createTextNode("");
-    note.star ? starButton.setAttribute("class", "fas fa-star") : starButton.setAttribute("class", "far fa-star" );
+    note.star ? starButton.setAttribute("class", "fas fa-star") : starButton.setAttribute("class", "far fa-star");
     note.star ? starButton.classList.add("test-star") : starButton.classList.remove("test-star");
 
     let newButton = document.createElement("button");
@@ -324,39 +350,39 @@ document.getElementById("doPrint").addEventListener("click", function () {
 
 });
 //LOAD DIFFERENT TEMPLATES
-                // ANCHORS
-                var stand = document.getElementById('standard');
-                var green = document.getElementById('green');
-                var blue = document.getElementById('blue');
-                var template = document.getElementById('template');
+// ANCHORS
+var stand = document.getElementById('standard');
+var green = document.getElementById('green');
+var blue = document.getElementById('blue');
+var template = document.getElementById('template');
 
-                // EVENT LISTENERS
-                template.addEventListener('click', function(){
-                  document.getElementsByClassName('dropbtn')[0].value="Template";
-                  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
-                  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
-                  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
-                });
-                stand.addEventListener('click', function(){
-                  document.getElementsByClassName('dropbtn')[0].value="Template 1";
-                  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
-                  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
-                  document.getElementsByClassName('ql-editor')[0].classList.add('template1');
-                });
-                green.addEventListener('click', function(){
-                  document.getElementsByClassName('dropbtn')[0].value="Template 2";
-                  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
-                  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
-                  document.getElementsByClassName('ql-editor')[0].classList.add('template3');
-                });
-                blue.addEventListener('click', function(){
-                  document.getElementsByClassName('dropbtn')[0].value="Template 3";
-                  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
-                  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
-                  document.getElementsByClassName('ql-editor')[0].classList.add('template2');
-                });
+// EVENT LISTENERS
+template.addEventListener('click', function () {
+  document.getElementsByClassName('dropbtn')[0].value = "Template";
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
+});
+stand.addEventListener('click', function () {
+  document.getElementsByClassName('dropbtn')[0].value = "Template 1";
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
+  document.getElementsByClassName('ql-editor')[0].classList.add('template1');
+});
+green.addEventListener('click', function () {
+  document.getElementsByClassName('dropbtn')[0].value = "Template 2";
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
+  document.getElementsByClassName('ql-editor')[0].classList.add('template3');
+});
+blue.addEventListener('click', function () {
+  document.getElementsByClassName('dropbtn')[0].value = "Template 3";
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
+  document.getElementsByClassName('ql-editor')[0].classList.add('template2');
+});
 
-function defaultTemplate(){
+function defaultTemplate() {
   document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
   document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
   document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
@@ -431,9 +457,9 @@ function searchTags(tagString) {
 
     inclusions = tagString.filter(tag => !tag.startsWith("-"));
     exclusions = tagString.filter(tag => tag.startsWith("-"));
-    
+
     for (let i = 0; i < exclusions.length; i++) {
-      exclusions[i] = exclusions[i].replace("-","");
+      exclusions[i] = exclusions[i].replace("-", "");
     }
     console.log("inclusions " + inclusions);
     console.log("exclusions " + exclusions);
@@ -453,7 +479,7 @@ function searchTags(tagString) {
       for (let j = 0; j < exclusions.length; j++) {
         for (let k = 0; k < searchHits[i].tags.length; k++) {
           if (searchList[i].tags[k] == exclusions[j]) {
-            searchHits.splice(i,1);
+            searchHits.splice(i, 1);
             break;
           }
         }
@@ -469,4 +495,62 @@ function searchTags(tagString) {
   }
 
 
+}
+//Google charts
+google.charts.load('current', { 'packages': ['corechart'] });
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+  let currentDate = "";
+  let dateCount = [];
+  let uniqueDates = [];
+  let tempStorage = loadNotes();
+
+
+  for (let i = 0; i < tempStorage.length; i++) {
+    if (tempStorage[i].date != currentDate) {
+      dateCount.push(1);
+      uniqueDates.push(tempStorage[i].date);
+      currentDate = tempStorage[i].date;
+    }
+    else {
+      dateCount[dateCount.length - 1]++;
+    }
+  }
+  console.log(dateCount);
+  console.log(uniqueDates);
+
+  let formattedDate = [];
+  for (let i = 0; i < uniqueDates.length; i++) {
+    formattedDate.push([uniqueDates[i], [dateCount[i]]])
+  }
+  console.log(formattedDate);
+
+
+  let dataArray = [
+
+    [{ label: 'Date', id: 'date' },
+    { label: 'Antal anteckningar', id: localStorage.getItem('myNotes'), type: 'number' },
+    ]
+  ];
+
+  dataArray.splice(1, 0, ...formattedDate);
+  console.log("dataArrays " + dataArray);
+
+
+  let data = google.visualization.arrayToDataTable(dataArray);
+
+  var options = {
+    width: 700,
+    height: 440,
+    title: 'Antal anteckningar',
+    curveType: 'function',
+    legend: { position: 'bottom' }
+
+  };
+
+  var chart = new google.visualization.LineChart(document.getElementById('curve-chart'));
+
+  chart.draw(data, options);
+  console.log(data);
 }

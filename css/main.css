@@ -529,7 +529,6 @@ body {
   margin: auto;
   padding: 0;
 }
-
 @media print {
   .box1, .box2, .ql-toolbar, .new-note, .save-note, .doPrintClass, .buttons, #tag-box, #title{
     display: none !important;
