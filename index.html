@@ -12,9 +12,6 @@
     <!-- Main CSS -->
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <link rel="stylesheet" href="css/landingpage.css">
-    <link href="stylesheet.css" rel="stylesheet">
-	<!-- THIS IS A DYNAMIC LINK ELEMENT-->
-	<link id="cssLink" href="#" rel="stylesheet">
     <!-- Quill -->
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
@@ -63,10 +60,11 @@
                 <button title="Create new note">+</button>
             </nav>
             
-            <h2 id="header">Saved Notes</h2>
+            <!-- <h2 id="header">Saved Notes</h2> -->
             <div id="search-bar-container">
             <i class="fas fa-search"></i>
             <input type="text" id="search-bar" placeholder="Search by title or content">
+            <button class="new-note" onclick="addNote()" title="New Note"><i class="fas fa-skull-crossbones"></i></button>
             <!-- <button id="search-button">Go</button> -->
             </div>  
             <div id="tag-box-container">

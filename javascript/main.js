@@ -298,6 +298,7 @@ function newNote(id) {
   newNote.date = yyyymmdd();
   newNote.preview = getPreview();
   newNote.star = false;
+  newNote.template = 
   return newNote;
 }
 function yyyymmdd() {
@@ -358,6 +359,11 @@ document.getElementById("doPrint").addEventListener("click", function () {
                   document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
                   document.getElementsByClassName('ql-editor')[0].classList.add('template3');
                 });
+function defaultTemplate(){
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
+  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
+}
 //DELETE ALL NOTES
 document.getElementById("nuke-all").addEventListener("click", function (id) {
   message = confirm("Are you sure you want to delete all notes?");
