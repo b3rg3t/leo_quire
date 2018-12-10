@@ -103,6 +103,7 @@
             </div>
             <div id="editor">
             </div>
+
             <button class="save-note" onclick="saveNote()" title="Save note"><i class="far fa-save"></i></button>
             <button class="doPrintClass" id="doPrint" title="Print note"><i class="fas fa-print"></i></button>
 
@@ -120,9 +121,15 @@
                     <hr>
                     <div class="content-stats">
                         <br>
-                        <div id="curve-chart"></div>
-
+                        <div class="chart"></div>
+                        <div id="curve-chart">
+                        </div>
                     </div>
+                    <div id="counter">0</div>
+                    <h3 id="counter-title">Number of words in selected note</h3>
+                    <div id="notes-counter"></div>
+                    <h3>Total number of notes</h3>
+
                     <div class="clearfix">
                         <button title="Close info">Got it</button>
                     </div>

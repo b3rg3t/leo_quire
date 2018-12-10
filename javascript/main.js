@@ -500,6 +500,7 @@ function searchTags(tagString) {
 google.charts.load('current', { 'packages': ['corechart'] });
 google.charts.setOnLoadCallback(drawChart);
 
+
 function drawChart() {
   let currentDate = "";
   let dateCount = [];
@@ -541,16 +542,54 @@ function drawChart() {
   let data = google.visualization.arrayToDataTable(dataArray);
 
   var options = {
-    width: 700,
-    height: 440,
-    title: 'Antal anteckningar',
+    // width: 1440,
+    // height: 340,
+    hAxis: {
+      title: "Date"
+    },
     curveType: 'function',
-    legend: { position: 'bottom' }
+    legend: {
+      position: 'bottom'
+    },
+    hAxis: {
+      showTextEvery: 1,
+    },
+
+    vAxis: {
+      viewWindow: {
+        max: 30
+      },
+      showTextEvery: 1,
+      minValue: 1,
+      maxValue: 15,
+      showTextEvery: 1,
+      baselineColor: '#DDD',
+      textStyle: {
+        fontSize: 11
+      },
+      title: "Anteckningar",
+    }
 
   };
-
-  var chart = new google.visualization.LineChart(document.getElementById('curve-chart'));
+  let chart = new google.visualization.LineChart(document.getElementById('curve-chart'));
 
   chart.draw(data, options);
   console.log(data);
 }
+//Statistics page: Number of words in selected note
+Quill.register('modules/counter', function (quill, options) {
+  let container = document.querySelector('#counter');
+  quill.on('text-change', function () {
+    let text = quill.getText();
+    container.innerText = text.split(/\s+/).length - 1;
+  });
+});
+
+var quill = new Quill('#editor', {
+  modules: {
+    counter: true
+  }
+});
+
+//Statistics page: Total number of notes. 
+document.getElementById("notes-counter").innerHTML = loadNotes().length;

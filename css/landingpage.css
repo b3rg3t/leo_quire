@@ -74,11 +74,12 @@
   background-color:#f9f9f9;
   margin-top: 0px;
 }
-/* #curve-chart svg {
+#chart-div{
+
+  width: 100%;
+  height: auto;
   
-  height: 400px;
-  width: 400px;
-} */
+}
 
 /* h2 {
   text-align: center;
