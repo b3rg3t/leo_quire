@@ -178,7 +178,9 @@ function saveNote(myTemplate) {
     tempStorage.find(loadNote => loadNote.id == id).titlePreview = getTitle();
     tempStorage.find(loadNote => loadNote.id == id).tagsPresplit = document.getElementById("tag-input").value;
     tempStorage.find(loadNote => loadNote.id == id).tags = tempStorage.find(loadNote => loadNote.id == id).tagsPresplit.split(",");
-    tempStorage.find(loadNote => loadNote.id == id).template = myTemplate;
+    if (myTemplate != undefined) {
+      tempStorage.find(loadNote => loadNote.id == id).template = myTemplate;
+    } 
   }
 
   tempStorage.find(loadNote => loadNote.id == id).date = yyyymmdd();
