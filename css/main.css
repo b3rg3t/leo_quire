@@ -78,7 +78,7 @@ body {
   color: white;
 }
 .nav-button {
-  background-color: #1b4c9b00;
+  background-color: #0062ff00;
   border: none;
   color: white;
   text-align: center;
@@ -119,7 +119,6 @@ body {
   height: 30px;
   margin-top: 10px;
   display: flex;
-  
 } 
   #search-bar{
     width: 100%;
@@ -129,18 +128,18 @@ body {
 }
 #tag-box-container{
   margin-top: 10px;
-  /* margin-left: 10.2%; */
+  margin-left: 9%;
   width: 100%;
 }
 .new-note {
   border: none;
   background-color: rgba(0, 0, 0, 0);
   color: white;
-  margin: 10px 0px;
+  font-size: 30px;
+  margin-left: 0px;
   text-shadow: 2px 2px 2px rgb(0, 0, 0);
 }
 .new-note:hover {
-
   transform: scale(1.1);
 } 
 
@@ -177,7 +176,8 @@ body {
   border-bottom: 1px solid #14356b;
   transition: background-color 0.5s;
   display: flex;
-  flex-flow: column nowrap;
+  flex-wrap: wrap;
+  flex-basis: 100%;
 }
 
 #notes div:hover {
@@ -185,7 +185,14 @@ body {
 }
 #notes button {
   /* margin-top: 10px; */
-  align-self: flex-end;
+  /* align-self: flex-end; */
+  margin-top: 10px;
+  margin-left: auto;
+  order: 2;
+  border: none;
+  background-color: #fff5bd00;
+  color: rgb(13, 13, 14);
+  height: 0px;
 }
 #header {
   color: white;
@@ -197,16 +204,24 @@ body {
   font-weight: bold;
   padding-top: 10px;
   color: violet;
+  flex-basis:71%;
+  order: 1;
 }
 .note-date {
   color: blue;
-  float: right;
-  align-self: flex-end;
+  flex-basis:100%;
+  order: 4;
+  
 }
 .note-preview {
   color: green;
   font-size: 16px;
+  flex-basis:100%;
+  order: 3;
 }
+.test-star::before {
+  color: gold;
+ }
 /* ::-webkit-scrollbar {
   display: hidden;
   overflow-x: hidden;
@@ -265,17 +280,16 @@ body {
 }
 #tag-box {
   float: right;
+  width: 25%;
   margin-top: 10px;
-  margin-right: 10px;
+  /* margin-right: 10px; */
 }
 #tag-title {
   font-family: 'Playfair Display';
   margin: 0;
   font-weight: bold;
 }
-#tag-input {
-  margin-left: 10.2%;
-}
+
 #title:focus {
   /* background-color: rgba(255, 255, 255, 0.5); */
   outline: none;
@@ -292,26 +306,36 @@ body {
   max-width: 100%;
   min-width: 300px;
 }
+.template{
+
+}
 .template1{
   /* background-image: url(/picture/plant-green-blue-background-garden-158676.jpeg); */
   font-family: sans-serif;
-  color: rgb(255, 5, 5);
+  color: black;
 }
 .template2{
   /* background-color: #1b06dd; */
   font-family: monospace;
-  color: rgb(91, 6, 248);
+  color: blue;
   font-size: 16px;
 }
 .template3{
   /* background-color: #38dd06; */
   font-family: serif;
-  color: Black;
+  color: green;
   font-size: 16px;
 }
-.template1 h1{
-  font-family: monospace; 
+/* .template1 h1, h2, h3 ,h4{
+  font-family: "Playfair Display"; 
+  text-align: center;
 }
+.template2 h1, h2, h3 ,h4{
+  font-family: "Gentium+Book+Basic"; 
+}
+.template3 h1, h2, h3 ,h4{
+  font-family: "Playfair Display"; 
+} */ 
  #checkStarred{
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -447,17 +471,6 @@ body {
       height: 100%;
       margin: auto;
   }
-  #tag-box-container{
-    margin-top: 10px;
-    margin-left: 4%;
-    width: 100%;
-    
-  }
-}
-
-
-
-
 .dropbtn {
   background-color: rgba(52, 152, 219, 0);
   color: rgb(82, 80, 80);
@@ -516,7 +529,6 @@ body {
   margin: auto;
   padding: 0;
 }
-
 @media print {
   .box1, .box2, .ql-toolbar, .new-note, .save-note, .doPrintClass, .buttons, #tag-box, #title{
     display: none !important;
@@ -527,8 +539,7 @@ body {
   }
 }
 
-@page 
-{
-    size: auto;  
+@page {  
     margin: 0mm;  
+  }
 }

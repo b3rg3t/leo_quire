@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
-<head id="head"> 
+<head id="head">
     <!-- META -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -39,12 +39,13 @@
                     <h1 id="nav-logo">Q</h1>
                 </div>
                 <div id="nav-main">
-                    <button id="New Note" class="nav-button" onclick=addNote() title="New Note"><i class="fas fa-pencil-alt"></i></button>
+                    <button id="search" class="nav-button" onclick=addNote() title="New Note"><i class="fas fa-pencil-alt"></i></button>
                     <!-- <button id="showStarred" class="nav-button" title="Favorite"><i class="fas fa-star"></i></button> -->
                     <input type="checkbox" id="checkStarred" class="nav-button fas fa-star" title="Favorite">
-                    <button class="nav-button" title="Stats"><i class="fas fa-chart-bar"></i></button>
+                    <button id="stats" class="nav-button" title="Stats"><i class="fas fa-chart-bar"></i></button>
                     <button class="nav-button" title="Settings"><i class="fas fa-cog"></i></button>
-                    <button class="nav-button" title="Delete all" id="nuke-all"><i class="far fa-trash-alt"></i></button>
+
+                    <button id="nuke-all" class="nav-button" title="Delete all"><i class="far fa-trash-alt"></i></button>
 
                 </div>
                 <div id="nav-footer">
@@ -59,16 +60,16 @@
             <nav id="add-nav">
                 <button title="Create new note">+</button>
             </nav>
-            
+
             <!-- <h2 id="header">Saved Notes</h2> -->
             <div id="search-bar-container">
-            <i class="fas fa-search"></i>
-            <input type="text" id="search-bar" placeholder="Search by title or content">
-            <button class="new-note" onclick="addNote()" title="New Note"><i class="fas fa-skull-crossbones"></i></button>
-            <!-- <button id="search-button">Go</button> -->
-            </div>  
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-bar" placeholder="Search by title or content">
+                <button class="new-note" onclick="addNote()" title="New Note">+</button>
+                <!-- <button id="search-button">Go</button> -->
+            </div>
             <div id="tag-box-container">
-            <span id="tag-search-text"><input type="checkbox" id="tag-search">Search by tags</span>
+                <span id="tag-search-text"><input type="checkbox" id="tag-search">Search by tags</span>
             </div>
             <div id="height-notes">
                 <!-- Container for stored notes(sidebar) -->
@@ -85,13 +86,15 @@
             <div id="title-box">
                 <input id="title" type="text" placeholder="Title..." value="">
                 <div class="dropdown">
-                        <button onclick="myFunction()" class="dropbtn">Template <i class="fas fa-sort"></i></button>
-                        <div id="myDropdown" class="dropdown-content">
-                                <button id="standard">Standard</button>
-                                <button id="green">Green</button>
-                                <button id="blue">Blue</button>
-                        </div>
+                    <input onclick="myFunction()" type="button" value="Template" class="dropbtn"><i class="fas fa-sort"></i>
+                    <!-- <button onclick="myFunction()" class="dropbtn">Template <i class="fas fa-sort"></i></button> -->
+                    <div id="myDropdown" class="dropdown-content">
+                        <button id="template">Template</button>
+                        <button id="standard">Template 1</button>
+                        <button id="green">Template 2</button>
+                        <button id="blue">Template 3</button>
                     </div>
+                </div>
                 <div id="tag-box">
                     <span id="tag-title">Tags:</span>
                     <input id="tag-input" type="text" placeholder="Enter tags separated by ','">
@@ -100,14 +103,35 @@
             </div>
             <div id="editor">
             </div>
-            <!-- <button class="new-note" onclick="addNote()" title="New note"><i class="fas fa-pencil-alt"></i></button> -->
             <button class="save-note" onclick="saveNote()" title="Save note"><i class="far fa-save"></i></button>
             <button class="doPrintClass" id="doPrint" title="Print note"><i class="fas fa-print"></i></button>
 
         </div>
 
+        <div id="stats-page" class="stats-modal">
+            <form class="stats-modal-content" action="">
+                <div class="stats-xMark">
+                    <span onclick="document.getElementById('stats-page').style.display='none'" class="close" title="Close">&times;</span>
+                </div>
+                <div class="container">
+                    <div class="welcome">
+                        <h2 id="stats-title">My Statistics</h2>
+                    </div>
+                    <hr>
+                    <div class="content-stats">
+                        <br>
+                        <div id="curve-chart"></div>
+
+                    </div>
+                    <div class="clearfix">
+                        <button title="Close info">Got it</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
         <div id="landing-page" class="modal">
-            <form class="modal-content" action="">
+            <form class="modal-content" action="show">
                 <div class="xMark">
                     <span onclick="document.getElementById('landing-page').style.display='none'" class="close" title="Close">&times;</span>
                 </div>
@@ -126,11 +150,14 @@
                 </div>
             </form>
         </div>
-        <!-- Include the Quill library -->
-        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-        <!-- Main JS -->
-        <script src="javascript/main.js"></script>
-    
+    </div>
+    <!-- Include the Quill library -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <!-- Google Charts -->
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- Main JS -->
+    <script src="javascript/main.js"></script>
+
 </body>
 
 </html>
