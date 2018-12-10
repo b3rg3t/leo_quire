@@ -96,11 +96,7 @@ body {
 .nav-button:hover {
   transform: scale(1.2);
 }
-#hamburger-nav {
-  display: none;
-  position: absolute;
-  padding-top: 8px;
-}
+
 #add-nav {
   display: none;
   float: right;
@@ -261,7 +257,7 @@ body {
   margin-top: 4%;
   text-shadow: 2px 2px 2px rgb(0, 0, 0);
 }
-.box3 {
+.box3 { 
   margin: 5% 10% 7.4% 10%;
   width: 75%;
   background-color: rgba(255, 255, 255, 0.664);
@@ -368,6 +364,25 @@ body {
   background-color: #f8700094;
   transform: scale(1.1);
 }
+.arrow-back{
+  border-radius: 50%;
+  background-color: #0532fc;
+  border: none;
+  color: white;
+  padding: 11px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 5px;
+  transition: transform 0.25s ease-out;
+  font-size: 30px;  
+  display: none;
+}
+.arrow-back:hover {
+  color: #14356b;
+  background-color: #0532fc7e;
+  transform: scale(1.1);
+}
 
 #doPrint {
   border-radius: 50%;
@@ -443,13 +458,39 @@ body {
 .show {
   display: block;
 }
-
+#logo-show{
+  display: none;
+  width: 100%;
+  text-align: center;
+  font-family: 'Playfair Display';
+  margin: 0;
+  padding: 0;
+  color: white;
+  background-color: #14356b;
+  padding-bottom: 5px;
+  font-size: 30px;
+  text-shadow: 2px 2px 2px rgb(0, 0, 0);
+}
+#hamburger-nav {
+  position: fixed;
+  left: 0;
+  top: 0;
+  margin-top: 0;
+  border: none;
+  background-color: #14356b;
+  color: white;
+}
+#hamburger-nav:hover{
+  color: #14356b;
+  background-color: #00000094;
+  transform: scale(1.1);
+}
 
 @media screen and (max-width: 900px) {
   #hamburger-nav,
   #add-nav {
     display: block;
-    font-size: 30px;
+    font-size: 20px;
     margin: 10px;
   }
   .box1{
@@ -460,18 +501,40 @@ body {
     width: 100%;
     height: 100vh;
     display: none;
+    overflow: hidden;
   }
   #save-print{
     display: none;
   }
+ #button-container{
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  margin: 10px;
+ }
+ #button-arrow{
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+ }
+ .arrow-back{
+   display: block;
+   margin: 10px;
+ }
   .box2 {
     width: 100%;
-    display: show;
+    overflow: hidden;
+  }
+  #logo-show{
+    display: block;
+  }
+  .none{
+    display: none;
   }
   #search-bar-container{
     width: 100%;
-    height: 40px;
     display: flex;
+    margin-top: 0;
     
   }
     #search-bar{
@@ -481,10 +544,6 @@ body {
   }
 }
 /* box3 */
-.ballt{
-  display: show;
-  z-index: 6;
-}
 .dropbtn {
   background-color: rgba(52, 152, 219, 0);
   color: rgb(82, 80, 80);
@@ -543,7 +602,13 @@ body {
   margin: auto;
   padding: 0;
 }
-
+#counter {
+  border: 1px solid #ccc;
+  border-width: 0px 1px 1px 1px;
+  color: #aaa;
+  padding: 5px 15px;
+  text-align: right;
+}
 @media print {
   .box1, .box2, .ql-toolbar, .new-note, .save-note, .doPrintClass, .buttons, #tag-box, #title{
     display: none !important;

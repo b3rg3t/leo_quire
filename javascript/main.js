@@ -1,12 +1,13 @@
 // LANDING PAGE
 // Show/not show landing page
-let modal = document.getElementById("landing-page");
 
-document.onclick = function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};
+let landingModal = document.getElementById('landing-page');
+// document.onclick = function (event) {
+
+//   if (event.target == landingModal) {
+//     landingModal.style.display = "none";
+//   }
+// }
 
 // Check local storage for previous visit
 function cookieCheck() {
@@ -21,6 +22,43 @@ function cookieCheck() {
   }
 }
 
+//Statistics modal page
+// Get the modal
+let statsModal = document.getElementById('stats-page');
+
+// Get the button that opens the modal
+let statsButton = document.getElementById("stats");
+
+// Get the <span> element that closes the modal
+let span = document.getElementsByClassName("stats-xMark")[0];
+
+// When the user clicks the button, open the modal 
+statsButton.onclick = function () {
+  document.getElementById("notes-counter").innerHTML = loadNotes().length;
+  statsModal.style.display = "block";
+
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+  statsModal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+// document.onclick = function (event) {
+//   if (event.target == statsModal) {
+//     statsModal.style.display = "none";
+//   }
+// }
+
+document.onclick = function (event) {
+  if (event.target == landingModal) {
+    landingModal.style.display = "none";
+  }
+  else if (event.target == statsModal) {
+    statsModal.style.display = "none";
+  }
+}
 // QUILL OPTIONS
 //rubriker, punktlistor, numrerade listor samt göra text kursiv eller fetstil.
 var toolbarOptions = [
@@ -29,7 +67,7 @@ var toolbarOptions = [
   [{ list: "ordered" }, { list: "bullet" }],
   ["link", "image"],
   [{ color: [] }, { background: [] }],
-  [{ 'font': [] }],
+  // [{ 'font': [] }],
   [{ align: [] }]
 ];
 // Loads and configures the Quill editor
@@ -63,17 +101,17 @@ window.onload = function () {
 
 document.getElementById('checkStarred').addEventListener('click', function () {
 
-    if (document.getElementById("checkStarred").checked) {
+  if (document.getElementById("checkStarred").checked) {
 
-      (updateView((note) => (note.star == true)));
-      console.log("Showing starred items");
-      // note = true;
-    } else {
+    (updateView((note) => (note.star == true)));
+    console.log("Showing starred items");
+    // note = true;
+  } else {
 
-      updateView();
-      console.log("Hallå");
-    }
-  });
+    updateView();
+    console.log("Hallå");
+  }
+});
 
 
 function setActiveId(id) {
@@ -92,6 +130,15 @@ function loadToQuill(id) {
   setActiveId(id);
   document.getElementById("title").value = tempStorage.find(loadNote => loadNote.id == id).title;
   document.getElementById("tag-input").value = tempStorage.find(loadNote => loadNote.id == id).tagsPresplit;
+
+
+  for (let i = 0; i < getTemplates().length; i++) {
+    if (document.getElementsByClassName("ql-editor")[0].classList.contains(getTemplates()[i])) {
+      document.getElementsByClassName('ql-editor')[0].classList.remove(getTemplates()[i]);
+    }
+  }
+  document.getElementsByClassName('ql-editor')[0].classList.add(tempStorage.find(loadNote => loadNote.id == id).template);
+  toggleDIV();
 }
 
 function addNote() {
@@ -105,12 +152,13 @@ function addNote() {
   quill.setContents("");
   document.getElementById("tag-input").value = "untagged";
 
+  toggleDIV();
   saveNote();
   updateView();
   console.log(loadNotes());
 }
 
-function saveNote() {
+function saveNote(myTemplate) {
   let tempStorage = loadNotes();
 
   if (loadNotes().length == 0) { //temp workaround for saving without adding a note todo: make simpler solution //jesper
@@ -138,16 +186,15 @@ function saveNote() {
   }
   //For all other cases when user is editing an existing note
   else {
-    tempStorage.find(
-      loadNote => loadNote.id == id
-    ).title = document.getElementById("title").value;
-    tempStorage.find(
-      loadNote => loadNote.id == id
-    ).content = quill.getContents();
+    tempStorage.find(loadNote => loadNote.id == id).title = document.getElementById("title").value;
+    tempStorage.find(loadNote => loadNote.id == id).content = quill.getContents();
     tempStorage.find(loadNote => loadNote.id == id).preview = getPreview();
     tempStorage.find(loadNote => loadNote.id == id).titlePreview = getTitle();
     tempStorage.find(loadNote => loadNote.id == id).tagsPresplit = document.getElementById("tag-input").value;
     tempStorage.find(loadNote => loadNote.id == id).tags = tempStorage.find(loadNote => loadNote.id == id).tagsPresplit.split(",");
+    if (myTemplate != undefined) {
+      tempStorage.find(loadNote => loadNote.id == id).template = myTemplate;
+    }
   }
 
   tempStorage.find(loadNote => loadNote.id == id).date = yyyymmdd();
@@ -212,7 +259,7 @@ function toggleStarred(id) {
   ];
   saveNotes(updatedNotes);
   updateView();
-} 
+}
 // Adds and checks the length of an array. If the length is over 0 - find the highest id. Return id +1.   
 const getAvailID = noteArray => noteArray.length > 0 ? Math.max(...noteArray.map(note => note.id), 0) + 1 : 0;
 
@@ -248,7 +295,7 @@ function updateView(func = () => true) {
     let newPreview = document.createTextNode(note.preview);
     let starButton = document.createElement("button");
     let starButtonText = document.createTextNode("");
-    note.star ? starButton.setAttribute("class", "fas fa-star") : starButton.setAttribute("class", "far fa-star" );
+    note.star ? starButton.setAttribute("class", "fas fa-star") : starButton.setAttribute("class", "far fa-star");
     note.star ? starButton.classList.add("test-star") : starButton.classList.remove("test-star");
 
     let newButton = document.createElement("button");
@@ -286,9 +333,29 @@ function newNote(id) {
   newNote.date = yyyymmdd();
   newNote.preview = getPreview();
   newNote.star = false;
-  newNote.template = defaultTemplate();
+  newNote.template = setTemplate(1);
   return newNote;
 }
+
+function setTemplate(templateNumber) {
+  let newTemplate = "";
+
+  if (getTemplates()[templateNumber - 1] != undefined) {
+    newTemplate = getTemplates()[templateNumber - 1];
+  }
+  else {
+    console.log("The template you tried to load doesn't exist!");
+  }
+
+  return newTemplate;
+}
+
+function getTemplates() {
+  let templates = ["template1", "template2", "template3"];
+
+  return templates;
+}
+
 function yyyymmdd() {
   var x = new Date();
   var y = x.getFullYear().toString();
@@ -324,39 +391,27 @@ document.getElementById("doPrint").addEventListener("click", function () {
 
 });
 //LOAD DIFFERENT TEMPLATES
-                // ANCHORS
-                var stand = document.getElementById('standard');
-                var green = document.getElementById('green');
-                var blue = document.getElementById('blue');
-                var template = document.getElementById('template');
+// ANCHORS
+var stand = document.getElementById('standard');
+var green = document.getElementById('green');
+var blue = document.getElementById('blue');
 
-                // EVENT LISTENERS
-                template.addEventListener('click', function(){
-                  document.getElementsByClassName('dropbtn')[0].value="Template";
-                  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
-                  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
-                  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
-                });
-                stand.addEventListener('click', function(){
-                  document.getElementsByClassName('dropbtn')[0].value="Template 1";
-                  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
-                  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
-                  document.getElementsByClassName('ql-editor')[0].classList.add('template1');
-                });
-                green.addEventListener('click', function(){
-                  document.getElementsByClassName('dropbtn')[0].value="Template 2";
-                  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
-                  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
-                  document.getElementsByClassName('ql-editor')[0].classList.add('template3');
-                });
-                blue.addEventListener('click', function(){
-                  document.getElementsByClassName('dropbtn')[0].value="Template 3";
-                  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
-                  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
-                  document.getElementsByClassName('ql-editor')[0].classList.add('template2');
-                });
 
-function defaultTemplate(){
+
+// EVENT LISTENERS
+stand.addEventListener('click', function () {
+  saveNote(setTemplate(1));
+  loadToQuill(getActiveId());
+});
+blue.addEventListener('click', function () {
+  saveNote(setTemplate(2));
+  loadToQuill(getActiveId());
+});
+green.addEventListener('click', function () {
+  saveNote(setTemplate(3));
+  loadToQuill(getActiveId());
+});
+function defaultTemplate() {
   document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
   document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
   document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
@@ -365,7 +420,7 @@ function defaultTemplate(){
 document.getElementById("nuke-all").addEventListener("click", function (id) {
   message = confirm("Are you sure you want to delete all notes?");
   if (message == true) {
-    localStorage.removeItem("myNotes", JSON.stringify([]));
+    localStorage.removeItem("myNotes");
     console.log("Nuked all notes");
     updateView()
   } else {
@@ -431,9 +486,9 @@ function searchTags(tagString) {
 
     inclusions = tagString.filter(tag => !tag.startsWith("-"));
     exclusions = tagString.filter(tag => tag.startsWith("-"));
-    
+
     for (let i = 0; i < exclusions.length; i++) {
-      exclusions[i] = exclusions[i].replace("-","");
+      exclusions[i] = exclusions[i].replace("-", "");
     }
     console.log("inclusions " + inclusions);
     console.log("exclusions " + exclusions);
@@ -453,7 +508,7 @@ function searchTags(tagString) {
       for (let j = 0; j < exclusions.length; j++) {
         for (let k = 0; k < searchHits[i].tags.length; k++) {
           if (searchList[i].tags[k] == exclusions[j]) {
-            searchHits.splice(i,1);
+            searchHits.splice(i, 1);
             break;
           }
         }
@@ -470,14 +525,115 @@ function searchTags(tagString) {
 
 
 }
-function toggleDIV() {
-  // document.getElementsByClassName("box2")[0].classList.toggle("none");
+//Google charts
+google.charts.load('current', { 'packages': ['corechart'] });
+google.charts.setOnLoadCallback(drawChart);
+
+
+function drawChart() {
+  let currentDate = "";
+  let dateCount = [];
+  let uniqueDates = [];
+  let tempStorage = loadNotes();
+
+
+  for (let i = 0; i < tempStorage.length; i++) {
+    if (tempStorage[i].date != currentDate) {
+      dateCount.push(1);
+      uniqueDates.push(tempStorage[i].date);
+      currentDate = tempStorage[i].date;
+    }
+    else {
+      dateCount[dateCount.length - 1]++;
+    }
+  }
+  console.log(dateCount);
+  console.log(uniqueDates);
+
+  let formattedDate = [];
+  for (let i = 0; i < uniqueDates.length; i++) {
+    formattedDate.push([uniqueDates[i], [dateCount[i]]])
+  }
+  console.log(formattedDate);
+
+
+  let dataArray = [
+
+    [{ label: 'Date', id: 'date' },
+    { label: 'Antal anteckningar', id: localStorage.getItem('myNotes'), type: 'number' },
+    ]
+  ];
+
+  dataArray.splice(1, 0, ...formattedDate);
+  console.log("dataArrays " + dataArray);
+
+
+  let data = google.visualization.arrayToDataTable(dataArray);
+
+  var options = {
+    // width: 1440,
+    // height: 340,
+    hAxis: {
+      title: "Date"
+    },
+    curveType: 'function',
+    legend: {
+      position: 'bottom'
+    },
+    hAxis: {
+      showTextEvery: 1,
+    },
+
+    vAxis: {
+      viewWindow: {
+        max: 30
+      },
+      showTextEvery: 1,
+      minValue: 1,
+      maxValue: 15,
+      showTextEvery: 1,
+      baselineColor: '#DDD',
+      textStyle: {
+        fontSize: 11
+      },
+      title: "Anteckningar",
+    }
+
+  };
+  let chart = new google.visualization.LineChart(document.getElementById('curve-chart'));
+
+  chart.draw(data, options);
+  console.log(data);
+}
+//Statistics page: Number of words in selected note
+Quill.register('modules/counter', function (quill, options) {
+  let container = document.querySelector('#counter');
+  quill.on('text-change', function () {
+    let text = quill.getText();
+    container.innerText = text.split(/\s+/).length - 1;
+  });
+});
+
+var quill = new Quill('#editor', {
+  modules: {
+    counter: true
+  }
+});
+
+function toggleDIV(){
   document.getElementsByClassName("box3")[0].classList.toggle("show");
-  var x = document.getElementsByClassName("box2");
+  document.getElementsByClassName("box2")[0].classList.toggle("none");
+}
+
+function getBack(){
+  document.getElementsByClassName("box2")[0].classList.toggle("none");
+  document.getElementsByClassName("box3")[0].classList.toggle("show");
+}
+document.getElementById("addNote").addEventListener("click", function () {
+  var x = document.getElementById("arrow-back");
   if (x.style.display === "none") {
       x.style.display = "block";
   } else {
       x.style.display = "none";
   }
-  document.getElementsByClassName('box3')[0].classList.add('ballt');
-}
+});
