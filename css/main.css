@@ -529,6 +529,13 @@ body {
   margin: auto;
   padding: 0;
 }
+#counter {
+  border: 1px solid #ccc;
+  border-width: 0px 1px 1px 1px;
+  color: #aaa;
+  padding: 5px 15px;
+  text-align: right;
+}
 @media print {
   .box1, .box2, .ql-toolbar, .new-note, .save-note, .doPrintClass, .buttons, #tag-box, #title{
     display: none !important;
