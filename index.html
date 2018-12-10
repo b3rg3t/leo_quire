@@ -57,7 +57,7 @@
                 <button><i class="fas fa-bars"></i></button>
             </nav>
             <nav id="add-nav">
-                <button title="Create new note">+</button>
+                <button title="Create new note" onclick="toggleDIV()">+</button>
             </nav>
             
             <!-- <h2 id="header">Saved Notes</h2> -->
@@ -102,9 +102,10 @@
             </div>
             <div id="editor">
             </div>
+        <div id="save-print">
             <button class="save-note" onclick="saveNote()" title="Save note"><i class="far fa-save"></i></button>
             <button class="doPrintClass" id="doPrint" title="Print note"><i class="fas fa-print"></i></button>
-
+        </div>
         </div>
 
         <div id="landing-page" class="modal">

@@ -470,3 +470,14 @@ function searchTags(tagString) {
 
 
 }
+function toggleDIV() {
+  // document.getElementsByClassName("box2")[0].classList.toggle("none");
+  // document.getElementsByClassName("box3")[0].classList.toggle("show");
+  var x = document.getElementsByClassName("box2");
+  if (x.style.display === "none") {
+      x.style.display = "block";
+  } else {
+      x.style.display = "none";
+  }
+}
+//   document.getElementsByClassName('box3')[0].classList.add('ballt');
