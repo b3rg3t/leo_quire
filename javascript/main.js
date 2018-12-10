@@ -128,6 +128,14 @@ function loadToQuill(id) {
   setActiveId(id);
   document.getElementById("title").value = tempStorage.find(loadNote => loadNote.id == id).title;
   document.getElementById("tag-input").value = tempStorage.find(loadNote => loadNote.id == id).tagsPresplit;
+
+  
+  for (let i = 0; i < getTemplates().length; i++) {
+    if (document.getElementsByClassName("ql-editor")[0].classList.contains(getTemplates()[i])) {
+      document.getElementsByClassName('ql-editor')[0].classList.remove(getTemplates()[i]);
+    }
+  }
+  document.getElementsByClassName('ql-editor')[0].classList.add(tempStorage.find(loadNote => loadNote.id == id).template);
 }
 
 function addNote() {
@@ -146,7 +154,7 @@ function addNote() {
   console.log(loadNotes());
 }
 
-function saveNote() {
+function saveNote(myTemplate) {
   let tempStorage = loadNotes();
 
   if (loadNotes().length == 0) { //temp workaround for saving without adding a note todo: make simpler solution //jesper
@@ -174,16 +182,15 @@ function saveNote() {
   }
   //For all other cases when user is editing an existing note
   else {
-    tempStorage.find(
-      loadNote => loadNote.id == id
-    ).title = document.getElementById("title").value;
-    tempStorage.find(
-      loadNote => loadNote.id == id
-    ).content = quill.getContents();
+    tempStorage.find(loadNote => loadNote.id == id).title = document.getElementById("title").value;
+    tempStorage.find(loadNote => loadNote.id == id).content = quill.getContents();
     tempStorage.find(loadNote => loadNote.id == id).preview = getPreview();
     tempStorage.find(loadNote => loadNote.id == id).titlePreview = getTitle();
     tempStorage.find(loadNote => loadNote.id == id).tagsPresplit = document.getElementById("tag-input").value;
     tempStorage.find(loadNote => loadNote.id == id).tags = tempStorage.find(loadNote => loadNote.id == id).tagsPresplit.split(",");
+    if (myTemplate != undefined) {
+      tempStorage.find(loadNote => loadNote.id == id).template = myTemplate;
+    } 
   }
 
   tempStorage.find(loadNote => loadNote.id == id).date = yyyymmdd();
@@ -322,9 +329,29 @@ function newNote(id) {
   newNote.date = yyyymmdd();
   newNote.preview = getPreview();
   newNote.star = false;
-  newNote.template = defaultTemplate();
+  newNote.template = setTemplate(1);
   return newNote;
 }
+
+function setTemplate(templateNumber) {
+  let newTemplate ="";
+
+  if (getTemplates()[templateNumber - 1] != undefined) {
+    newTemplate = getTemplates()[templateNumber - 1];
+  }
+  else{
+    console.log("The template you tried to load doesn't exist!");
+  }
+
+  return newTemplate;
+}
+
+function getTemplates() {
+  let templates = ["template1","template2","template3"];
+  
+  return templates;
+}
+
 function yyyymmdd() {
   var x = new Date();
   var y = x.getFullYear().toString();
@@ -360,39 +387,27 @@ document.getElementById("doPrint").addEventListener("click", function () {
 
 });
 //LOAD DIFFERENT TEMPLATES
-// ANCHORS
-var stand = document.getElementById('standard');
-var green = document.getElementById('green');
-var blue = document.getElementById('blue');
-var template = document.getElementById('template');
+                // ANCHORS
+                var stand = document.getElementById('standard');
+                var green = document.getElementById('green');
+                var blue = document.getElementById('blue');
 
-// EVENT LISTENERS
-template.addEventListener('click', function () {
-  document.getElementsByClassName('dropbtn')[0].value = "Template";
-  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
-  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
-  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
-});
-stand.addEventListener('click', function () {
-  document.getElementsByClassName('dropbtn')[0].value = "Template 1";
-  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
-  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
-  document.getElementsByClassName('ql-editor')[0].classList.add('template1');
-});
-green.addEventListener('click', function () {
-  document.getElementsByClassName('dropbtn')[0].value = "Template 2";
-  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
-  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
-  document.getElementsByClassName('ql-editor')[0].classList.add('template3');
-});
-blue.addEventListener('click', function () {
-  document.getElementsByClassName('dropbtn')[0].value = "Template 3";
-  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
-  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
-  document.getElementsByClassName('ql-editor')[0].classList.add('template2');
-});
 
-function defaultTemplate() {
+
+                // EVENT LISTENERS
+                stand.addEventListener('click', function(){
+                  saveNote(setTemplate(1));
+                  loadToQuill(getActiveId());
+                });
+                blue.addEventListener('click', function(){
+                  saveNote(setTemplate(2));
+                  loadToQuill(getActiveId());
+                });
+                green.addEventListener('click', function(){
+                  saveNote(setTemplate(3));
+                  loadToQuill(getActiveId());
+                });
+function defaultTemplate(){
   document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
   document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
   document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
