@@ -27,14 +27,16 @@ function cookieCheck() {
 let statsModal = document.getElementById('stats-page');
 
 // Get the button that opens the modal
-let btn = document.getElementById("stats");
+let statsButton = document.getElementById("stats");
 
 // Get the <span> element that closes the modal
 let span = document.getElementsByClassName("stats-xMark")[0];
 
 // When the user clicks the button, open the modal 
-btn.onclick = function () {
+statsButton.onclick = function () {
+  document.getElementById("notes-counter").innerHTML = loadNotes().length;
   statsModal.style.display = "block";
+
 }
 
 // When the user clicks on <span> (x), close the modal
@@ -129,7 +131,7 @@ function loadToQuill(id) {
   document.getElementById("title").value = tempStorage.find(loadNote => loadNote.id == id).title;
   document.getElementById("tag-input").value = tempStorage.find(loadNote => loadNote.id == id).tagsPresplit;
 
-  
+
   for (let i = 0; i < getTemplates().length; i++) {
     if (document.getElementsByClassName("ql-editor")[0].classList.contains(getTemplates()[i])) {
       document.getElementsByClassName('ql-editor')[0].classList.remove(getTemplates()[i]);
@@ -190,7 +192,7 @@ function saveNote(myTemplate) {
     tempStorage.find(loadNote => loadNote.id == id).tags = tempStorage.find(loadNote => loadNote.id == id).tagsPresplit.split(",");
     if (myTemplate != undefined) {
       tempStorage.find(loadNote => loadNote.id == id).template = myTemplate;
-    } 
+    }
   }
 
   tempStorage.find(loadNote => loadNote.id == id).date = yyyymmdd();
@@ -334,12 +336,12 @@ function newNote(id) {
 }
 
 function setTemplate(templateNumber) {
-  let newTemplate ="";
+  let newTemplate = "";
 
   if (getTemplates()[templateNumber - 1] != undefined) {
     newTemplate = getTemplates()[templateNumber - 1];
   }
-  else{
+  else {
     console.log("The template you tried to load doesn't exist!");
   }
 
@@ -347,8 +349,8 @@ function setTemplate(templateNumber) {
 }
 
 function getTemplates() {
-  let templates = ["template1","template2","template3"];
-  
+  let templates = ["template1", "template2", "template3"];
+
   return templates;
 }
 
@@ -387,27 +389,27 @@ document.getElementById("doPrint").addEventListener("click", function () {
 
 });
 //LOAD DIFFERENT TEMPLATES
-                // ANCHORS
-                var stand = document.getElementById('standard');
-                var green = document.getElementById('green');
-                var blue = document.getElementById('blue');
+// ANCHORS
+var stand = document.getElementById('standard');
+var green = document.getElementById('green');
+var blue = document.getElementById('blue');
 
 
 
-                // EVENT LISTENERS
-                stand.addEventListener('click', function(){
-                  saveNote(setTemplate(1));
-                  loadToQuill(getActiveId());
-                });
-                blue.addEventListener('click', function(){
-                  saveNote(setTemplate(2));
-                  loadToQuill(getActiveId());
-                });
-                green.addEventListener('click', function(){
-                  saveNote(setTemplate(3));
-                  loadToQuill(getActiveId());
-                });
-function defaultTemplate(){
+// EVENT LISTENERS
+stand.addEventListener('click', function () {
+  saveNote(setTemplate(1));
+  loadToQuill(getActiveId());
+});
+blue.addEventListener('click', function () {
+  saveNote(setTemplate(2));
+  loadToQuill(getActiveId());
+});
+green.addEventListener('click', function () {
+  saveNote(setTemplate(3));
+  loadToQuill(getActiveId());
+});
+function defaultTemplate() {
   document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
   document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
   document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
