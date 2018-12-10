@@ -400,18 +400,23 @@ var blue = document.getElementById('blue');
 
 // EVENT LISTENERS
 stand.addEventListener('click', function () {
+  document.getElementById("drop").value="Template 1"; 
   saveNote(setTemplate(1));
   loadToQuill(getActiveId());
 });
-blue.addEventListener('click', function () {
-  saveNote(setTemplate(2));
-  loadToQuill(getActiveId());
-});
-green.addEventListener('click', function () {
+  green.addEventListener('click', function () {
+  document.getElementById("drop").value="Template 2"; 
   saveNote(setTemplate(3));
   loadToQuill(getActiveId());
 });
+blue.addEventListener('click', function () {
+  document.getElementById("drop").value="Template 3"; 
+  saveNote(setTemplate(2));
+  loadToQuill(getActiveId());
+});
+
 function defaultTemplate() {
+  document.getElementById("drop").value="Template"; 
   document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
   document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
   document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
@@ -428,7 +433,7 @@ document.getElementById("nuke-all").addEventListener("click", function (id) {
   }
 });
 // DROPDOWN FUNCTIONS
-function myFunction() {
+function myDropdown() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
 window.onclick = function (event) {

@@ -4,6 +4,7 @@ html {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  overflow: hidden;
 }
 body {
   margin: 0;
@@ -113,7 +114,7 @@ body {
 #search-bar-container{
   width: 100%;
   height: 30px;
-  margin-top: 10px;
+  margin-top: 11px;
   display: flex;
 } 
   #search-bar{
@@ -180,8 +181,6 @@ body {
   background-color: #f7eb9b;
 }
 #notes button {
-  /* margin-top: 10px; */
-  /* align-self: flex-end; */
   margin-top: 10px;
   margin-left: auto;
   order: 2;
@@ -218,13 +217,7 @@ body {
 .test-star::before {
   color: gold;
  }
-/* ::-webkit-scrollbar {
-  display: hidden;
-  overflow-x: hidden;
-  width: 0px;
-} */
 
-/* width */
 ::-webkit-scrollbar:hover {
   width: 10px;
 }
@@ -236,12 +229,10 @@ body {
 /* Track */
 ::-webkit-scrollbar-track {
   background-color: white;
-  /* background: white; */
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  /* background-color: rgba(255, 255, 255, 0.342); */
   background-color: #1c6ea46e;
   border-radius: 1px;
 }
@@ -275,9 +266,7 @@ body {
 }
 #tag-box {
   float: right;
-  width: 25%;
   margin-top: 10px;
-  /* margin-right: 10px; */
 }
 #tag-title {
   font-family: 'Playfair Display';
@@ -286,7 +275,6 @@ body {
 }
 
 #title:focus {
-  /* background-color: rgba(255, 255, 255, 0.5); */
   outline: none;
   text-decoration: none;
 }
@@ -301,36 +289,30 @@ body {
   max-width: 100%;
   min-width: 300px;
 }
-.template{
-
-}
 .template1{
-  /* background-image: url(/picture/plant-green-blue-background-garden-158676.jpeg); */
   font-family: sans-serif;
   color: black;
 }
 .template2{
-  /* background-color: #1b06dd; */
   font-family: monospace;
   color: blue;
   font-size: 16px;
 }
 .template3{
-  /* background-color: #38dd06; */
   font-family: serif;
   color: green;
   font-size: 16px;
 }
-.template1 h1, h2, h3 ,h4{
+/* .template1 h1, h2, h3 ,h4{
   font-family: "Playfair Display"; 
   text-align: center;
-}/*
+}
 .template2 h1, h2, h3 ,h4{
   font-family: "Gentium+Book+Basic"; 
 }
 .template3 h1, h2, h3 ,h4{
   font-family: "Playfair Display"; 
-} */ 
+} */
  #checkStarred{
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -358,6 +340,8 @@ body {
   margin: 5px;
   transition: transform 0.25s ease-out;
   font-size: 30px;
+  text-shadow: 2px 2px 2px rgb(0, 0, 0);
+  border: 1px solid white;
 }
 .save-note:hover {
   color: #14356b;
@@ -377,6 +361,7 @@ body {
   transition: transform 0.25s ease-out;
   font-size: 30px;  
   display: none;
+  text-shadow: 2px 2px 2px rgb(0, 0, 0);
 }
 .arrow-back:hover {
   color: #14356b;
@@ -385,9 +370,10 @@ body {
 }
 
 #doPrint {
+  text-shadow: 2px 2px 2px rgb(0, 0, 0);
   border-radius: 50%;
   background-color: #000000;
-  border: none;
+  border: 1px solid white;
   color: rgb(255, 255, 255);
   padding: 11px;
   text-align: center;
@@ -486,12 +472,18 @@ body {
   transform: scale(1.1);
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1025px) {
   #hamburger-nav,
   #add-nav {
     display: block;
     font-size: 20px;
     margin: 10px;
+  }
+  #copyright {
+    background-color: #14356b;
+    margin-top: 0;
+    padding-top: 1%;
+    padding-bottom: 50%;
   }
   .box1{
     display: none;
@@ -503,9 +495,14 @@ body {
     display: none;
     overflow: hidden;
   }
-  #save-print{
-    display: none;
-  }
+#hidden-buttons{
+  background-color: #14356b;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  height: 90px;
+}
  #button-container{
   position: fixed;
   bottom: 0px;
@@ -516,10 +513,12 @@ body {
   position: fixed;
   bottom: 0px;
   left: 0px;
+  margin: 5px;
  }
  .arrow-back{
    display: block;
    margin: 10px;
+   border: 1px solid white;
  }
   .box2 {
     width: 100%;
@@ -527,6 +526,7 @@ body {
   }
   #logo-show{
     display: block;
+    border-bottom: 2px solid white;
   }
   .none{
     display: none;
@@ -534,8 +534,7 @@ body {
   #search-bar-container{
     width: 100%;
     display: flex;
-    margin-top: 0;
-    
+    padding-top: 10px;
   }
     #search-bar{
       width: 90%;
