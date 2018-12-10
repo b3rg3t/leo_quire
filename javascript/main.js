@@ -85,7 +85,18 @@ window.onload = function () {
   }
 };
 
+document.getElementById('showStarred').addEventListener('click', function(){
+  if (document.getElementById("showStarred").checked) {
 
+    (updateView((note) => (note.star == true)));
+    console.log("Showing starred items");
+    // note = true;
+  } else {
+
+    updateView();
+    console.log("Hallå");
+  }
+});
 
 document.getElementById('checkStarred').addEventListener('click', function () {
 
@@ -567,3 +578,12 @@ function drawChart() {
   chart.draw(data, options);
   console.log(data);
 }
+let hamburgerButton = document.querySelector(".hamburger-button");
+hamburgerButton.addEventListener("click", function(){
+  var x = document.querySelector(".hamburger-cont");
+    if (x.style.display === "block") {
+        x.style.display = "none";
+    } else {
+        x.style.display = "block";
+    }
+});

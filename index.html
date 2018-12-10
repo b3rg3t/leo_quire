@@ -55,7 +55,15 @@
         </div>
         <div class="box2">
             <nav id="hamburger-nav">
-                <button><i class="fas fa-bars"></i></button>
+                <button class="hamburger-button"><i class="fas fa-bars"></i></button>
+                <div class="hamburger-cont">
+                    <ul>
+                        <li><input type="checkbox" id="showStarred" class="nav-button fas fa-star" title="Favorite"></li>
+                        <li><button class="nav-button" title="Stats"><i class="fas fa-chart-bar"></i></button></li>
+                        <li><button class="nav-button" title="Settings"><i class="fas fa-cog"></i></button></li>
+                        <li><button class="nav-button" title="Delete all" id="nuke-all"><i class="far fa-trash-alt"></i></button></li>
+                    </ul>   
+                </div>
             </nav>
             <nav id="add-nav">
                 <button title="Create new note">+</button>

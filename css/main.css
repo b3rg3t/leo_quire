@@ -351,6 +351,20 @@ body {
   color: gold;
 }
 
+#showStarred{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: 20px;
+  text-decoration: none;
+  color: white;
+  text-shadow: 2px 2px 2px rgb(0, 0, 0);
+  transition: transform 0.25s ease-out;
+}
+#showStarred:checked {
+color: gold;
+}
+
 .save-note {
   border-radius: 50%;
   background-color: #f87000;
@@ -446,13 +460,33 @@ body {
 }
 
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 768px) {
   #hamburger-nav,
   #add-nav {
     display: block;
     font-size: 30px;
     margin: 10px;
   }
+  
+.hamburger-button{
+  border: none;
+  background-color: #006cf800;
+  font-size: 20px;
+}
+#hamburger-nav{
+  width: 100%;
+
+}
+.hamburger-cont{
+  display: none;
+  width: 100%;
+  background-color: #14356bcc;
+  margin-left: -10px;
+  padding:20px; 
+}
+.hamburger-cont ul{
+  list-style-type: none;
+}
   .box1,
   .box3 {
     display: none;
