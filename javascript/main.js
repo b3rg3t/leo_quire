@@ -1,12 +1,13 @@
 // LANDING PAGE
 // Show/not show landing page
-let modal = document.getElementById("landing-page");
 
-document.onclick = function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};
+let landingModal = document.getElementById('landing-page');
+// document.onclick = function (event) {
+
+//   if (event.target == landingModal) {
+//     landingModal.style.display = "none";
+//   }
+// }
 
 // Check local storage for previous visit
 function cookieCheck() {
@@ -23,13 +24,13 @@ function cookieCheck() {
 
 //Statistics modal page
 // Get the modal
-var statsModal = document.getElementById('stats-page');
+let statsModal = document.getElementById('stats-page');
 
 // Get the button that opens the modal
-var btn = document.getElementById("stats");
+let btn = document.getElementById("stats");
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("xMark")[0];
+let span = document.getElementsByClassName("stats-xMark")[0];
 
 // When the user clicks the button, open the modal 
 btn.onclick = function () {
@@ -42,8 +43,17 @@ span.onclick = function () {
 }
 
 // When the user clicks anywhere outside of the modal, close it
+// document.onclick = function (event) {
+//   if (event.target == statsModal) {
+//     statsModal.style.display = "none";
+//   }
+// }
+
 document.onclick = function (event) {
-  if (event.target == statsModal) {
+  if (event.target == landingModal) {
+    landingModal.style.display = "none";
+  }
+  else if (event.target == statsModal) {
     statsModal.style.display = "none";
   }
 }
@@ -593,3 +603,4 @@ var quill = new Quill('#editor', {
 
 //Statistics page: Total number of notes. 
 document.getElementById("notes-counter").innerHTML = loadNotes().length;
+
