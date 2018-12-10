@@ -1,12 +1,13 @@
 // LANDING PAGE
 // Show/not show landing page
-let modal = document.getElementById("landing-page");
 
-document.onclick = function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};
+let landingModal = document.getElementById('landing-page');
+// document.onclick = function (event) {
+
+//   if (event.target == landingModal) {
+//     landingModal.style.display = "none";
+//   }
+// }
 
 // Check local storage for previous visit
 function cookieCheck() {
@@ -23,17 +24,19 @@ function cookieCheck() {
 
 //Statistics modal page
 // Get the modal
-var statsModal = document.getElementById('stats-page');
+let statsModal = document.getElementById('stats-page');
 
 // Get the button that opens the modal
-var btn = document.getElementById("stats");
+let statsButton = document.getElementById("stats");
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("xMark")[0];
+let span = document.getElementsByClassName("stats-xMark")[0];
 
 // When the user clicks the button, open the modal 
-btn.onclick = function () {
+statsButton.onclick = function () {
+  document.getElementById("notes-counter").innerHTML = loadNotes().length;
   statsModal.style.display = "block";
+
 }
 
 // When the user clicks on <span> (x), close the modal
@@ -42,8 +45,17 @@ span.onclick = function () {
 }
 
 // When the user clicks anywhere outside of the modal, close it
+// document.onclick = function (event) {
+//   if (event.target == statsModal) {
+//     statsModal.style.display = "none";
+//   }
+// }
+
 document.onclick = function (event) {
-  if (event.target == statsModal) {
+  if (event.target == landingModal) {
+    landingModal.style.display = "none";
+  }
+  else if (event.target == statsModal) {
     statsModal.style.display = "none";
   }
 }
@@ -130,7 +142,7 @@ function loadToQuill(id) {
   document.getElementById("title").value = tempStorage.find(loadNote => loadNote.id == id).title;
   document.getElementById("tag-input").value = tempStorage.find(loadNote => loadNote.id == id).tagsPresplit;
 
-  
+
   for (let i = 0; i < getTemplates().length; i++) {
     if (document.getElementsByClassName("ql-editor")[0].classList.contains(getTemplates()[i])) {
       document.getElementsByClassName('ql-editor')[0].classList.remove(getTemplates()[i]);
@@ -189,7 +201,9 @@ function saveNote(myTemplate) {
     tempStorage.find(loadNote => loadNote.id == id).titlePreview = getTitle();
     tempStorage.find(loadNote => loadNote.id == id).tagsPresplit = document.getElementById("tag-input").value;
     tempStorage.find(loadNote => loadNote.id == id).tags = tempStorage.find(loadNote => loadNote.id == id).tagsPresplit.split(",");
-    tempStorage.find(loadNote => loadNote.id == id).template = myTemplate;
+    if (myTemplate != undefined) {
+      tempStorage.find(loadNote => loadNote.id == id).template = myTemplate;
+    }
   }
 
   tempStorage.find(loadNote => loadNote.id == id).date = yyyymmdd();
@@ -333,12 +347,12 @@ function newNote(id) {
 }
 
 function setTemplate(templateNumber) {
-  let newTemplate ="";
+  let newTemplate = "";
 
   if (getTemplates()[templateNumber - 1] != undefined) {
     newTemplate = getTemplates()[templateNumber - 1];
   }
-  else{
+  else {
     console.log("The template you tried to load doesn't exist!");
   }
 
@@ -346,8 +360,8 @@ function setTemplate(templateNumber) {
 }
 
 function getTemplates() {
-  let templates = ["template1","template2","template3"];
-  
+  let templates = ["template1", "template2", "template3"];
+
   return templates;
 }
 
@@ -386,27 +400,27 @@ document.getElementById("doPrint").addEventListener("click", function () {
 
 });
 //LOAD DIFFERENT TEMPLATES
-                // ANCHORS
-                var stand = document.getElementById('standard');
-                var green = document.getElementById('green');
-                var blue = document.getElementById('blue');
+// ANCHORS
+var stand = document.getElementById('standard');
+var green = document.getElementById('green');
+var blue = document.getElementById('blue');
 
 
 
-                // EVENT LISTENERS
-                stand.addEventListener('click', function(){
-                  saveNote(setTemplate(1));
-                  loadToQuill(getActiveId());
-                });
-                blue.addEventListener('click', function(){
-                  saveNote(setTemplate(2));
-                  loadToQuill(getActiveId());
-                });
-                green.addEventListener('click', function(){
-                  saveNote(setTemplate(3));
-                  loadToQuill(getActiveId());
-                });
-function defaultTemplate(){
+// EVENT LISTENERS
+stand.addEventListener('click', function () {
+  saveNote(setTemplate(1));
+  loadToQuill(getActiveId());
+});
+blue.addEventListener('click', function () {
+  saveNote(setTemplate(2));
+  loadToQuill(getActiveId());
+});
+green.addEventListener('click', function () {
+  saveNote(setTemplate(3));
+  loadToQuill(getActiveId());
+});
+function defaultTemplate() {
   document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
   document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
   document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
@@ -524,6 +538,7 @@ function searchTags(tagString) {
 google.charts.load('current', { 'packages': ['corechart'] });
 google.charts.setOnLoadCallback(drawChart);
 
+
 function drawChart() {
   let currentDate = "";
   let dateCount = [];
@@ -565,15 +580,36 @@ function drawChart() {
   let data = google.visualization.arrayToDataTable(dataArray);
 
   var options = {
-    width: 700,
-    height: 440,
-    title: 'Antal anteckningar',
+    // width: 1440,
+    // height: 340,
+    hAxis: {
+      title: "Date"
+    },
     curveType: 'function',
-    legend: { position: 'bottom' }
+    legend: {
+      position: 'bottom'
+    },
+    hAxis: {
+      showTextEvery: 1,
+    },
+
+    vAxis: {
+      viewWindow: {
+        max: 30
+      },
+      showTextEvery: 1,
+      minValue: 1,
+      maxValue: 15,
+      showTextEvery: 1,
+      baselineColor: '#DDD',
+      textStyle: {
+        fontSize: 11
+      },
+      title: "Anteckningar",
+    }
 
   };
-
-  var chart = new google.visualization.LineChart(document.getElementById('curve-chart'));
+  let chart = new google.visualization.LineChart(document.getElementById('curve-chart'));
 
   chart.draw(data, options);
   console.log(data);
@@ -587,3 +623,21 @@ hamburgerButton.addEventListener("click", function(){
         x.style.display = "block";
     }
 });
+//Statistics page: Number of words in selected note
+Quill.register('modules/counter', function (quill, options) {
+  let container = document.querySelector('#counter');
+  quill.on('text-change', function () {
+    let text = quill.getText();
+    container.innerText = text.split(/\s+/).length - 1;
+  });
+});
+
+var quill = new Quill('#editor', {
+  modules: {
+    counter: true
+  }
+});
+
+//Statistics page: Total number of notes. 
+document.getElementById("notes-counter").innerHTML = loadNotes().length;
+
