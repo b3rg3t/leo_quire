@@ -21,7 +21,12 @@ function cookieCheck() {
     return;
   }
 }
-
+// When the user clicks the button, open the modal from hamburger dropdown
+let statsButtonH = document.getElementById("stats-ham");
+statsButtonH.onclick = function () {
+  document.getElementById("notes-counter").innerHTML = loadNotes().length;
+  statsModal.style.display = "block";
+}
 //Statistics modal page
 // Get the modal
 let statsModal = document.getElementById('stats-page');
@@ -109,7 +114,7 @@ document.getElementById('showStarred').addEventListener('click', function(){
     console.log("Hallå");
   }
 });
-
+/* Go to favorits from hamburger dropdown */
 document.getElementById('checkStarred').addEventListener('click', function () {
 
   if (document.getElementById("checkStarred").checked) {
@@ -427,6 +432,17 @@ function defaultTemplate() {
 }
 //DELETE ALL NOTES
 document.getElementById("nuke-all").addEventListener("click", function (id) {
+  message = confirm("Are you sure you want to delete all notes?");
+  if (message == true) {
+    localStorage.removeItem("myNotes", JSON.stringify([]));
+    console.log("Nuked all notes");
+    updateView()
+  } else {
+    console.log("Cancel");
+  }
+});
+//DELETE ALL NOTES fron hamburger dropdown
+document.getElementById("nukes-all").addEventListener("click", function (id) {
   message = confirm("Are you sure you want to delete all notes?");
   if (message == true) {
     localStorage.removeItem("myNotes", JSON.stringify([]));
