@@ -86,7 +86,7 @@ window.onload = function () {
   })
 
   document.getElementById("tag-search").addEventListener("change", function () {
-    this.checked ? document.getElementById("search-bar").placeholder = "Ex: work,-boring" : document.getElementById("search-bar").placeholder = "Search by title or content";
+    this.checked ? document.getElementById("search-bar").placeholder = "Ex: work,-boring" : document.getElementById("search-bar").placeholder = "Search..";
   });
 
   cookieCheck();
@@ -316,8 +316,8 @@ function updateView(func = () => true) {
     newDiv.appendChild(pPreview);
     newDiv.appendChild(pDate);
     newButton.id = "btn" + note.id;
-    newButton.title = "Delete note";
-
+    newButton.title = "Delete Note";
+    starButton.title = "Select Favorite"
     let currentSection = document.getElementById("notes");
     currentSection.appendChild(newDiv);
   })
@@ -634,11 +634,3 @@ function getBack(){
   document.getElementsByClassName("box2")[0].classList.toggle("none");
   document.getElementsByClassName("box3")[0].classList.toggle("show");
 }
-document.getElementById("addNote").addEventListener("click", function () {
-  var x = document.getElementById("arrow-back");
-  if (x.style.display === "none") {
-      x.style.display = "block";
-  } else {
-      x.style.display = "none";
-  }
-});
