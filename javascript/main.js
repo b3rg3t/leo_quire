@@ -83,7 +83,7 @@ window.onload = function () {
   //Setting Event Listeners
   document.getElementById("search-bar").addEventListener("input", function () {
     updateView();
-  })
+  });
 
   document.getElementById("tag-search").addEventListener("change", function () {
     this.checked ? document.getElementById("search-bar").placeholder = "Ex: work,-boring" : document.getElementById("search-bar").placeholder = "Search..";
@@ -112,6 +112,19 @@ document.getElementById('checkStarred').addEventListener('click', function () {
     console.log("Hallå");
   }
 });
+document.getElementById('checkStarred1').addEventListener('click', function () {
+
+  if (document.getElementById("checkStarred1").checked) {
+
+    (updateView((note) => (note.star == true)));
+    console.log("Showing starred items");
+    // note = true;
+  } else {
+
+    updateView();
+    console.log("Hallå");
+  }
+});
 
 
 function setActiveId(id) {
@@ -125,20 +138,24 @@ function getActiveId() {
 
 // Loads a specific note from local storage to the editor
 function loadToQuill(id) {
-  let tempStorage = loadNotes();
-  quill.setContents(tempStorage.find(loadNote => loadNote.id == id).content);
-  setActiveId(id);
-  document.getElementById("title").value = tempStorage.find(loadNote => loadNote.id == id).title;
-  document.getElementById("tag-input").value = tempStorage.find(loadNote => loadNote.id == id).tagsPresplit;
-
-
-  for (let i = 0; i < getTemplates().length; i++) {
-    if (document.getElementsByClassName("ql-editor")[0].classList.contains(getTemplates()[i])) {
-      document.getElementsByClassName('ql-editor')[0].classList.remove(getTemplates()[i]);
+  // e = window.event || e; 
+  if(event.target.tagName != 'BUTTON') {
+    let tempStorage = loadNotes();
+    quill.setContents(tempStorage.find(loadNote => loadNote.id == id).content);
+    setActiveId(id);
+    document.getElementById("title").value = tempStorage.find(loadNote => loadNote.id == id).title;
+    document.getElementById("tag-input").value = tempStorage.find(loadNote => loadNote.id == id).tagsPresplit;
+  
+  
+    for (let i = 0; i < getTemplates().length; i++) {
+      if (document.getElementsByClassName("ql-editor")[0].classList.contains(getTemplates()[i])) {
+        document.getElementsByClassName('ql-editor')[0].classList.remove(getTemplates()[i]);
+      }
     }
+    document.getElementsByClassName('ql-editor')[0].classList.add(tempStorage.find(loadNote => loadNote.id == id).template);
+    toggleDIV();
   }
-  document.getElementsByClassName('ql-editor')[0].classList.add(tempStorage.find(loadNote => loadNote.id == id).template);
-  toggleDIV();
+
 }
 
 function addNote() {
@@ -157,7 +174,10 @@ function addNote() {
   updateView();
   console.log(loadNotes());
 }
-
+document.getElementsByClassName('save-note')[0].addEventListener('click' , function(){
+  saveNote();
+  toggleDIV();
+});
 function saveNote(myTemplate) {
   let tempStorage = loadNotes();
 
@@ -260,6 +280,7 @@ function toggleStarred(id) {
   saveNotes(updatedNotes);
   updateView();
 }
+
 // Adds and checks the length of an array. If the length is over 0 - find the highest id. Return id +1.   
 const getAvailID = noteArray => noteArray.length > 0 ? Math.max(...noteArray.map(note => note.id), 0) + 1 : 0;
 
@@ -448,8 +469,11 @@ window.onclick = function (event) {
     }
   }
 }
-
-
+function myHamburger() {
+  console.log('hej')
+  document.getElementsByClassName('myHam')[0].classList.toggle("show");
+  document.getElementsByClassName('myHam')[1].classList.toggle("show");
+}
 
 function searchContent(searchTerm) {
   let searchList = loadNotes();
@@ -624,13 +648,16 @@ var quill = new Quill('#editor', {
     counter: true
   }
 });
+function getBack(){
+  document.getElementsByClassName("box2")[0].classList.toggle("none");
+  document.getElementsByClassName("box3")[0].classList.toggle("show");
+}
 
 function toggleDIV(){
   document.getElementsByClassName("box3")[0].classList.toggle("show");
   document.getElementsByClassName("box2")[0].classList.toggle("none");
 }
 
-function getBack(){
-  document.getElementsByClassName("box2")[0].classList.toggle("none");
-  document.getElementsByClassName("box3")[0].classList.toggle("show");
-}
+document.addEventListener('click' , function(){
+  console.log(event.target.tagName);
+});
