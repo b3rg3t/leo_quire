@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- SEO META -->
-    <title>Leo Quire</title>
+    <title>Quire</title>
     <meta name="description" content="fill in description">
     <!-- Main CSS -->
     <link rel="stylesheet" type="text/css" href="css/main.css" />
@@ -54,7 +54,7 @@
             </nav>
         </div>
         <div class="box2">
-            <nav id="hamburger-nav">
+          <!--   <nav id="hamburger-nav">
                 <button class="hamburger-button"><i class="fas fa-bars"></i></button>
                 <div class="hamburger-cont">
                     <ul>
@@ -64,15 +64,21 @@
                         <li><button class="nav-button" title="Delete all" id="nukes-all"><i class="far fa-trash-alt"></i> Delete all notes</button></li>
                     </ul>   
                 </div>
-            </nav>
+            </nav> -->
            <!--  <nav id="add-nav">
                 <button title="Create new note">+</button>
             </nav> -->
 
+            <div id="logo-show">
+                <nav>
+                    <button id="hamburger-nav" title="Navigation"><i class="fas fa-bars"></i></button>
+                </nav>  
+                <span>Quire</span>
+            </div>
             <!-- <h2 id="header">Saved Notes</h2> -->
             <div id="search-bar-container">
                 <i class="fas fa-search"></i>
-                <input type="text" id="search-bar" placeholder="Search by title or content">
+                <input type="text" id="search-bar" placeholder="Search...">
                 <button class="new-note" onclick="addNote()" title="New Note">+</button>
                 <!-- <button id="search-button">Go</button> -->
             </div>
@@ -90,14 +96,19 @@
             </div>
         </div>
         <div class="box3">
+                <div id="logo-show">
+                        <nav>
+                                <button id="hamburger-nav" title="Navigation"><i class="fas fa-bars"></i></button>
+                        </nav>  
+                        <span>Quire</span>
+                    </div>
             <!-- Div for Quill editor, set placeholder text from js -->
             <div id="title-box">
                 <input id="title" type="text" placeholder="Title..." value="">
                 <div class="dropdown">
-                    <input onclick="myFunction()" type="button" value="Template" class="dropbtn"><i class="fas fa-sort"></i>
-                    <!-- <button onclick="myFunction()" class="dropbtn">Template <i class="fas fa-sort"></i></button> -->
+                    <input onclick="myDropdown()" type="button" value="Template" class="dropbtn" id="drop"><i class="fas fa-sort"></i>
                     <div id="myDropdown" class="dropdown-content">
-                        <button id="template">Template</button>
+                        <button id="template" onclick="defaultTemplate()">Template</button>
                         <button id="standard">Template 1</button>
                         <button id="green">Template 2</button>
                         <button id="blue">Template 3</button>
@@ -106,15 +117,21 @@
                 <div id="tag-box">
                     <span id="tag-title">Tags:</span>
                     <input id="tag-input" type="text" placeholder="Enter tags separated by ','">
-
                 </div>
             </div>
             <div id="editor">
             </div>
-
+    <div id="hidden-buttons">
+        <p></p> 
+        <div id="button-arrow"> 
+         <button class="arrow-back" onclick="getBack()" title="Saved Notes"><i class="fas fa-arrow-left"></i></button>
+        </div>
+         <div id="button-container">  
             <button class="save-note" onclick="saveNote()" title="Save note"><i class="far fa-save"></i></button>
             <button class="doPrintClass" id="doPrint" title="Print note"><i class="fas fa-print"></i></button>
-
+        </div>
+    </div>    
+        </div>
         </div>
 
         <div id="stats-page" class="stats-modal">

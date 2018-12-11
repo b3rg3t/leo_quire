@@ -4,6 +4,7 @@ html {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  overflow: hidden;
 }
 body {
   margin: 0;
@@ -96,11 +97,7 @@ body {
 .nav-button:hover {
   transform: scale(1.2);
 }
-#hamburger-nav {
-  display: none;
-  position: absolute;
-  padding-top: 8px;
-}
+
 #add-nav {
   display: none;
   float: right;
@@ -112,7 +109,6 @@ body {
   height: 100%;
   background: #1c6ea485;
   box-shadow: 2px 0px 5px grey;
-
 }
 #search-bar-container{
   width: 100%;
@@ -184,8 +180,6 @@ body {
   background-color: #f7eb9b;
 }
 #notes button {
-  /* margin-top: 10px; */
-  /* align-self: flex-end; */
   margin-top: 10px;
   margin-left: auto;
   order: 2;
@@ -222,13 +216,7 @@ body {
 .test-star::before {
   color: gold;
  }
-/* ::-webkit-scrollbar {
-  display: hidden;
-  overflow-x: hidden;
-  width: 0px;
-} */
 
-/* width */
 ::-webkit-scrollbar:hover {
   width: 10px;
 }
@@ -240,12 +228,10 @@ body {
 /* Track */
 ::-webkit-scrollbar-track {
   background-color: white;
-  /* background: white; */
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  /* background-color: rgba(255, 255, 255, 0.342); */
   background-color: #1c6ea46e;
   border-radius: 1px;
 }
@@ -261,12 +247,7 @@ body {
   margin-top: 4%;
   text-shadow: 2px 2px 2px rgb(0, 0, 0);
 }
-.box3 {
-  margin: 5% 10% 7.4% 10%;
-  width: 75%;
-  height: 100wh;
-  background-color: rgba(255, 255, 255, 0.664);
-}
+
 #title-box {
   margin-right: 10px;
 }
@@ -280,9 +261,7 @@ body {
 }
 #tag-box {
   float: right;
-  width: 25%;
   margin-top: 10px;
-  /* margin-right: 10px; */
 }
 #tag-title {
   font-family: 'Playfair Display';
@@ -291,9 +270,13 @@ body {
 }
 
 #title:focus {
-  /* background-color: rgba(255, 255, 255, 0.5); */
   outline: none;
   text-decoration: none;
+}
+.box3 { 
+  margin: 4% 4% 7.4% 4%;  
+  width: 75%;
+  background-color: rgba(255, 255, 255, 0.664);
 }
 .ql-toolbar {
   background-color: #f7eb9b;
@@ -306,22 +289,16 @@ body {
   max-width: 100%;
   min-width: 300px;
 }
-.template{
-
-}
 .template1{
-  /* background-image: url(/picture/plant-green-blue-background-garden-158676.jpeg); */
   font-family: sans-serif;
   color: black;
 }
 .template2{
-  /* background-color: #1b06dd; */
   font-family: monospace;
   color: blue;
   font-size: 16px;
 }
 .template3{
-  /* background-color: #38dd06; */
   font-family: serif;
   color: green;
   font-size: 16px;
@@ -335,7 +312,7 @@ body {
 }
 .template3 h1, h2, h3 ,h4{
   font-family: "Playfair Display"; 
-} */ 
+} */
  #checkStarred{
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -377,17 +354,40 @@ color: gold;
   margin: 5px;
   transition: transform 0.25s ease-out;
   font-size: 30px;
+  text-shadow: 2px 2px 2px rgb(0, 0, 0);
+  border: 1px solid white;
 }
 .save-note:hover {
   color: #14356b;
   background-color: #f8700094;
   transform: scale(1.1);
 }
+.arrow-back{
+  border-radius: 50%;
+  background-color: #0532fc;
+  border: none;
+  color: white;
+  padding: 11px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 5px;
+  transition: transform 0.25s ease-out;
+  font-size: 30px;  
+  display: none;
+  text-shadow: 2px 2px 2px rgb(0, 0, 0);
+}
+.arrow-back:hover {
+  color: #14356b;
+  background-color: #0532fc7e;
+  transform: scale(1.1);
+}
 
 #doPrint {
+  text-shadow: 2px 2px 2px rgb(0, 0, 0);
   border-radius: 50%;
   background-color: #000000;
-  border: none;
+  border: 1px solid white;
   color: rgb(255, 255, 255);
   padding: 11px;
   text-align: center;
@@ -458,17 +458,53 @@ color: gold;
 .show {
   display: block;
 }
+#logo-show{
+  display: none;
+  width: 100%;
+  text-align: center;
+  font-family: 'Playfair Display';
+  margin: 0;
+  padding: 0;
+  color: white;
+  background-color: #14356b;
+  padding-bottom: 5px;
+  font-size: 30px;
+  text-shadow: 2px 2px 2px rgb(0, 0, 0);
+}
+#hamburger-nav {
+  position: fixed;
+  left: 0;
+  top: 0;
+  margin-top: 0;
+  border: none;
+  background-color: #14356b;
+  color: white;
+  text-shadow: 2px 2px 2px rgb(0, 0, 0);
+}
+#hamburger-nav:hover{
+  color: #14356b;
+  background-color: #00000094;
+  transform: scale(1.1);
+}
 
-
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1025px) {
   #hamburger-nav,
   #add-nav {
     display: block;
-    font-size: 30px;
-    margin: 10px;
+    font-size: 28px;
+    margin: 5.5px 2px;
+  }
+  #copyright {
+    background-color: #14356b;
+    margin-top: 0;
+    padding-top: 0.5%;
+    padding-bottom: 50%;
+  }
+  .box1{
+    display: none;
   }
   
-.hamburger-button{
+/* .hamburger-button{
   border: none;
   background-color: #006cf800;
   font-size: 20px;
@@ -486,25 +522,77 @@ color: gold;
 }
 .hamburger-cont ul{
   list-style-type: none;
-}
+} */
   .box1,
   .box3 {
+    margin: 0;
+    width: 100%;
+    height: 100vh;
     display: none;
+    overflow: hidden;
   }
+#hidden-buttons{
+  background-color: #14356b;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  height: 90px;
+}
+ #button-container{
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  margin: 10px;
+ }
+ #button-arrow{
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  margin: 5px;
+ }
+ .arrow-back{
+   display: block;
+   margin: 10px;
+   border: 1px solid white;
+ }
   .box2 {
     width: 100%;
+    overflow: hidden;
+  }
+  #logo-show{
+    display: block;
+    border-bottom: 2px solid white;
+  }
+  .none{
+    display: none;
+  }
+  .fa-search{
+    margin: 5px 10px 0px 10px;
+    display: flex;
+    font-size: 26px;
+  }
+  #tag-box-container{
+    margin-left: 10%;
+  }
+  #tag-search{
+    border-radius: 50%;
   }
   #search-bar-container{
     width: 100%;
-    height: 40px;
     display: flex;
-    
   }
-    #search-bar{
-      width: 90%;
-      height: 100%;
-      margin: auto;
+  #search-bar{
+      border-radius: 20px;
+      padding-left: 10px;
   }
+  .new-note{
+    margin-top: -17px;
+    display: flex;
+    font-size: 60px;
+  }
+}
+
 .dropbtn {
   background-color: rgba(52, 152, 219, 0);
   color: rgb(82, 80, 80);
@@ -541,27 +629,8 @@ color: gold;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
-
-.dropdown-content a {
-  color: black;
-  padding: 10px 10px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown a:hover {
-  color: #006cf8;
-}
-
 .show {
   display: block;
-}
-#carret {
-  display: flex;
-  flex-direction: column;
-  height: 10px;
-  margin: auto;
-  padding: 0;
 }
 #counter {
   border: 1px solid #ccc;
@@ -583,4 +652,3 @@ color: gold;
 @page {  
     margin: 0mm;  
   }
-}
