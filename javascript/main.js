@@ -71,7 +71,7 @@ var toolbarOptions = [
   [{ list: "ordered" }, { list: "bullet" }],
   ["link", "image"],
   [{ color: [] }, { background: [] }],
-  [{ 'font': [] }],
+  // [{ 'font': [] }],
   [{ align: [] }]
 ];
 // Loads and configures the Quill editor
@@ -88,10 +88,10 @@ window.onload = function () {
   //Setting Event Listeners
   document.getElementById("search-bar").addEventListener("input", function () {
     updateView();
-  })
+  });
 
   document.getElementById("tag-search").addEventListener("change", function () {
-    this.checked ? document.getElementById("search-bar").placeholder = "Ex: work,-boring" : document.getElementById("search-bar").placeholder = "Search by title or content";
+    this.checked ? document.getElementById("search-bar").placeholder = "Ex: work,-boring" : document.getElementById("search-bar").placeholder = "Search..";
   });
 
   cookieCheck();
@@ -117,6 +117,19 @@ document.getElementById('checkStarred').addEventListener('click', function () {
     console.log("Hallå");
   }
 });
+document.getElementById('checkStarred1').addEventListener('click', function () {
+
+  if (document.getElementById("checkStarred1").checked) {
+
+    (updateView((note) => (note.star == true)));
+    console.log("Showing starred items");
+    // note = true;
+  } else {
+
+    updateView();
+    console.log("Hallå");
+  }
+});
 
 
 function setActiveId(id) {
@@ -130,19 +143,24 @@ function getActiveId() {
 
 // Loads a specific note from local storage to the editor
 function loadToQuill(id) {
-  let tempStorage = loadNotes();
-  quill.setContents(tempStorage.find(loadNote => loadNote.id == id).content);
-  setActiveId(id);
-  document.getElementById("title").value = tempStorage.find(loadNote => loadNote.id == id).title;
-  document.getElementById("tag-input").value = tempStorage.find(loadNote => loadNote.id == id).tagsPresplit;
+  // e = window.event || e; 
+  if (event.target.tagName != 'BUTTON') {
+    let tempStorage = loadNotes();
+    quill.setContents(tempStorage.find(loadNote => loadNote.id == id).content);
+    setActiveId(id);
+    document.getElementById("title").value = tempStorage.find(loadNote => loadNote.id == id).title;
+    document.getElementById("tag-input").value = tempStorage.find(loadNote => loadNote.id == id).tagsPresplit;
 
 
-  for (let i = 0; i < getTemplates().length; i++) {
-    if (document.getElementsByClassName("ql-editor")[0].classList.contains(getTemplates()[i])) {
-      document.getElementsByClassName('ql-editor')[0].classList.remove(getTemplates()[i]);
+    for (let i = 0; i < getTemplates().length; i++) {
+      if (document.getElementsByClassName("ql-editor")[0].classList.contains(getTemplates()[i])) {
+        document.getElementsByClassName('ql-editor')[0].classList.remove(getTemplates()[i]);
+      }
     }
+    document.getElementsByClassName('ql-editor')[0].classList.add(tempStorage.find(loadNote => loadNote.id == id).template);
+    toggleDIV();
   }
-  document.getElementsByClassName('ql-editor')[0].classList.add(tempStorage.find(loadNote => loadNote.id == id).template);
+
 }
 
 function addNote() {
@@ -156,11 +174,15 @@ function addNote() {
   quill.setContents("");
   document.getElementById("tag-input").value = "untagged";
 
+  toggleDIV();
   saveNote();
   updateView();
   console.log(loadNotes());
 }
-
+document.getElementsByClassName('save-note')[0].addEventListener('click', function () {
+  saveNote();
+  toggleDIV();
+});
 function saveNote(myTemplate) {
   let tempStorage = loadNotes();
 
@@ -263,6 +285,7 @@ function toggleStarred(id) {
   saveNotes(updatedNotes);
   updateView();
 }
+
 // Adds and checks the length of an array. If the length is over 0 - find the highest id. Return id +1.   
 const getAvailID = noteArray => noteArray.length > 0 ? Math.max(...noteArray.map(note => note.id), 0) + 1 : 0;
 
@@ -319,8 +342,8 @@ function updateView(func = () => true) {
     newDiv.appendChild(pPreview);
     newDiv.appendChild(pDate);
     newButton.id = "btn" + note.id;
-    newButton.title = "Delete note";
-
+    newButton.title = "Delete Note";
+    starButton.title = "Select Favorite"
     let currentSection = document.getElementById("notes");
     currentSection.appendChild(newDiv);
   })
@@ -403,18 +426,23 @@ var blue = document.getElementById('blue');
 
 // EVENT LISTENERS
 stand.addEventListener('click', function () {
+  document.getElementById("drop").value = "Template 1";
   saveNote(setTemplate(1));
   loadToQuill(getActiveId());
 });
-blue.addEventListener('click', function () {
-  saveNote(setTemplate(2));
-  loadToQuill(getActiveId());
-});
 green.addEventListener('click', function () {
+  document.getElementById("drop").value = "Template 2";
   saveNote(setTemplate(3));
   loadToQuill(getActiveId());
 });
+blue.addEventListener('click', function () {
+  document.getElementById("drop").value = "Template 3";
+  saveNote(setTemplate(2));
+  loadToQuill(getActiveId());
+});
+
 function defaultTemplate() {
+  document.getElementById("drop").value = "Template";
   document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
   document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
   document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
@@ -423,7 +451,7 @@ function defaultTemplate() {
 document.getElementById("nuke-all").addEventListener("click", function (id) {
   message = confirm("Are you sure you want to delete all notes?");
   if (message == true) {
-    localStorage.removeItem("myNotes", JSON.stringify([]));
+    localStorage.removeItem("myNotes");
     console.log("Nuked all notes");
     updateView()
   } else {
@@ -431,7 +459,7 @@ document.getElementById("nuke-all").addEventListener("click", function (id) {
   }
 });
 // DROPDOWN FUNCTIONS
-function myFunction() {
+function myDropdown() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
 window.onclick = function (event) {
@@ -446,8 +474,11 @@ window.onclick = function (event) {
     }
   }
 }
-
-
+function myHamburger() {
+  console.log('hej')
+  document.getElementsByClassName('myHam')[0].classList.toggle("show");
+  document.getElementsByClassName('myHam')[1].classList.toggle("show");
+}
 
 function searchContent(searchTerm) {
   let searchList = loadNotes();
@@ -650,6 +681,10 @@ var quill = new Quill('#editor', {
   placeholder: "Write your text here...",
   theme: "snow"
 });
+function getBack() {
+  document.getElementsByClassName("box2")[0].classList.toggle("none");
+  document.getElementsByClassName("box3")[0].classList.toggle("show");
+}
 
 //Statistics page: Total number of notes. 
 // document.getElementById("notes-counter").innerHTML = loadNotes().length;
@@ -687,5 +722,12 @@ function animateValue(id, start, end, duration) {
 
   timer = setInterval(run, stepTime);
   // run();
-}
+  function toggleDIV() {
+    document.getElementsByClassName("box3")[0].classList.toggle("show");
+    document.getElementsByClassName("box2")[0].classList.toggle("none");
+  }
 
+  document.addEventListener('click', function () {
+    console.log(event.target.tagName);
+  })
+};
