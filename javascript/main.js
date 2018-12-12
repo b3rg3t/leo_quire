@@ -34,8 +34,12 @@ let span = document.getElementsByClassName("stats-xMark")[0];
 
 // When the user clicks the button, open the modal 
 statsButton.onclick = function () {
-  document.getElementById("notes-counter").innerHTML = loadNotes().length;
+  // document.getElementById("notes-counter").innerHTML = loadNotes().length;
   statsModal.style.display = "block";
+
+  animateValue("notes-counter", 0, loadNotes().length, 2000);
+  animateValue("counter", 0, numberOfWords, 2000);
+
 
 }
 
@@ -71,13 +75,14 @@ var toolbarOptions = [
   [{ align: [] }]
 ];
 // Loads and configures the Quill editor
-var quill = new Quill("#editor", {
-  modules: {
-    toolbar: toolbarOptions
-  },
-  placeholder: "Write your text here...",
-  theme: "snow"
-});
+// var quill = new Quill("#editor", {
+//   modules: {
+//     toolbar: toolbarOptions,
+//   },
+//   counter: true,
+//   placeholder: "Write your text here...",
+//   theme: "snow"
+// });
 // Loads content from the Quill editor
 window.onload = function () {
   //Setting Event Listeners
@@ -558,7 +563,7 @@ function drawChart() {
   let dataArray = [
 
     [{ label: 'Date', id: 'date' },
-    { label: 'Antal anteckningar', id: localStorage.getItem('myNotes'), type: 'number' },
+    { label: 'Number of Notes', id: localStorage.getItem('myNotes'), type: 'number' },
     ]
   ];
 
@@ -569,8 +574,8 @@ function drawChart() {
   let data = google.visualization.arrayToDataTable(dataArray);
 
   var options = {
-    // width: 1440,
-    // height: 340,
+    width: 1144,
+    height: 340,
     hAxis: {
       title: "Date"
     },
@@ -594,7 +599,11 @@ function drawChart() {
       textStyle: {
         fontSize: 11
       },
-      title: "Anteckningar",
+      animation: {
+        duration: 1200,
+        easing: 'out',
+        startup: true
+      }
     }
 
   };
@@ -608,16 +617,62 @@ Quill.register('modules/counter', function (quill, options) {
   let container = document.querySelector('#counter');
   quill.on('text-change', function () {
     let text = quill.getText();
-    container.innerText = text.split(/\s+/).length - 1;
+    console.log(quill.getText());
+    console.log(quill.getText() == "↵");
+    if (quill.getText() < 1) {
+      return numberOfWords = 0;
+      console.log("reached if")
+    } else {
+      console.log("reached else" + numberOfWords);
+      return numberOfWords = container.innerText = text.split(/\s+/).length - 1;
+    }
   });
 });
 
 var quill = new Quill('#editor', {
   modules: {
-    counter: true
-  }
+    counter: true,
+    toolbar: toolbarOptions
+  },
+  placeholder: "Write your text here...",
+  theme: "snow"
 });
 
 //Statistics page: Total number of notes. 
-document.getElementById("notes-counter").innerHTML = loadNotes().length;
+// document.getElementById("notes-counter").innerHTML = loadNotes().length;
+
+
+
+//Counter for statistics
+function animateValue(id, start, end, duration) {
+  // assumes integer values for start and end
+
+  let obj = document.getElementById(id);
+  let range = end - start;
+  // no timer shorter than 50ms (not really visible any way)
+  let minTimer = 50;
+  // calc step time to show all interediate values
+  let stepTime = Math.abs(Math.floor(duration / range));
+
+  // never go below minTimer
+  stepTime = Math.max(stepTime, minTimer);
+
+  // get current time and calculate desired end time
+  let startTime = new Date().getTime();
+  let endTime = startTime + duration;
+  let timer;
+
+  function run() {
+    let now = new Date().getTime();
+    let remaining = Math.max((endTime - now) / duration, 0);
+    let value = Math.round(end - (remaining * range));
+    obj.innerHTML = value;
+    if (value == end) {
+      clearInterval(timer);
+    }
+  }
+
+  timer = setInterval(run, stepTime);
+  // run();
+}
 

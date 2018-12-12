@@ -120,16 +120,18 @@
                     </div>
                     <hr>
                     <div class="content-stats">
-                        <br>
-                        <div class="chart"></div>
-                        <div id="curve-chart">
+                        <div id="curve-chart" class="chart_div"></div>
+                    </div>
+                    <div class="counter-items">
+                        <div id="numberOfWords">
+                            <div id="counter">0</div>
+                            <h3 class="counter-title">Words in current note</h3>
+                        </div>
+                        <div id="numberOfNotes">
+                            <div id="notes-counter">0</div>
+                            <h3 class="counter-title">Number of notes</h3>
                         </div>
                     </div>
-                    <div id="counter">0</div>
-                    <h3 id="counter-title">Number of words in selected note</h3>
-                    <div id="notes-counter"></div>
-                    <h3>Total number of notes</h3>
-
                     <div class="clearfix-stats">
                         <button title="Close info">Got it</button>
                     </div>
@@ -142,7 +144,7 @@
                 <div class="xMark">
                     <span onclick="document.getElementById('landing-page').style.display='none'" class="close" title="Close">&times;</span>
                 </div>
-                <div class="container">
+                <div class="stats-container">
                     <div class="welcome">
                         <h2>Welcome to <span id="title-em">Quire</span></h2><br>
                     </div>

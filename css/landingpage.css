@@ -11,11 +11,13 @@
   padding-top: 50px;
   /* text-align: center; */
 }
-
+#stats-container{
+  display: flex;
+}
 /* STYLING CONTENT-BOX */
 .modal-content {
   border: 2px solid #2561c4;;
-  background-color: #f9f9f9;
+  background-color: white;
   margin: 1% auto 15% auto;
   overflow: auto;
   width: 80%;
@@ -36,15 +38,15 @@
   text-align: center;
 }
 /* STYLING CONTENT-BOX */
-.stats-modal-content {
-  border: 2px solid white;
-  background-color: #f9f9f9;
+/* .stats-modal-content {
+  border: 2px solid #2561c4;;
+  background-color: white;
   margin: 1% auto 15% auto;
   overflow: auto;
   width: 80%;
   height: 80%;
   border-radius: 5px;
-}
+} */
 .content-landing {
   color: black;
   height:100%;
@@ -87,20 +89,42 @@ h2 {
   background-color:#f9f9f9;
   margin-top: 0px;
 }
-#chart-div{
-
+.counter-title {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+.content-stats {
+  background: white; 
+  object-fit: cover;
   width: 100%;
   height: auto;
-  
+  margin-bottom: 2%;
 }
-
-/* h2 {
-  text-align: center;
-} */
-
+  #curve-chart {
+  /* border-color: #006699;
+  border-style: solid;
+  border-width: 1px; */
+  width: 100%;
+}
+.counter-items {
+  display: flex;
+  flex-direction: row;
+}
+#counter, #notes-counter {
+  font-size: 3em;
+}
+#numberOfWords {
+/* align-items: left; */
+font-family: 'Playfair Display', sans-serif;
+flex: 1;
+}
+#numberOfNotes {
+font-family: 'Playfair Display', sans-serif;
+align-items: right;
+flex: 1;
+}
 #ol-contol{
   background-color: #16103a;
-
 }
 /* li{
   color:  white;
@@ -108,6 +132,7 @@ h2 {
 .container {
   /* text-align: center; */
   padding: 0 40px 0 40px;
+  background: white;
 }
 /* The Close Button (x) */
 .xMark {
