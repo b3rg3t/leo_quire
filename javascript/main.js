@@ -574,7 +574,15 @@ function drawChart() {
   let data = google.visualization.arrayToDataTable(dataArray);
 
   var options = {
-    width: 1144,
+    title: "Number of Notes",
+    titleTextStyle: {
+      color: 'black',
+      fontName: 'Playfair Display',
+      fontSize: 20,
+      bold: true,
+      italic: false
+    },
+    width: 1135,
     height: 340,
     hAxis: {
       title: "Date"
@@ -585,8 +593,13 @@ function drawChart() {
     },
     hAxis: {
       showTextEvery: 1,
-    },
+      textStyle: {
+        fontName: 'Playfair Display',
+        fontSize: 16,
+        bold: true,
 
+      }
+    },
     vAxis: {
       viewWindow: {
         max: 30
@@ -597,7 +610,7 @@ function drawChart() {
       showTextEvery: 1,
       baselineColor: '#DDD',
       textStyle: {
-        fontSize: 11
+        fontSize: 12
       },
       animation: {
         duration: 1200,

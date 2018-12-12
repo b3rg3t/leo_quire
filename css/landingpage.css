@@ -11,9 +11,7 @@
   padding-top: 50px;
   /* text-align: center; */
 }
-#stats-container{
-  display: flex;
-}
+
 /* STYLING CONTENT-BOX */
 .modal-content {
   border: 2px solid #2561c4;;
@@ -24,7 +22,11 @@
   height: 80%;
   border-radius: 5px;
 }
-/* LANDING PAGE */
+/* STATISTICS PAGE */
+#stats-container{
+  display: flex; 
+   overflow: hidden;
+}
 .stats-modal {
   display: none;
   position: fixed;
@@ -38,7 +40,7 @@
   text-align: center;
 }
 /* STYLING CONTENT-BOX */
-/* .stats-modal-content {
+.stats-modal-content {
   border: 2px solid #2561c4;;
   background-color: white;
   margin: 1% auto 15% auto;
@@ -46,7 +48,7 @@
   width: 80%;
   height: 80%;
   border-radius: 5px;
-} */
+}
 .content-landing {
   color: black;
   height:100%;
@@ -58,15 +60,6 @@
   
   height: 300px;
 }
-
-/*
-#title-h2 {
-   text-align: left;
-  font-size: 20px;
-  font-family: 'Josefin Slab', serif;
-  color:black; 
-}
-*/
 h2 {
   text-align: center;
   margin: 5px;
@@ -75,9 +68,7 @@ h2 {
 #title-em {
   font-family: 'Playfair Display', sans-serif;
   font-size: 25px;
-
   color: #14356b;
-  
   margin-top: 0px;
 }
 
@@ -94,18 +85,16 @@ h2 {
   padding-bottom: 0px;
 }
 .content-stats {
+  display: flex;
+  justify-content: center;
   background: white; 
-  object-fit: cover;
-  width: 100%;
   height: auto;
   margin-bottom: 2%;
 }
   #curve-chart {
-  /* border-color: #006699;
-  border-style: solid;
-  border-width: 1px; */
-  width: 100%;
-}
+  background: pink;
+  border-color: #006699;
+  }
 .counter-items {
   display: flex;
   flex-direction: row;
@@ -114,23 +103,17 @@ h2 {
   font-size: 3em;
 }
 #numberOfWords {
-/* align-items: left; */
 font-family: 'Playfair Display', sans-serif;
-flex: 1;
+     flex: 1;
 }
 #numberOfNotes {
 font-family: 'Playfair Display', sans-serif;
-align-items: right;
-flex: 1;
+     flex: 1;
 }
 #ol-contol{
   background-color: #16103a;
 }
-/* li{
-  color:  white;
-} */
-.container {
-  /* text-align: center; */
+.container {  
   padding: 0 40px 0 40px;
   background: white;
 }
@@ -145,7 +128,7 @@ flex: 1;
   padding-right: 10px;
   display: flex;
   justify-content: flex-end;
-  background-color: #f9f9f9;
+  background-color: #2561c4;
 }
 .close {
   font-size: 40px;
@@ -167,7 +150,7 @@ flex: 1;
     padding-top: 1%;
     margin-bottom: 0 auto;
     }
-    .modal-content.stats-modal-content {
+    .modal-content .stats-modal-content {
     width: 95%;
     overflow: auto;
   }
