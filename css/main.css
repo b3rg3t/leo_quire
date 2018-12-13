@@ -563,6 +563,10 @@ body {
     border: none;
   }
   #doPrint, #doPrintm:hover{
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+  }
+  #doPrint:hover{
     background-color: #00000000;
     color: white;
     transform: scale(1);
