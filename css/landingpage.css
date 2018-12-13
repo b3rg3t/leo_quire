@@ -22,7 +22,11 @@
   height: 80%;
   border-radius: 5px;
 }
-/* LANDING PAGE */
+/* STATISTICS PAGE */
+#stats-container{
+  display: flex; 
+   overflow: hidden;
+}
 .stats-modal {
   display: none;
   position: fixed;
@@ -37,8 +41,8 @@
 }
 /* STYLING CONTENT-BOX */
 .stats-modal-content {
-  border: 2px solid white;
-  background-color: #f9f9f9;
+  border: 2px solid #14356b;;
+  background-color: white;
   margin: 1% auto 15% auto;
   overflow: auto;
   width: 80%;
@@ -132,9 +136,7 @@
 #title-em {
   font-family: 'Playfair Display', sans-serif;
   font-size: 25px;
-
   color: #14356b;
-  
   margin-top: 0px;
 }
 
@@ -146,20 +148,47 @@
   background-color:#f9f9f9;
   margin-top: 0px;
 }
-#chart-div{
-
-  width: 100%;
+.counter-title {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+.content-stats {
+  display: flex;
+  justify-content: center;
+  background: white; 
   height: auto;
-  
+  margin-bottom: 2%;
+}
+  #curve-chart {
+  background: pink;
+  border-color: #14356b;
+  }
+.counter-items {
+  display: flex;
+  flex-direction: row;
+}
+#counter{
+  /* background: pink; */
+  font-size: 3em;
+  border-style: none;
+  text-align: center;
+  color: black;
 }
 
-/* h2 {
-  text-align: center;
-} */
-
+#notes-counter {
+  font-size: 3em;
+  border-style: none;
+}
+#numberOfWords {
+font-family: 'Playfair Display', sans-serif;
+     flex: 1;
+}
+#numberOfNotes {
+font-family: 'Playfair Display', sans-serif;
+     flex: 1;
+}
 #ol-contol{
   background-color: #16103a;
-
 }
 /* li{
   color:  white;
@@ -177,7 +206,8 @@
   padding-right: 10px;
   display: flex;
   justify-content: flex-end;
-  background-color: #f9f9f9;
+  background-color: #14356b;
+  
 }
 .close {
   font-size: 40px;
@@ -189,7 +219,24 @@
   color: #14356b;
   cursor: pointer;
 }
-
+#statsButton {
+  background-color: #14356b;
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-family: 'Playfair Display', sans-serif;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+#statsButton:hover {
+background: #14356bbd;
+color: black;
+}
 
 @media screen and (max-width: 900px) {
    .container {
@@ -199,7 +246,7 @@
     padding-top: 1%;
     margin-bottom: 0 auto;
     }
-    .modal-content.stats-modal-content {
+    .modal-content .stats-modal-content {
     width: 95%;
     overflow: auto;
   }
