@@ -40,7 +40,7 @@
                     <h1 id="nav-logo">Q</h1>
                 </div>
                 <div id="nav-main">
-                    <button id="search" class="nav-button" onclick=addNote() title="New Note"><i class="fas fa-pencil-alt"></i></button>
+                    <button class="nav-button search" onclick=addNote() title="New Note"><i class="fas fa-pencil-alt"></i></button>
                     <input type="checkbox" id="checkStarred" class="nav-button fas fa-star" title="Favorite">
                     <button id="stats" class="nav-button" title="Stats"><i class="fas fa-chart-bar"></i></button>
                     <button id="nuke-all" class="nav-button" title="Delete all"><i class="far fa-trash-alt"></i></button>
@@ -55,20 +55,20 @@
             <div class="uire">
                 <span>uire</span>
                 <div>
-                <i class="fas fa-book-open"></i>
-                <i class="fas fa-pencil-alt" id="pencil"></i>
+                    <i class="fas fa-book-open"></i>
+                    <i class="fas fa-pencil-alt" id="pencil"></i>
                 </div>
             </div>
             <div class="logo-show">
                 <span>Quire</span>
                 <nav>
-                        <button class="hamburger-nav" title="Navigation" onclick="myHamburger()"><i class="fas fa-bars"></i></button>
-                        <div class="myHam">
-                                <button id="search" class="nav-button" onclick=addNote() title="New Note"><i class="fas fa-pencil-alt"></i></button>
-                                <input type="checkbox" id="checkStarred1" class="nav-button fas fa-star" title="Favorite">
-                                <!-- <a href="https://github.com/Seuanr/leo_quire"><i class="fab fa-github" title="Github"></i></a> -->
-                        </div>
-                    </nav>  
+                    <button class="hamburger-nav" title="Navigation" onclick="myHamburger()"><i class="fas fa-bars"></i></button>
+                    <div class="myHam">
+                        <button class="nav-button search" onclick=addNote() title="New Note"><i class="fas fa-pencil-alt"></i></button>
+                        <input type="checkbox" id="checkStarred1" class="nav-button fas fa-star" title="Favorite">
+                        <!-- <a href="https://github.com/Seuanr/leo_quire"><i class="fab fa-github" title="Github"></i></a> -->
+                    </div>
+                </nav>
             </div>
             <!-- <h2 id="header">Saved Notes</h2> -->
             <div id="search-bar-container">
@@ -91,25 +91,23 @@
             </div>
         </div>
         <div class="box3">
-                <div class="logo-show">
-                        <span>Quire</span>
-                        <nav>
-                                <button class="hamburger-nav" title="NavigationF" onclick="myHamburger()"><i class="fas fa-bars"></i></button>
-                                <div class="myHam">
-                                        <button class="arrow-back" onclick="getBack()" title="Saved Notes"><i class="fas fa-arrow-left"></i></button>
-                                        <button class="save-note" title="Save note"><i class="far fa-save"></i></button>
-                                        <button class="doPrintClass" id="doPrint" title="Print note"><i class="fas fa-print"></i></button>
-                                </div>
-                        </nav>  
+            <div class="logo-show">
+                <span>Quire</span>
+                <nav>
+                    <button class="hamburger-nav" title="NavigationF" onclick="myHamburger()"><i class="fas fa-bars"></i></button>
+                    <div class="myHam">
+                        <button class="arrow-back" onclick="getBack()" title="Saved Notes"><i class="fas fa-arrow-left"></i></button>
+                        <button class="save-note" title="Save note"><i class="far fa-save"></i></button>
+                        <button class="doPrintClass" id="doPrint" title="Print note"><i class="fas fa-print"></i></button>
                     </div>
-            <!-- Div for Quill editor, set placeholder text from js -->
-            <!-- <p id="bajs">Name your note..</p> -->
+                </nav>
+            </div>  
             <div id="title-box">
                 <input id="title" type="text" placeholder="Title..." value="">
                 <div class="dropdown">
-                    <input onclick="myDropdown()" type="button" value="Template" class="dropbtn" id="drop"><i class="fas fa-sort"></i>
+                    <input onclick="myDropdown()" type="button" value="Templates" class="dropbtn" id="drop"><i class="fas fa-sort"></i>
                     <div id="myDropdown" class="dropdown-content">
-                        <button id="template" onclick="defaultTemplate()">Template</button>
+                        <button id="template" onclick="defaultTemplate()">No Template</button>
                         <button id="standard">Template 1</button>
                         <button id="green">Template 2</button>
                         <button id="blue">Template 3</button>
@@ -122,73 +120,67 @@
             </div>
             <div id="editor">
             </div>
-    <!-- <div id="hidden-buttons">
-        <p></p> 
-        <div id="button-arrow"> 
-         <button class="arrow-back" onclick="getBack()" title="Saved Notes"><i class="fas fa-arrow-left"></i></button>
-        </div> -->
-         <div id="button-container">  
-            <button class="save-note" title="Save note"><i class="far fa-save"></i></button>
-            <button class="doPrintClass" id="doPrint" title="Print note"><i class="fas fa-print"></i></button>
+            <div id="button-container">
+                <button class="save-note" title="Save note"><i class="far fa-save"></i></button>
+                <button class="doPrintClass" id="doPrint" title="Print note"><i class="fas fa-print"></i></button>
+            </div>
         </div>
-    </div>    
-        </div>
-        </div>
+    </div>
 
-        <div id="stats-page" class="stats-modal">
-            <form class="stats-modal-content" action="">
-                <div class="stats-xMark">
-                    <span onclick="document.getElementById('stats-page').style.display='none'" class="close" title="Close">&times;</span>
+
+    <div id="stats-page" class="stats-modal">
+        <form class="stats-modal-content">
+            <div class="stats-xMark">
+                <span onclick="document.getElementById('stats-page').style.display='none'" class="close" title="Close">&times;</span>
+            </div>
+            <div class="stats-container">
+                <div class="welcome">
+                    <h2 id="stats-title">My Statistics</h2>
                 </div>
-                <div class="container">
-                    <div class="welcome">
-                        <h2 id="stats-title">My Statistics</h2>
+                <hr>
+                <div class="content-stats">
+                    <div id="curve-chart" class="chart_div"></div>
+                </div>
+                <div class="counter-items">
+                    <div id="numberOfWords">
+                        <div id="counter">0</div>
+                        <h3 class="counter-title">Words in current note</h3>
                     </div>
-                    <hr>
-                    <div class="content-stats">
-                        <br>
-                        <div class="chart"></div>
-                        <div id="curve-chart">
-                        </div>
-                    </div>
-                    <div id="counter">0</div>
-                    <h3 id="counter-title">Number of words in selected note</h3>
-                    <div id="notes-counter"></div>
-                    <h3>Total number of notes</h3>
-
-                    <div class="clearfix-stats">
-                        <button title="Close info">Got it</button>
+                    <div id="numberOfNotes">
+                        <div id="notes-counter">0</div>
+                        <h3 class="counter-title">Number of notes</h3>
                     </div>
                 </div>
-            </form>
-        </div>
-
-        <div id="landing-page" class="modal">
-            <div class="modal-content">
-                <div class="xMark">
-                    <h2 id="landing-title">Welcome to Quire</h2>
-                    <span onclick="document.getElementById('landing-page').style.display='none'" class="close" title="Close">&times;</span>
+                <div class="clearfix-stats">
+                    <button id="statsButton" title="Close">Got it</button>
                 </div>
-                <div class="container">
-                    
-                        <div id="info-link-container">
-                            
-                            <div id="info-content-bg">
-                                <div id="info-image"></div>
-                                <div id="text-box"><p id="text-box-text">Welcome to Quire. To create a new note, press the pen icon in the sidebar. To save what you have written, press the save icon below the editor. If you come back to a note a lot it can be faster to favourite it by pressing the small star on that note to the left. Showing only favourites can be done by pressing the big star in the sidebar.</p></div>
-                            </div>
-                            <button id="info-link1">Introduction</button>
-                            <button id="info-link2">Saving & loading</button>
-                            <button id="info-link3">Deleting notes</button>
-                            <button id="info-link4">Tags</button>
-                        </div>
-                    
-                    <div class="clearfix">
+            </div>
+        </form>
+    </div>
 
+    <div id="landing-page" class="modal">
+        <form class="modal-content">
+            <div class="xMark">
+                <span onclick="document.getElementById('landing-page').style.display='none'" class="close" title="Close">&times;</span>
+            </div>
+            <div class="container">
+                <div class="welcome">
+                    <h2>Welcome to <span id="title-em">Quire</span></h2><br>
+                </div>
+                <hr>
+                <div class="content-landing">
+                    <div id="info-link-container">
+                        <button id="info-link1">Introduction</button>
+                        <button id="info-link2">Saving & loading</button>
+                        <button id="info-link3">Deleting notes</button>
+                        <button id="info-link4">Tags</button>
                     </div>
                 </div>
-            </form>
-        </div>
+                <div class="clearfix">
+                    <button title="Close info">Ok, I get it!</button>
+                </div>
+            </div>
+        </form>
     </div>
 
 

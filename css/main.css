@@ -359,14 +359,14 @@ body {
   color: green;
   font-size: 16px;
 }
-.template1 h1, h2, h3 ,h4{
+.template1 h1, h2, h3{
   font-family: "Playfair Display"; 
   text-align: center;
 }
-.template2 h1, h2, h3 ,h4{
+.template2 h1, h2, h3{
   font-family: "Gentium+Book+Basic"; 
 }
-.template3 h1, h2, h3 ,h4{
+.template3 h1, h2, h3{
   font-family: "Playfair Display"; 
 }
 #checkStarred {
@@ -545,6 +545,8 @@ body {
   .save-note {
     background-color: #f8700000;
     border: none;
+    margin: 0px;
+    padding: 0px;
   }
   .save-note:hover {
     color: white;
@@ -561,6 +563,8 @@ body {
   #doPrint {
     background-color: rgba(0, 0, 0, 0);
     border: none;
+    margin: 0px;
+    padding: 0px;
   }
   #doPrint:hover{
     background-color: #00000000;
@@ -574,9 +578,6 @@ body {
     border-top: 1px solid white;
     display: none;
     margin-top: 10px;
-  }
-  .fa-github{
-    letter-spacing: 0px;
   }
   #copyright {
     background-color: #14356b;
@@ -647,6 +648,7 @@ body {
     display: inline-block;  
     background-color: #006cf800;
     border: none;
+    padding: 0px;
   }
   .box2 {
     width: 100%;
