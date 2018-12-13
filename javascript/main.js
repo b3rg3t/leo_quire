@@ -752,11 +752,16 @@ function getBack() {
   document.getElementsByClassName("box2")[0].classList.toggle("none");
   document.getElementsByClassName("box3")[0].classList.toggle("show");
 }
+
+Quill.register('modules/markdownShortcuts', MarkdownShortcuts)
+
 var quill = new Quill("#editor", {
-  modules: {
-    counter: true,
-    toolbar: toolbarOptions
-  },
-  placeholder: "Write your text here...",
-  theme: "snow"
+ modules: {
+   counter: true,
+   toolbar: toolbarOptions,
+   markdownShortcuts: {}
+
+ },
+ placeholder: "Write your text here...",
+ theme: "snow"
 });
