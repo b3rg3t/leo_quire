@@ -1,7 +1,7 @@
 // LANDING PAGE
 // Show/not show landing page
 
-let landingModal = document.getElementById('landing-page');
+let landingModal = document.getElementById("landing-page");
 // document.onclick = function (event) {
 
 //   if (event.target == landingModal) {
@@ -24,7 +24,7 @@ function cookieCheck() {
 
 //Statistics modal page
 // Get the modal
-let statsModal = document.getElementById('stats-page');
+let statsModal = document.getElementById("stats-page");
 
 // Get the button that opens the modal
 let statsButton = document.getElementById("stats");
@@ -32,21 +32,19 @@ let statsButton = document.getElementById("stats");
 // Get the <span> element that closes the modal
 let span = document.getElementsByClassName("stats-xMark")[0];
 
-// When the user clicks the button, open the modal 
-statsButton.onclick = function () {
+// When the user clicks the button, open the modal
+statsButton.onclick = function() {
   // document.getElementById("notes-counter").innerHTML = loadNotes().length;
   statsModal.style.display = "block";
 
   animateValue("notes-counter", 0, loadNotes().length, 2000);
   animateValue("counter", 0, numberOfWords, 2000);
-
-
-}
+};
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function () {
+span.onclick = function() {
   statsModal.style.display = "none";
-}
+};
 
 // When the user clicks anywhere outside of the modal, close it
 // document.onclick = function (event) {
@@ -55,14 +53,13 @@ span.onclick = function () {
 //   }
 // }
 
-document.onclick = function (event) {
+document.onclick = function(event) {
   if (event.target == landingModal) {
     landingModal.style.display = "none";
-  }
-  else if (event.target == statsModal) {
+  } else if (event.target == statsModal) {
     statsModal.style.display = "none";
   }
-}
+};
 // QUILL OPTIONS
 //rubriker, punktlistor, numrerade listor samt göra text kursiv eller fetstil.
 var toolbarOptions = [
@@ -84,14 +81,16 @@ var toolbarOptions = [
 //   theme: "snow"
 // });
 // Loads content from the Quill editor
-window.onload = function () {
+window.onload = function() {
   //Setting Event Listeners
-  document.getElementById("search-bar").addEventListener("input", function () {
+  document.getElementById("search-bar").addEventListener("input", function() {
     updateView();
   });
 
-  document.getElementById("tag-search").addEventListener("change", function () {
-    this.checked ? document.getElementById("search-bar").placeholder = "Ex: work,-boring" : document.getElementById("search-bar").placeholder = "Search..";
+  document.getElementById("tag-search").addEventListener("change", function() {
+    this.checked
+      ? (document.getElementById("search-bar").placeholder = "Ex: work,-boring")
+      : (document.getElementById("search-bar").placeholder = "Search..");
   });
 
   cookieCheck();
@@ -102,35 +101,26 @@ window.onload = function () {
   }
 };
 
-
-
-document.getElementById('checkStarred').addEventListener('click', function () {
-
+document.getElementById("checkStarred").addEventListener("click", function() {
   if (document.getElementById("checkStarred").checked) {
-
-    (updateView((note) => (note.star == true)));
+    updateView(note => note.star == true);
     console.log("Showing starred items");
     // note = true;
   } else {
-
     updateView();
     console.log("Hallå");
   }
 });
-document.getElementById('checkStarred1').addEventListener('click', function () {
-
+document.getElementById("checkStarred1").addEventListener("click", function() {
   if (document.getElementById("checkStarred1").checked) {
-
-    (updateView((note) => (note.star == true)));
+    updateView(note => note.star == true);
     console.log("Showing starred items");
     // note = true;
   } else {
-
     updateView();
     console.log("Hallå");
   }
 });
-
 
 function setActiveId(id) {
   localStorage.activeId = id;
@@ -143,25 +133,35 @@ function getActiveId() {
 
 // Loads a specific note from local storage to the editor
 function loadToQuill(id) {
-  // e = window.event || e; 
-  if (event.target.tagName != 'BUTTON') {
-    let tempStorage = loadNotes();
-    quill.setContents(tempStorage.find(loadNote => loadNote.id == id).content);
-    setActiveId(id);
-    document.getElementById("title").value = tempStorage.find(loadNote => loadNote.id == id).title;
-    document.getElementById("tag-input").value = tempStorage.find(loadNote => loadNote.id == id).tagsPresplit;
+  // e = window.event || e;
+  // if (event.target.tagName != "BUTTON") {
+  let tempStorage = loadNotes();
+  quill.setContents(tempStorage.find(loadNote => loadNote.id == id).content);
+  setActiveId(id);
+  document.getElementById("title").value = tempStorage.find(
+    loadNote => loadNote.id == id
+  ).title;
+  document.getElementById("tag-input").value = tempStorage.find(
+    loadNote => loadNote.id == id
+  ).tagsPresplit;
 
-
-    for (let i = 0; i < getTemplates().length; i++) {
-      if (document.getElementsByClassName("ql-editor")[0].classList.contains(getTemplates()[i])) {
-        document.getElementsByClassName('ql-editor')[0].classList.remove(getTemplates()[i]);
-      }
+  for (let i = 0; i < getTemplates().length; i++) {
+    if (
+      document
+        .getElementsByClassName("ql-editor")[0]
+        .classList.contains(getTemplates()[i])
+    ) {
+      document
+        .getElementsByClassName("ql-editor")[0]
+        .classList.remove(getTemplates()[i]);
     }
-    document.getElementsByClassName('ql-editor')[0].classList.add(tempStorage.find(loadNote => loadNote.id == id).template);
-    toggleDIV();
   }
-
+  document
+    .getElementsByClassName("ql-editor")[0]
+    .classList.add(tempStorage.find(loadNote => loadNote.id == id).template);
+  toggleDIV();
 }
+// }
 
 function addNote() {
   let tempStorage = loadNotes(); // Loads array from loadNotes()
@@ -179,14 +179,23 @@ function addNote() {
   updateView();
   console.log(loadNotes());
 }
-document.getElementsByClassName('save-note')[0].addEventListener('click', function () {
-  saveNote();
-  toggleDIV();
-});
+document
+  .getElementsByClassName("save-note")[0]
+  .addEventListener("click", function() {
+    saveNote();
+    toggleDIV();
+  });
+document
+  .getElementsByClassName("save-note")[1]
+  .addEventListener("click", function() {
+    saveNote();
+    toggleDIV();
+  });
 function saveNote(myTemplate) {
   let tempStorage = loadNotes();
-
-  if (loadNotes().length == 0) { //temp workaround for saving without adding a note todo: make simpler solution //jesper
+  console.log("calld save note");
+  if (loadNotes().length == 0) {
+    //temp workaround for saving without adding a note todo: make simpler solution //jesper
     var tempTitle = document.getElementById("title").value;
     var tempContent = quill.getContents();
     var tempPreview = getPreview();
@@ -198,25 +207,37 @@ function saveNote(myTemplate) {
   let id = getActiveId(); //0
   console.log("templength: " + tempStorage.length);
   //If user tries to save note without having any notes
-  if (tempStorage.length == 0) { //bypass addNote wipe (temp)
+  if (tempStorage.length == 0) {
+    //bypass addNote wipe (temp)
     tempStorage = loadNotes();
     //todo: don't need to use find every time //jesper
     tempStorage.find(loadNote => loadNote.id == id).title = tempTitle;
     tempStorage.find(loadNote => loadNote.id == id).content = tempContent;
     tempStorage.find(loadNote => loadNote.id == id).preview = tempPreview;
-    tempStorage.find(loadNote => loadNote.id == id).titlePreview = tempTitlePreview;
+    tempStorage.find(
+      loadNote => loadNote.id == id
+    ).titlePreview = tempTitlePreview;
     tempStorage.find(loadNote => loadNote.id == id).tagsPresplit = tempTags;
-    tempStorage.find(loadNote => loadNote.id == id).tags = tempStorage.find(loadNote => loadNote.id == id).tagsPresplit.split(",");
-
+    tempStorage.find(loadNote => loadNote.id == id).tags = tempStorage
+      .find(loadNote => loadNote.id == id)
+      .tagsPresplit.split(",");
   }
   //For all other cases when user is editing an existing note
   else {
-    tempStorage.find(loadNote => loadNote.id == id).title = document.getElementById("title").value;
-    tempStorage.find(loadNote => loadNote.id == id).content = quill.getContents();
+    tempStorage.find(
+      loadNote => loadNote.id == id
+    ).title = document.getElementById("title").value;
+    tempStorage.find(
+      loadNote => loadNote.id == id
+    ).content = quill.getContents();
     tempStorage.find(loadNote => loadNote.id == id).preview = getPreview();
     tempStorage.find(loadNote => loadNote.id == id).titlePreview = getTitle();
-    tempStorage.find(loadNote => loadNote.id == id).tagsPresplit = document.getElementById("tag-input").value;
-    tempStorage.find(loadNote => loadNote.id == id).tags = tempStorage.find(loadNote => loadNote.id == id).tagsPresplit.split(",");
+    tempStorage.find(
+      loadNote => loadNote.id == id
+    ).tagsPresplit = document.getElementById("tag-input").value;
+    tempStorage.find(loadNote => loadNote.id == id).tags = tempStorage
+      .find(loadNote => loadNote.id == id)
+      .tagsPresplit.split(",");
     if (myTemplate != undefined) {
       tempStorage.find(loadNote => loadNote.id == id).template = myTemplate;
     }
@@ -258,8 +279,11 @@ function deleteNote(id) {
     //If there was no previous, go to element after
     setActiveId(deletedIndex + 1);
     loadToQuill(notes[deletedIndex + 1].id);
-  }
-  else if (notes[deletedIndex + 1] == undefined && notes[deletedIndex - 1] == undefined) { //If all notes were deleted
+  } else if (
+    notes[deletedIndex + 1] == undefined &&
+    notes[deletedIndex - 1] == undefined
+  ) {
+    //If all notes were deleted
     quill.setContents("");
     document.getElementById("title").value = "";
   } else if (id != getActiveId()) {
@@ -269,31 +293,32 @@ function deleteNote(id) {
   updateView();
 }
 
-
 function toggleStarred(id) {
   let notes = loadNotes();
 
   const objIndex = notes.findIndex(obj => obj.id == id);
 
-  const updatedObj = { ...notes[objIndex], star: (notes[objIndex].star ? false : true) };
+  const updatedObj = {
+    ...notes[objIndex],
+    star: notes[objIndex].star ? false : true
+  };
 
   const updatedNotes = [
     ...notes.slice(0, objIndex),
     updatedObj,
-    ...notes.slice(objIndex + 1),
+    ...notes.slice(objIndex + 1)
   ];
   saveNotes(updatedNotes);
   updateView();
 }
 
-// Adds and checks the length of an array. If the length is over 0 - find the highest id. Return id +1.   
-const getAvailID = noteArray => noteArray.length > 0 ? Math.max(...noteArray.map(note => note.id), 0) + 1 : 0;
-
+// Adds and checks the length of an array. If the length is over 0 - find the highest id. Return id +1.
+const getAvailID = noteArray =>
+  noteArray.length > 0 ? Math.max(...noteArray.map(note => note.id), 0) + 1 : 0;
 
 // function updateView(func = () => true) {
 //   let notes = loadNotes();
 //   document.getElementById("notes").innerHTML = '';
-
 
 function updateView(func = () => true) {
   let searchBar = document.getElementById("search-bar").value;
@@ -301,53 +326,57 @@ function updateView(func = () => true) {
   if (document.getElementById("tag-search").checked) {
     notes = searchTags(searchBar);
     console.log("searching by tags");
-  }
-  else {
+  } else {
     notes = searchContent(searchBar);
     console.log("searching by content");
   }
   document.getElementById("notes").innerHTML = ""; //Empty base for created content
   // Generates content in saved notes area
-  notes.filter((note) => func(note)).forEach((note) => {
-    let newDiv = document.createElement("div");
-    let pTitle = document.createElement("p");
-    pTitle.setAttribute("class", "note-titel");
-    let pDate = document.createElement("p");
-    pDate.setAttribute("class", "note-date");
-    let pPreview = document.createElement("p");
-    pPreview.setAttribute("class", "note-preview");
-    let newTitle = document.createTextNode(note.titlePreview);
-    let newDate = document.createTextNode(note.date);
-    let newPreview = document.createTextNode(note.preview);
-    let starButton = document.createElement("button");
-    let starButtonText = document.createTextNode("");
-    note.star ? starButton.setAttribute("class", "fas fa-star") : starButton.setAttribute("class", "far fa-star");
-    note.star ? starButton.classList.add("test-star") : starButton.classList.remove("test-star");
+  notes
+    .filter(note => func(note))
+    .forEach(note => {
+      let newDiv = document.createElement("div");
+      let pTitle = document.createElement("p");
+      pTitle.setAttribute("class", "note-titel");
+      let pDate = document.createElement("p");
+      pDate.setAttribute("class", "note-date");
+      let pPreview = document.createElement("p");
+      pPreview.setAttribute("class", "note-preview");
+      let newTitle = document.createTextNode(note.titlePreview);
+      let newDate = document.createTextNode(note.date);
+      let newPreview = document.createTextNode(note.preview);
+      let starButton = document.createElement("button");
+      let starButtonText = document.createTextNode("");
+      note.star
+        ? starButton.setAttribute("class", "fas fa-star")
+        : starButton.setAttribute("class", "far fa-star");
+      note.star
+        ? starButton.classList.add("test-star")
+        : starButton.classList.remove("test-star");
 
-    let newButton = document.createElement("button");
-    let newButtonText = document.createTextNode("");
-    newButton.setAttribute("class", "far fa-trash-alt");
-    newButton.setAttribute("onclick", "deleteNote(" + note.id + ");");
-    starButton.setAttribute('onclick', 'toggleStarred(' + note.id + ');');
-    newDiv.setAttribute("onclick", "loadToQuill(" + note.id + ");");
-    pTitle.appendChild(newTitle);
-    pDate.appendChild(newDate);
-    pPreview.appendChild(newPreview);
-    newButton.appendChild(newButtonText);
-    starButton.appendChild(starButtonText);
+      let newButton = document.createElement("button");
+      let newButtonText = document.createTextNode("");
+      newButton.setAttribute("class", "far fa-trash-alt");
+      newButton.setAttribute("onclick", "deleteNote(" + note.id + ");");
+      starButton.setAttribute("onclick", "toggleStarred(" + note.id + ");");
+      newDiv.setAttribute("onclick", "loadToQuill(" + note.id + ");");
+      pTitle.appendChild(newTitle);
+      pDate.appendChild(newDate);
+      pPreview.appendChild(newPreview);
+      newButton.appendChild(newButtonText);
+      starButton.appendChild(starButtonText);
 
-    newDiv.appendChild(newButton);
-    newDiv.appendChild(starButton);
-    newDiv.appendChild(pTitle);
-    newDiv.appendChild(pPreview);
-    newDiv.appendChild(pDate);
-    newButton.id = "btn" + note.id;
-    newButton.title = "Delete Note";
-    starButton.title = "Select Favorite"
-    let currentSection = document.getElementById("notes");
-    currentSection.appendChild(newDiv);
-  })
-
+      newDiv.appendChild(newButton);
+      newDiv.appendChild(starButton);
+      newDiv.appendChild(pTitle);
+      newDiv.appendChild(pPreview);
+      newDiv.appendChild(pDate);
+      newButton.id = "btn" + note.id;
+      newButton.title = "Delete Note";
+      starButton.title = "Select Favorite";
+      let currentSection = document.getElementById("notes");
+      currentSection.appendChild(newDiv);
+    });
 }
 
 function newNote(id) {
@@ -368,8 +397,7 @@ function setTemplate(templateNumber) {
 
   if (getTemplates()[templateNumber - 1] != undefined) {
     newTemplate = getTemplates()[templateNumber - 1];
-  }
-  else {
+  } else {
     console.log("The template you tried to load doesn't exist!");
   }
 
@@ -412,30 +440,27 @@ function getTitle() {
   return title;
 }
 
-document.getElementById("doPrint").addEventListener("click", function () {
+document.getElementById("doPrint").addEventListener("click", function() {
   window.print();
-
 });
 //LOAD DIFFERENT TEMPLATES
 // ANCHORS
-var stand = document.getElementById('standard');
-var green = document.getElementById('green');
-var blue = document.getElementById('blue');
-
-
+var stand = document.getElementById("standard");
+var green = document.getElementById("green");
+var blue = document.getElementById("blue");
 
 // EVENT LISTENERS
-stand.addEventListener('click', function () {
+stand.addEventListener("click", function() {
   document.getElementById("drop").value = "Template 1";
   saveNote(setTemplate(1));
   loadToQuill(getActiveId());
 });
-green.addEventListener('click', function () {
+green.addEventListener("click", function() {
   document.getElementById("drop").value = "Template 2";
   saveNote(setTemplate(3));
   loadToQuill(getActiveId());
 });
-blue.addEventListener('click', function () {
+blue.addEventListener("click", function() {
   document.getElementById("drop").value = "Template 3";
   saveNote(setTemplate(2));
   loadToQuill(getActiveId());
@@ -443,17 +468,17 @@ blue.addEventListener('click', function () {
 
 function defaultTemplate() {
   document.getElementById("drop").value = "Template";
-  document.getElementsByClassName('ql-editor')[0].classList.remove('template2');
-  document.getElementsByClassName('ql-editor')[0].classList.remove('template3');
-  document.getElementsByClassName('ql-editor')[0].classList.remove('template1');
+  document.getElementsByClassName("ql-editor")[0].classList.remove("template2");
+  document.getElementsByClassName("ql-editor")[0].classList.remove("template3");
+  document.getElementsByClassName("ql-editor")[0].classList.remove("template1");
 }
 //DELETE ALL NOTES
-document.getElementById("nuke-all").addEventListener("click", function (id) {
+document.getElementById("nuke-all").addEventListener("click", function(id) {
   message = confirm("Are you sure you want to delete all notes?");
   if (message == true) {
     localStorage.removeItem("myNotes");
     console.log("Nuked all notes");
-    updateView()
+    updateView();
   } else {
     console.log("Cancel");
   }
@@ -462,22 +487,22 @@ document.getElementById("nuke-all").addEventListener("click", function (id) {
 function myDropdown() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
-window.onclick = function (event) {
-  if (!event.target.matches('.dropbtn')) {
+window.onclick = function(event) {
+  if (!event.target.matches(".dropbtn")) {
     var dropdowns = document.getElementsByClassName("dropdown-content");
     var i;
     for (i = 0; i < dropdowns.length; i++) {
       var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
+      if (openDropdown.classList.contains("show")) {
+        openDropdown.classList.remove("show");
       }
     }
   }
-}
+};
 function myHamburger() {
-  console.log('hej')
-  document.getElementsByClassName('myHam')[0].classList.toggle("show");
-  document.getElementsByClassName('myHam')[1].classList.toggle("show");
+  console.log("hej");
+  document.getElementsByClassName("myHam")[0].classList.toggle("show");
+  document.getElementsByClassName("myHam")[1].classList.toggle("show");
 }
 
 function searchContent(searchTerm) {
@@ -486,14 +511,18 @@ function searchContent(searchTerm) {
 
   if (searchTerm === undefined) {
     return searchList; //If seach is called with an empty search term
-  }
-  else {
+  } else {
     searchTerm = searchTerm.toLowerCase();
 
     for (let i = 0; i < searchList.length; i++) {
       //search in content and title
       for (let j = 0; j < searchList[i].content.ops.length; j++) {
-        if (searchList[i].content.ops[j].insert.toLowerCase().includes(searchTerm) || searchList[i].title.toLowerCase().includes(searchTerm)) {
+        if (
+          searchList[i].content.ops[j].insert
+            .toLowerCase()
+            .includes(searchTerm) ||
+          searchList[i].title.toLowerCase().includes(searchTerm)
+        ) {
           searchHits.push(searchList[i]);
           break;
         }
@@ -514,8 +543,7 @@ function searchTags(tagString) {
 
   if (tagString === undefined) {
     return searchList; //If search is called with an empty search term
-  }
-  else {
+  } else {
     tagString = tagString.split(",");
 
     inclusions = tagString.filter(tag => !tag.startsWith("-"));
@@ -551,18 +579,14 @@ function searchTags(tagString) {
 
     if (searchHits.length > 0) {
       return searchHits;
-    }
-    else {
+    } else {
       return searchList;
     }
   }
-
-
 }
 //Google charts
-google.charts.load('current', { 'packages': ['corechart'] });
+google.charts.load("current", { packages: ["corechart"] });
 google.charts.setOnLoadCallback(drawChart);
-
 
 function drawChart() {
   let currentDate = "";
@@ -570,14 +594,12 @@ function drawChart() {
   let uniqueDates = [];
   let tempStorage = loadNotes();
 
-
   for (let i = 0; i < tempStorage.length; i++) {
     if (tempStorage[i].date != currentDate) {
       dateCount.push(1);
       uniqueDates.push(tempStorage[i].date);
       currentDate = tempStorage[i].date;
-    }
-    else {
+    } else {
       dateCount[dateCount.length - 1]++;
     }
   }
@@ -586,29 +608,31 @@ function drawChart() {
 
   let formattedDate = [];
   for (let i = 0; i < uniqueDates.length; i++) {
-    formattedDate.push([uniqueDates[i], [dateCount[i]]])
+    formattedDate.push([uniqueDates[i], [dateCount[i]]]);
   }
   console.log(formattedDate);
 
-
   let dataArray = [
-
-    [{ label: 'Date', id: 'date' },
-    { label: 'Number of Notes', id: localStorage.getItem('myNotes'), type: 'number' },
+    [
+      { label: "Date", id: "date" },
+      {
+        label: "Number of Notes",
+        id: localStorage.getItem("myNotes"),
+        type: "number"
+      }
     ]
   ];
 
   dataArray.splice(1, 0, ...formattedDate);
   console.log("dataArrays " + dataArray);
 
-
   let data = google.visualization.arrayToDataTable(dataArray);
 
   var options = {
     title: "Number of Notes",
     titleTextStyle: {
-      color: 'black',
-      fontName: 'Playfair Display',
+      color: "black",
+      fontName: "Playfair Display",
       fontSize: 20,
       bold: true,
       italic: false
@@ -618,17 +642,16 @@ function drawChart() {
     hAxis: {
       title: "Date"
     },
-    curveType: 'function',
+    curveType: "function",
     legend: {
-      position: 'bottom'
+      position: "bottom"
     },
     hAxis: {
       showTextEvery: 1,
       textStyle: {
-        fontName: 'Playfair Display',
+        fontName: "Playfair Display",
         fontSize: 16,
-        bold: true,
-
+        bold: true
       }
     },
     vAxis: {
@@ -639,41 +662,43 @@ function drawChart() {
       minValue: 1,
       maxValue: 15,
       showTextEvery: 1,
-      baselineColor: '#DDD',
+      baselineColor: "#DDD",
       textStyle: {
         fontSize: 12
       },
       animation: {
         duration: 1200,
-        easing: 'out',
+        easing: "out",
         startup: true
       }
     }
-
   };
-  let chart = new google.visualization.LineChart(document.getElementById('curve-chart'));
+  let chart = new google.visualization.LineChart(
+    document.getElementById("curve-chart")
+  );
 
   chart.draw(data, options);
   console.log(data);
 }
 //Statistics page: Number of words in selected note
-Quill.register('modules/counter', function (quill, options) {
-  let container = document.querySelector('#counter');
-  quill.on('text-change', function () {
+Quill.register("modules/counter", function(quill, options) {
+  let container = document.querySelector("#counter");
+  quill.on("text-change", function() {
     let text = quill.getText();
-    console.log(quill.getText());
-    console.log(quill.getText() == "↵");
+    // console.log(quill.getText());
+    // console.log(quill.getText() == "↵");
     if (quill.getText() < 1) {
-      return numberOfWords = 0;
-      console.log("reached if")
+      return (numberOfWords = 0);
+      console.log("reached if");
     } else {
       console.log("reached else" + numberOfWords);
-      return numberOfWords = container.innerText = text.split(/\s+/).length - 1;
+      return (numberOfWords = container.innerText =
+        text.split(/\s+/).length - 1);
     }
   });
 });
 
-var quill = new Quill('#editor', {
+var quill = new Quill("#editor", {
   modules: {
     counter: true,
     toolbar: toolbarOptions
@@ -681,15 +706,8 @@ var quill = new Quill('#editor', {
   placeholder: "Write your text here...",
   theme: "snow"
 });
-function getBack() {
-  document.getElementsByClassName("box2")[0].classList.toggle("none");
-  document.getElementsByClassName("box3")[0].classList.toggle("show");
-}
-
-//Statistics page: Total number of notes. 
+//Statistics page: Total number of notes.
 // document.getElementById("notes-counter").innerHTML = loadNotes().length;
-
-
 
 //Counter for statistics
 function animateValue(id, start, end, duration) {
@@ -713,21 +731,24 @@ function animateValue(id, start, end, duration) {
   function run() {
     let now = new Date().getTime();
     let remaining = Math.max((endTime - now) / duration, 0);
-    let value = Math.round(end - (remaining * range));
+    let value = Math.round(end - remaining * range);
     obj.innerHTML = value;
     if (value == end) {
       clearInterval(timer);
     }
   }
-
   timer = setInterval(run, stepTime);
-  // run();
-  function toggleDIV() {
-    document.getElementsByClassName("box3")[0].classList.toggle("show");
-    document.getElementsByClassName("box2")[0].classList.toggle("none");
-  }
 
-  document.addEventListener('click', function () {
+  document.addEventListener("click", function() {
     console.log(event.target.tagName);
-  })
-};
+  });
+}
+
+function toggleDIV() {
+  document.getElementsByClassName("box3")[0].classList.toggle("show");
+  document.getElementsByClassName("box2")[0].classList.toggle("none");
+}
+function getBack() {
+  document.getElementsByClassName("box2")[0].classList.toggle("none");
+  document.getElementsByClassName("box3")[0].classList.toggle("show");
+}

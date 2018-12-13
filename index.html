@@ -55,20 +55,20 @@
             <div class="uire">
                 <span>uire</span>
                 <div>
-                <i class="fas fa-book-open"></i>
-                <i class="fas fa-pencil-alt" id="pencil"></i>
+                    <i class="fas fa-book-open"></i>
+                    <i class="fas fa-pencil-alt" id="pencil"></i>
                 </div>
             </div>
             <div class="logo-show">
                 <span>Quire</span>
                 <nav>
-                        <button class="hamburger-nav" title="Navigation" onclick="myHamburger()"><i class="fas fa-bars"></i></button>
-                        <div class="myHam">
-                                <button id="search" class="nav-button" onclick=addNote() title="New Note"><i class="fas fa-pencil-alt"></i></button>
-                                <input type="checkbox" id="checkStarred1" class="nav-button fas fa-star" title="Favorite">
-                                <!-- <a href="https://github.com/Seuanr/leo_quire"><i class="fab fa-github" title="Github"></i></a> -->
-                        </div>
-                    </nav>  
+                    <button class="hamburger-nav" title="Navigation" onclick="myHamburger()"><i class="fas fa-bars"></i></button>
+                    <div class="myHam">
+                        <button id="search" class="nav-button" onclick=addNote() title="New Note"><i class="fas fa-pencil-alt"></i></button>
+                        <input type="checkbox" id="checkStarred1" class="nav-button fas fa-star" title="Favorite">
+                        <!-- <a href="https://github.com/Seuanr/leo_quire"><i class="fab fa-github" title="Github"></i></a> -->
+                    </div>
+                </nav>
             </div>
             <!-- <h2 id="header">Saved Notes</h2> -->
             <div id="search-bar-container">
@@ -91,17 +91,17 @@
             </div>
         </div>
         <div class="box3">
-                <div class="logo-show">
-                        <span>Quire</span>
-                        <nav>
-                                <button class="hamburger-nav" title="NavigationF" onclick="myHamburger()"><i class="fas fa-bars"></i></button>
-                                <div class="myHam">
-                                        <button class="arrow-back" onclick="getBack()" title="Saved Notes"><i class="fas fa-arrow-left"></i></button>
-                                        <button class="save-note" title="Save note"><i class="far fa-save"></i></button>
-                                        <button class="doPrintClass" id="doPrint" title="Print note"><i class="fas fa-print"></i></button>
-                                </div>
-                        </nav>  
+            <div class="logo-show">
+                <span>Quire</span>
+                <nav>
+                    <button class="hamburger-nav" title="NavigationF" onclick="myHamburger()"><i class="fas fa-bars"></i></button>
+                    <div class="myHam">
+                        <button class="arrow-back" onclick="getBack()" title="Saved Notes"><i class="fas fa-arrow-left"></i></button>
+                        <button class="save-note" title="Save note"><i class="far fa-save"></i></button>
+                        <button class="doPrintClass" id="doPrint" title="Print note"><i class="fas fa-print"></i></button>
                     </div>
+                </nav>
+            </div>
             <!-- Div for Quill editor, set placeholder text from js -->
             <!-- <p id="bajs">Name your note..</p> -->
             <div id="title-box">
@@ -122,73 +122,73 @@
             </div>
             <div id="editor">
             </div>
-    <!-- <div id="hidden-buttons">
+            <!-- <div id="hidden-buttons">
         <p></p> 
         <div id="button-arrow"> 
          <button class="arrow-back" onclick="getBack()" title="Saved Notes"><i class="fas fa-arrow-left"></i></button>
         </div> -->
-         <div id="button-container">  
-            <button class="save-note" title="Save note"><i class="far fa-save"></i></button>
-            <button class="doPrintClass" id="doPrint" title="Print note"><i class="fas fa-print"></i></button>
+            <div id="button-container">
+                <button class="save-note" title="Save note"><i class="far fa-save"></i></button>
+                <button class="doPrintClass" id="doPrint" title="Print note"><i class="fas fa-print"></i></button>
+            </div>
         </div>
-    </div>    
-        </div>
-        </div>
+    </div>
+    </div>
 
-        <div id="stats-page" class="stats-modal">
-            <form class="stats-modal-content" action="">
-                <div class="stats-xMark">
-                    <span onclick="document.getElementById('stats-page').style.display='none'" class="close" title="Close">&times;</span>
+    <div id="stats-page" class="stats-modal">
+        <form class="stats-modal-content" action="">
+            <div class="stats-xMark">
+                <span onclick="document.getElementById('stats-page').style.display='none'" class="close" title="Close">&times;</span>
+            </div>
+            <div class="stats-container">
+                <div class="welcome">
+                    <h2 id="stats-title">My Statistics</h2>
                 </div>
-                <div class="stats-container">
-                    <div class="welcome">
-                        <h2 id="stats-title">My Statistics</h2>
+                <hr>
+                <div class="content-stats">
+                    <div id="curve-chart" class="chart_div"></div>
+                </div>
+                <div class="counter-items">
+                    <div id="numberOfWords">
+                        <div id="counter">0</div>
+                        <h3 class="counter-title">Words in current note</h3>
                     </div>
-                    <hr>
-                    <div class="content-stats">
-                        <div id="curve-chart" class="chart_div"></div>
-                    </div>
-                    <div class="counter-items">
-                        <div id="numberOfWords">
-                            <div id="counter">0</div>
-                            <h3 class="counter-title">Words in current note</h3>
-                        </div>
-                        <div id="numberOfNotes">
-                            <div id="notes-counter">0</div>
-                            <h3 class="counter-title">Number of notes</h3>
-                        </div>
-                    </div>
-                    <div class="clearfix-stats">
-                        <button title="Close info">Got it</button>
+                    <div id="numberOfNotes">
+                        <div id="notes-counter">0</div>
+                        <h3 class="counter-title">Number of notes</h3>
                     </div>
                 </div>
-            </form>
-        </div>
+                <div class="clearfix-stats">
+                    <button id="statsButton" title="Close">Got it</button>
+                </div>
+            </div>
+        </form>
+    </div>
 
-        <div id="landing-page" class="modal">
-            <form class="modal-content" action="">
-                <div class="xMark">
-                    <span onclick="document.getElementById('landing-page').style.display='none'" class="close" title="Close">&times;</span>
+    <div id="landing-page" class="modal">
+        <form class="modal-content" action="">
+            <div class="xMark">
+                <span onclick="document.getElementById('landing-page').style.display='none'" class="close" title="Close">&times;</span>
+            </div>
+            <div class="container">
+                <div class="welcome">
+                    <h2>Welcome to <span id="title-em">Quire</span></h2><br>
                 </div>
-                <div class="container">
-                    <div class="welcome">
-                        <h2>Welcome to <span id="title-em">Quire</span></h2><br>
-                    </div>
-                    <hr>
-                    <div class="content-landing">
-                        <div id="info-link-container">
-                            <button id="info-link1">Introduction</button>
-                            <button id="info-link2">Saving & loading</button>
-                            <button id="info-link3">Deleting notes</button>
-                            <button id="info-link4">Tags</button>
-                        </div>
-                    </div>
-                    <div class="clearfix">
-                        <button title="Close info">Ok, I get it!</button>
+                <hr>
+                <div class="content-landing">
+                    <div id="info-link-container">
+                        <button id="info-link1">Introduction</button>
+                        <button id="info-link2">Saving & loading</button>
+                        <button id="info-link3">Deleting notes</button>
+                        <button id="info-link4">Tags</button>
                     </div>
                 </div>
-            </form>
-        </div>
+                <div class="clearfix">
+                    <button title="Close info">Ok, I get it!</button>
+                </div>
+            </div>
+        </form>
+    </div>
     </div>
 
 

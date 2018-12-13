@@ -41,7 +41,7 @@
 }
 /* STYLING CONTENT-BOX */
 .stats-modal-content {
-  border: 2px solid #2561c4;;
+  border: 2px solid #14356b;;
   background-color: white;
   margin: 1% auto 15% auto;
   overflow: auto;
@@ -93,14 +93,23 @@ h2 {
 }
   #curve-chart {
   background: pink;
-  border-color: #006699;
+  border-color: #14356b;
   }
 .counter-items {
   display: flex;
   flex-direction: row;
 }
-#counter, #notes-counter {
+#counter{
+  /* background: pink; */
   font-size: 3em;
+  border-style: none;
+  text-align: center;
+  color: black;
+}
+
+#notes-counter {
+  font-size: 3em;
+  border-style: none;
 }
 #numberOfWords {
 font-family: 'Playfair Display', sans-serif;
@@ -128,7 +137,8 @@ font-family: 'Playfair Display', sans-serif;
   padding-right: 10px;
   display: flex;
   justify-content: flex-end;
-  background-color: #2561c4;
+  background-color: #14356b;
+  
 }
 .close {
   font-size: 40px;
@@ -140,7 +150,24 @@ font-family: 'Playfair Display', sans-serif;
   color: #14356b;
   cursor: pointer;
 }
-
+#statsButton {
+  background-color: #14356b;
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-family: 'Playfair Display', sans-serif;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+#statsButton:hover {
+background: #14356bbd;
+color: black;
+}
 
 @media screen and (max-width: 900px) {
    .container {
