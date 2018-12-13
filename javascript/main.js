@@ -73,8 +73,9 @@ var toolbarOptions = [
 // Loads and configures the Quill editor
 var quill = new Quill("#editor", {
   modules: {
-    toolbar: toolbarOptions
+    toolbar:toolbarOptions,
   },
+  counter: true,
   placeholder: "Write your text here...",
   theme: "snow"
 });
@@ -658,6 +659,36 @@ function toggleDIV(){
   document.getElementsByClassName("box2")[0].classList.toggle("none");
 }
 
-document.addEventListener('click' , function(){
-  console.log(event.target.tagName);
+
+//Landing page info Event-Listeners
+document.getElementById("info-link1").addEventListener("click", function(){
+  setModalText("introduction");
 });
+document.getElementById("info-link2").addEventListener("click", function(){
+  setModalText("saving & loading");
+});
+document.getElementById("info-link3").addEventListener("click", function(){
+  setModalText("deleting notes");
+});
+document.getElementById("info-link4").addEventListener("click", function(){
+  setModalText("tags");
+});
+
+function setModalText(info) {
+  if (info =="introduction") {
+    document.getElementById("text-box-text").innerHTML = "Welcome to Quire. To create a new note, press the pen icon in the sidebar. To save what you have written, press the save icon below the editor. If you come back to a note a lot it can be faster to favourite it by pressing the small star on that note to the left. Showing only favourites can be done by pressing the big star in the sidebar.";
+  }
+  else if (info == "saving & loading") {
+    document.getElementById("text-box-text").innerHTML = "Saved notes are stored locally on your computer, and displayed in the list to the left. Pressing a note will load it into the editor."
+  }
+  else if (info == "deleting notes") {
+    document.getElementById("text-box-text").innerHTML = "Deleting a note can be done by pressing the trashcan on that note in the list. If you want to delete all your notes click the large trashcan in the sidebar, you will be prompted with a warning. Please note that clearing browser data can delete your notes permanently; please create a backup!"
+  }
+  else if (info == "tags") {
+    document.getElementById("text-box-text").innerHTML = "Tags can help organize notes. To add tags to a note type in the note's tag-box above the editor. To search by tag check the box below the searchbar. It supports multiple tags aswell as excluding tags. example: work,css,-boring would return notes tagged work and css as long as they dont have the tag boring."
+  }
+  else {
+    document.getElementById("text-box-text").innerHTML = "Please contact the developers and tell them what you were trying to do."
+  }
+  
+}
