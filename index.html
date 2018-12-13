@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- SEO META -->
     <title>Quire</title>
-    <meta name="description" content="fill in description">
+    <meta name="description" content="This is Quire notepad the best text editor on the internet. Create notes with different styles and use different templates. Print your notes.">
     <!-- Main CSS -->
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <link rel="stylesheet" href="css/landingpage.css">
@@ -20,7 +20,6 @@
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Gentium+Book+Basic" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Gamja+Flower" rel="stylesheet">
 
     <!-- Favicons (All platforms) -->
     <link rel="apple-touch-icon" sizes="180x180" href="favicon_package_v0.16/apple-touch-icon.png">
@@ -55,8 +54,7 @@
             <div class="uire">
                 <span>uire</span>
                 <div>
-                    <i class="fas fa-book-open"></i>
-                    <i class="fas fa-pencil-alt" id="pencil"></i>
+                    <i class="far fa-edit" id="pencil"></i>
                 </div>
             </div>
             <div class="logo-show">
@@ -66,16 +64,14 @@
                     <div class="myHam">
                         <button class="nav-button search" onclick=addNote() title="New Note"><i class="fas fa-pencil-alt"></i></button>
                         <input type="checkbox" id="checkStarred1" class="nav-button fas fa-star" title="Favorite">
-                        <!-- <a href="https://github.com/Seuanr/leo_quire"><i class="fab fa-github" title="Github"></i></a> -->
                     </div>
                 </nav>
             </div>
-            <!-- <h2 id="header">Saved Notes</h2> -->
             <div id="search-bar-container">
                 <i class="fas fa-search"></i>
                 <input type="text" id="search-bar" placeholder="Search...">
                 <button class="new-note" onclick="addNote()" title="New Note">+</button>
-                <!-- <button id="search-button">Go</button> -->
+
             </div>
             <div id="tag-box-container">
                 <input type="checkbox" id="tag-search" class="tag-se"><span id="tag-search-text">Search by tags</span>
@@ -95,8 +91,9 @@
                 <span>Quire</span>
                 <nav>
                     <button class="hamburger-nav" title="NavigationF" onclick="myHamburger()"><i class="fas fa-bars"></i></button>
+                    <button class="arrow-back" onclick="getBack()" title="Saved Notes"><i class="fas fa-arrow-left"></i></button>
                     <div class="myHam">
-                        <button class="arrow-back" onclick="getBack()" title="Saved Notes"><i class="fas fa-arrow-left"></i></button>
+                        <!-- <button class="arrow-back" onclick="getBack()" title="Saved Notes"><i class="fas fa-arrow-left"></i></button> -->
                         <button class="save-note" title="Save note"><i class="far fa-save"></i></button>
                         <button class="doPrintClass" id="doPrint" title="Print note"><i class="fas fa-print"></i></button>
                     </div>
@@ -158,24 +155,6 @@
         </form>
     </div>
 
-<<<<<<< HEAD
-    <div id="landing-page" class="modal">
-        <form class="modal-content">
-            <div class="xMark">
-                <span onclick="document.getElementById('landing-page').style.display='none'" class="close" title="Close">&times;</span>
-            </div>
-            <div class="container">
-                <div class="welcome">
-                    <h2>Welcome to <span id="title-em">Quire</span></h2><br>
-                </div>
-                <hr>
-                <div class="content-landing">
-                    <div id="info-link-container">
-                        <button id="info-link1">Introduction</button>
-                        <button id="info-link2">Saving & loading</button>
-                        <button id="info-link3">Deleting notes</button>
-                        <button id="info-link4">Tags</button>
-=======
         <div id="landing-page" class="modal">
             <div class="modal-content">
                 <div class="xMark">
@@ -198,13 +177,11 @@
                     
                     
 
->>>>>>> master
                     </div>
                 </div>
 
             </div>
-        </form>
-    </div>
+
 
 
 

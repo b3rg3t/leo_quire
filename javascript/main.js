@@ -451,10 +451,8 @@ document.getElementById("nuke-all").addEventListener("click", function(id) {
   message = confirm("Are you sure you want to delete all notes?");
   if (message == true) {
     localStorage.removeItem("myNotes");
-    console.log("Nuked all notes");
     updateView();
   } else {
-    console.log("Cancel");
   }
 });
 // DROPDOWN FUNCTIONS
@@ -744,6 +742,13 @@ function setModalText(info) {
   }
 }
 function getBack() {
+  message = confirm("Save note before going back?");
+  if (message == true) {
+    saveNote();
+    document.getElementsByClassName("box2")[0].classList.toggle("none");
+    document.getElementsByClassName("box3")[0].classList.toggle("show");
+  } else {
+  }
   document.getElementsByClassName("box2")[0].classList.toggle("none");
   document.getElementsByClassName("box3")[0].classList.toggle("show");
 }
