@@ -165,27 +165,31 @@
         </form>
     </div>
 
-    <div id="landing-page" class="modal">
-        <form class="modal-content" action="">
-            <div class="xMark">
-                <span onclick="document.getElementById('landing-page').style.display='none'" class="close" title="Close">&times;</span>
-            </div>
-            <div class="container">
-                <div class="welcome">
-                    <h2>Welcome to <span id="title-em">Quire</span></h2><br>
+        <div id="landing-page" class="modal">
+            <div class="modal-content">
+                <div class="xMark">
+                    <h2 id="landing-title">Welcome to Quire</h2>
+                    <span onclick="document.getElementById('landing-page').style.display='none'" class="close" title="Close">&times;</span>
                 </div>
-                <hr>
-                <div class="content-landing">
-                    <div id="info-link-container">
-                        <button id="info-link1">Introduction</button>
-                        <button id="info-link2">Saving & loading</button>
-                        <button id="info-link3">Deleting notes</button>
-                        <button id="info-link4">Tags</button>
+                <div class="container">
+                    
+                        <div id="info-link-container">
+                            
+                            <div id="info-content-bg">
+                                <div id="info-image"></div>
+                                <div id="text-box"><p id="text-box-text">Welcome to Quire. To create a new note, press the pen icon in the sidebar. To save what you have written, press the save icon below the editor. If you come back to a note a lot it can be faster to favourite it by pressing the small star on that note to the left. Showing only favourites can be done by pressing the big star in the sidebar.</p></div>
+                            </div>
+                            <button id="info-link1">Introduction</button>
+                            <button id="info-link2">Saving & loading</button>
+                            <button id="info-link3">Deleting notes</button>
+                            <button id="info-link4">Tags</button>
+                        </div>
+                    
+                    
+
                     </div>
                 </div>
-                <div class="clearfix">
-                    <button title="Close info">Ok, I get it!</button>
-                </div>
+
             </div>
         </form>
     </div>

@@ -14,10 +14,10 @@
 
 /* STYLING CONTENT-BOX */
 .modal-content {
-  border: 2px solid #2561c4;;
-  background-color: white;
+  border: 2px solid #2561c4;
+  background-color: #f9f9f9;
   margin: 1% auto 15% auto;
-  overflow: auto;
+  /* overflow: auto; */
   width: 80%;
   height: 80%;
   border-radius: 5px;
@@ -51,16 +51,84 @@
 }
 .content-landing {
   color: black;
-  height:100%;
+  height:auto;
+}
+
+.container {
+  /* text-align: center; */
+  /* padding: 0 40px 0 40px; */
+  height: calc(100% - 47px);
+  max-width:100%;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 100%;
+  
 }
 
 #info-link-container {
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: 20% 80%;
+  grid-template-rows: auto auto auto auto;
   
-  height: 300px;
+  max-height: 100%;
+  width: 100%;
 }
-h2 {
+
+#info-content-bg {
+  grid-row: 1 /span 4;
+  grid-column: 2 / span 2;
+  display: grid;
+  background-color: black;
+  grid-template-columns: auto;
+  grid-template-rows: 60% 40%;
+}
+
+#text-box {
+  grid-row: 2 /span 1;
+  grid-column: 1 / span 1;
+  background-color: bisque;
+  padding-left: 20px;
+  padding-right: 20px;
+  overflow-y: scroll;
+}
+#text-box-text {
+
+}
+#landing-title {
+  color: white;
+  margin: 0px;
+  width: 100%;
+  text-align: center;
+}
+
+#info-header-bg {
+  grid-column: 1 / span 1;
+  background-color: #2561c4;
+}
+#info-header {
+  margin: 0px;
+  text-align: center;
+  color: white;
+}
+#info-link-container > button {
+  border: none;
+  grid-column: 1 / span 1;
+  background-color: #f9f9f9;
+
+} 
+#info-link-container > button:hover {
+  background-color: #2561c4;
+  color: white;
+} 
+/*
+#title-h2 {
+   text-align: left;
+  font-size: 20px;
+  font-family: 'Josefin Slab', serif;
+  color:black; 
+}
+*/
+.welcome > h2 {
   text-align: center;
   margin: 5px;
 }
@@ -122,16 +190,17 @@ font-family: 'Playfair Display', sans-serif;
 #ol-contol{
   background-color: #16103a;
 }
-.container {  
-  padding: 0 40px 0 40px;
-  background: white;
-}
+/* li{
+  color:  white;
+} */
+
 /* The Close Button (x) */
 .xMark {
   padding-right: 10px;
   display: flex;
   justify-content: flex-end;
   background-color: #2561c4;
+  height: 45px;
 }
 .stats-xMark {
   padding-right: 10px;
@@ -181,5 +250,25 @@ color: black;
     width: 95%;
     overflow: auto;
   }
+  .modal {
+    padding: 0px;
+  }
+  #landing-page {
+    padding: 0px;
+  }
+  .modal-content{
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    margin:0px;
+    border-radius: 0px;
+  }
+  .info-link-container > button {
+    padding: 0px;
+  }
+  .container {
+    padding: 0px;
+  }
+
 }
 
