@@ -435,7 +435,7 @@ body {
 }
 
 
-#doPrint {
+#doPrint, #doPrintm {
   text-shadow: 2px 2px 2px rgb(0, 0, 0);
   border-radius: 50%;
   background-color: #000000;
@@ -449,7 +449,7 @@ body {
   transition: transform 0.25s ease-out;
   font-size: 30px;
 }
-#doPrint:hover {
+#doPrint, #doPrintm:hover {
   color: #14356b;
   background-color: #00000094;
   transform: scale(1.1);
@@ -558,7 +558,11 @@ body {
     transform: scale(1);
   }
   
-  #doPrint {
+  #doPrint, #doPrintm {
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+  }
+  #doPrint, #doPrintm:hover{
     background-color: rgba(0, 0, 0, 0);
     border: none;
   }
@@ -771,9 +775,10 @@ body {
   .new-note,
   .save-note,
   .doPrintClass,
+  .doPrintClassm,
   .buttons,
   #tag-box,
-  #title {
+  #title{
     display: none !important;
   }
   #editor {
