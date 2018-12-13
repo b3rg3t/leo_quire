@@ -47,6 +47,8 @@ document.onclick = function(event) {
     statsModal.style.display = "none";
   }
 };
+
+
 // QUILL OPTIONS
 //rubriker, punktlistor, numrerade listor samt göra text kursiv eller fetstil.
 var toolbarOptions = [
@@ -411,6 +413,10 @@ function getTitle() {
 document.getElementById("doPrint").addEventListener("click", function() {
   window.print();
 });
+
+document.getElementById("doPrintm").addEventListener("click", function() {
+  window.print();
+});
 //LOAD DIFFERENT TEMPLATES
 // ANCHORS
 var stand = document.getElementById("standard");
@@ -663,7 +669,6 @@ Quill.register("modules/counter", function(quill, options) {
     }
   });
 });
-
 
 
 //Counter for statistics

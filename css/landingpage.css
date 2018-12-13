@@ -14,8 +14,8 @@
 
 /* STYLING CONTENT-BOX */
 .modal-content {
-  border: 2px solid #2561c4;;
-  background-color: white;
+  border: 2px solid #2561c4;
+  background-color: #f9f9f9;
   margin: 1% auto 15% auto;
   /* overflow: auto; */
   width: 80%;
@@ -120,14 +120,7 @@
   background-color: #2561c4;
   color: white;
 } 
-/*
-#title-h2 {
-   text-align: left;
-  font-size: 20px;
-  font-family: 'Josefin Slab', serif;
-  color:black; 
-}
-*/
+
 .welcome > h2 {
   text-align: center;
   margin: 5px;
@@ -190,10 +183,10 @@ font-family: 'Playfair Display', sans-serif;
 #ol-contol{
   background-color: #16103a;
 }
-.container {  
-  padding: 0 40px 0 40px;
-  background: white;
-}
+/* li{
+  color:  white;
+} */
+
 /* The Close Button (x) */
 .xMark {
   padding-right: 10px;
