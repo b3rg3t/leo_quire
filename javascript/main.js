@@ -2,12 +2,6 @@
 // Show/not show landing page
 
 let landingModal = document.getElementById("landing-page");
-// document.onclick = function (event) {
-
-//   if (event.target == landingModal) {
-//     landingModal.style.display = "none";
-//   }
-// }
 
 // Check local storage for previous visit
 function cookieCheck() {
@@ -46,13 +40,6 @@ span.onclick = function() {
   statsModal.style.display = "none";
 };
 
-// When the user clicks anywhere outside of the modal, close it
-// document.onclick = function (event) {
-//   if (event.target == statsModal) {
-//     statsModal.style.display = "none";
-//   }
-// }
-
 document.onclick = function(event) {
   if (event.target == landingModal) {
     landingModal.style.display = "none";
@@ -72,17 +59,8 @@ var toolbarOptions = [
   [{ color: [] }, { background: [] }],
   // [{ 'font': [] }],
   [{ align: [] }]
-];  
+];
 
-// Loads and configures the Quill editor
-// var quill = new Quill("#editor", {
-//   modules: {
-//     toolbar: toolbarOptions,
-//   },
-//   counter: true,
-//   placeholder: "Write your text here...",
-//   theme: "snow"
-// });
 // Loads content from the Quill editor
 window.onload = function() {
   //Setting Event Listeners
@@ -108,20 +86,16 @@ document.getElementById("checkStarred").addEventListener("click", function() {
   if (document.getElementById("checkStarred").checked) {
     updateView(note => note.star == true);
     console.log("Showing starred items");
-    // note = true;
   } else {
     updateView();
-    console.log("Hallå");
   }
 });
 document.getElementById("checkStarred1").addEventListener("click", function() {
   if (document.getElementById("checkStarred1").checked) {
     updateView(note => note.star == true);
     console.log("Showing starred items");
-    // note = true;
   } else {
     updateView();
-    console.log("Hallå");
   }
 });
 
@@ -136,8 +110,6 @@ function getActiveId() {
 
 // Loads a specific note from local storage to the editor
 function loadToQuill(id) {
-  // e = window.event || e;
-  // if (event.target.tagName != "BUTTON") {
   let tempStorage = loadNotes();
   quill.setContents(tempStorage.find(loadNote => loadNote.id == id).content);
   setActiveId(id);
@@ -164,7 +136,7 @@ function loadToQuill(id) {
     .classList.add(tempStorage.find(loadNote => loadNote.id == id).template);
   toggleDIV();
 }
-// }
+
 
 function addNote() {
   let tempStorage = loadNotes(); // Loads array from loadNotes()
@@ -319,10 +291,6 @@ function toggleStarred(id) {
 const getAvailID = noteArray =>
   noteArray.length > 0 ? Math.max(...noteArray.map(note => note.id), 0) + 1 : 0;
 
-// function updateView(func = () => true) {
-//   let notes = loadNotes();
-//   document.getElementById("notes").innerHTML = '';
-
 function updateView(func = () => true) {
   let searchBar = document.getElementById("search-bar").value;
   let notes = [];
@@ -424,7 +392,6 @@ function yyyymmdd() {
   if (m.length == 1) {
     m = "0" + m;
   }
-  // (m.length == 1) && (m = '0' + m);
   var yyyymmdd = y + "-" + m + "-" + d;
   return yyyymmdd;
 }
@@ -484,10 +451,8 @@ document.getElementById("nuke-all").addEventListener("click", function(id) {
   message = confirm("Are you sure you want to delete all notes?");
   if (message == true) {
     localStorage.removeItem("myNotes");
-    console.log("Nuked all notes");
     updateView();
   } else {
-    console.log("Cancel");
   }
 });
 // DROPDOWN FUNCTIONS
@@ -692,8 +657,6 @@ Quill.register("modules/counter", function(quill, options) {
   let container = document.querySelector("#counter");
   quill.on("text-change", function() {
     let text = quill.getText();
-    // console.log(quill.getText());
-    // console.log(quill.getText() == "↵");
     if (quill.getText() < 1) {
       return (numberOfWords = 0);
       console.log("reached if");
@@ -705,21 +668,6 @@ Quill.register("modules/counter", function(quill, options) {
   });
 });
 
-// Loads and configures the Quill editor
-Quill.register('modules/markdownShortcuts', MarkdownShortcuts)
-
-var quill = new Quill("#editor", {
-  modules: {
-    counter: true,
-    toolbar: toolbarOptions,
-    markdownShortcuts: {}
-
-  },
-  placeholder: "Write your text here...",
-  theme: "snow"
-});
-//Statistics page: Total number of notes.
-// document.getElementById("notes-counter").innerHTML = loadNotes().length;
 
 //Counter for statistics
 function animateValue(id, start, end, duration) {
@@ -756,6 +704,11 @@ function animateValue(id, start, end, duration) {
   });
 }
 
+function toggleDIV() {
+  document.getElementsByClassName("box3")[0].classList.toggle("show");
+  document.getElementsByClassName("box2")[0].classList.toggle("none");
+}
+
 
 //Landing page info Event-Listeners
 document.getElementById("info-link1").addEventListener("click", function(){
@@ -787,13 +740,23 @@ function setModalText(info) {
   else {
     document.getElementById("text-box-text").innerHTML = "Please contact the developers and tell them what you were trying to do."
   }
-  
-}
-function toggleDIV() {
-  document.getElementsByClassName("box3")[0].classList.toggle("show");
-  document.getElementsByClassName("box2")[0].classList.toggle("none");
 }
 function getBack() {
+  message = confirm("Save note before going back?");
+  if (message == true) {
+    saveNote();
+    document.getElementsByClassName("box2")[0].classList.toggle("none");
+    document.getElementsByClassName("box3")[0].classList.toggle("show");
+  } else {
+  }
   document.getElementsByClassName("box2")[0].classList.toggle("none");
   document.getElementsByClassName("box3")[0].classList.toggle("show");
 }
+var quill = new Quill("#editor", {
+  modules: {
+    counter: true,
+    toolbar: toolbarOptions
+  },
+  placeholder: "Write your text here...",
+  theme: "snow"
+});

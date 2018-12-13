@@ -120,14 +120,7 @@
   background-color: #2561c4;
   color: white;
 } 
-/*
-#title-h2 {
-   text-align: left;
-  font-size: 20px;
-  font-family: 'Josefin Slab', serif;
-  color:black; 
-}
-*/
+
 .welcome > h2 {
   text-align: center;
   margin: 5px;
@@ -244,7 +237,7 @@ color: black;
     }
     .modal .stats-modal {
     padding-top: 1%;
-    margin-bottom: 0 auto;
+    margin-bottom: 0;
     }
     .modal-content .stats-modal-content {
     width: 95%;
