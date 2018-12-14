@@ -54,7 +54,6 @@ body {
   user-select: none;
   text-shadow: 2px 2px 2px rgb(0, 0, 0);
 }
-
 #nav-logo:hover {
   transform: rotate(-10deg);
 }
@@ -62,13 +61,11 @@ body {
   display: flex;
   flex-flow: column wrap;
 }
-
 #nav-main i {
   padding: 0;
   font-size: 28px;
   text-shadow: 2px 2px 2px rgb(0, 0, 0);
 }
-
 .fa-github {
   font-size: 28px;
   text-decoration: none;
@@ -79,7 +76,6 @@ body {
 .fa-github:hover {
   transform: scale(1.2);
 }
-
 #nav-footer {
   margin-bottom: 20px;
   color: white;
@@ -99,11 +95,9 @@ body {
 #search {
   margin-top: 0;
 }
-
 .nav-button:hover {
   transform: scale(1.2);
 }
-
 #add-nav {
   display: none;
   float: right;
@@ -177,7 +171,6 @@ body {
 .new-note:hover {
   transform: scale(1.1);
 }
-
 .fa-search {
   color: white;
   margin: 10px 5px;
@@ -214,7 +207,6 @@ body {
   flex-wrap: wrap;
   flex-basis: 100%;
 }
-
 #notes div:hover {
   background-color: #f7eb9b;
 }
@@ -254,26 +246,21 @@ body {
 .test-star::before {
   color: gold;
 }
-
 ::-webkit-scrollbar:hover {
   width: 10px;
 }
-
 ::-webkit-scrollbar {
   width: 5px;
 }
-
 /* Track */
 ::-webkit-scrollbar-track {
   background-color: white;
 }
-
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background-color: #1c6ea46e;
   border-radius: 1px;
 }
-
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.418);
@@ -285,7 +272,6 @@ body {
   margin-top: 4%;
   text-shadow: 2px 2px 2px rgb(0, 0, 0);
 }
-
 #title-box {
   margin-right: 10px;
 }
@@ -306,7 +292,6 @@ body {
   margin: 0;
   font-weight: bold;
 }
-
 #title:focus {
   outline: none;
   text-decoration: none;
@@ -326,6 +311,7 @@ body {
   max-height: 90%;
   max-width: 100%;
   min-width: 300px;
+  table-layout: fixed;
 }
 .template1 {
   font-family: sans-serif;
@@ -341,15 +327,21 @@ body {
   color: green;
   font-size: 16px;
 }
-.template1 h1, h2, h3{
-  font-family: "Playfair Display"; 
-  text-align: center;
+.template1 h1,
+h2,
+h3 {
+  font-family: "Playfair Display";
 }
-.template2 h1, h2, h3{
-  font-family: "Gentium+Book+Basic"; 
+.template2 h1,
+h2,
+h3 {
+  font-family: "Gentium+Book+Basic";
 }
-.template3 h1, h2, h3{
-  font-family: "Playfair Display"; 
+.template3 h1,
+h2,
+h3 {
+  font-family: "Playfair Display";
+  /* text-align: center; */
 }
 #checkStarred {
   -webkit-appearance: none;
@@ -378,8 +370,6 @@ body {
 #checkStarred1:checked {
   color: gold;
 }
-
-
 .save-note {
   border-radius: 50%;
   background-color: #f87000;
@@ -403,7 +393,7 @@ body {
 .arrow-back {
   position: fixed;
   top: 0px;
-  left:50px;
+  left: 50px;
   border-radius: 50%;
   background-color: #0532fc;
   border: none;
@@ -418,9 +408,8 @@ body {
   display: none;
   text-shadow: 2px 2px 2px rgb(0, 0, 0);
 }
-
-
-#doPrint, #doPrintm {
+#doPrint,
+#doPrintm {
   text-shadow: 2px 2px 2px rgb(0, 0, 0);
   border-radius: 50%;
   background-color: #000000;
@@ -434,7 +423,8 @@ body {
   transition: transform 0.25s ease-out;
   font-size: 30px;
 }
-#doPrint:hover, #doPrintm:hover {
+#doPrint:hover,
+#doPrintm:hover {
   color: #14356b;
   background-color: #00000094;
   transform: scale(1.1);
@@ -448,7 +438,6 @@ body {
   cursor: pointer;
   width: 100px;
 }
-
 .dropbtn:hover {
   background-color: rgba(41, 127, 185, 0);
   color: #006cf8;
@@ -456,7 +445,6 @@ body {
 .dropbtn:focus {
   color: rgb(185, 185, 185);
 }
-
 .dropdown {
   position: relative;
   display: inline-block;
@@ -464,7 +452,6 @@ body {
   margin: 0 auto;
   padding-top: 8px;
 }
-
 .dropdown-content {
   display: none;
   position: absolute;
@@ -474,7 +461,6 @@ body {
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
-
 .dropdown-content button {
   color: black;
   padding: 5px;
@@ -487,11 +473,9 @@ body {
   margin: 0;
   height: 100%;
 }
-
 .dropdown button:hover {
   color: #006cf8;
 }
-
 .logo-show {
   display: none;
   width: 100%;
@@ -517,13 +501,13 @@ body {
   border-radius: 30px;
   position: absolute;
 }
-.myHam{
+.myHam {
   display: none;
   letter-spacing: 40px;
-  z-index: 100; 
+  z-index: 100;
 }
 @media screen and (max-width: 1025px) {
-  .hamburger-nav{
+  .hamburger-nav {
     font-size: 28px;
     margin: 5.5px 2px;
   }
@@ -538,22 +522,23 @@ body {
     background-color: #fcf9f700;
     transform: scale(1);
   }
-  
-  #doPrint, #doPrintm {
+  #doPrint,
+  #doPrintm {
     background-color: rgba(0, 0, 0, 0);
     border: none;
     padding: 0px;
   }
-  #doPrint:hover, #doPrintm:hover{
+  #doPrint:hover,
+  #doPrintm:hover {
     background-color: rgba(0, 0, 0, 0);
     color: white;
     border: none;
   }
-  #doPrint:hover{
+  #doPrint:hover {
     background-color: #00000000;
     transform: scale(1);
   }
-  .nav-button{
+  .nav-button {
     margin: 0px;
   }
   .myHam {
@@ -567,7 +552,7 @@ body {
     padding-top: 0.5%;
     padding-bottom: 50%;
   }
-  #copyright p{
+  #copyright p {
     display: none;
   }
   .box1 {
@@ -580,11 +565,11 @@ body {
     display: none;
     overflow: hidden;
   }
-  .fa-pencil-alt{
+  .fa-pencil-alt {
     font-size: 28px;
     text-shadow: 2px 2px 2px rgb(0, 0, 0);
- }
-  .fa-chart-bar{
+  }
+  .fa-chart-bar {
     font-size: 28px;
     text-shadow: 2px 2px 2px rgb(0, 0, 0);
   }
@@ -627,7 +612,7 @@ body {
     color: #3a3a3a;
   }
   .arrow-back {
-    display: inline-block;  
+    display: inline-block;
     background-color: #006cf800;
     border: none;
     padding: 0px;
@@ -679,7 +664,6 @@ body {
     font-size: 60px;
   }
 }
-
 .dropbtn {
   background-color: rgba(52, 152, 219, 0);
   color: rgb(82, 80, 80);
@@ -689,7 +673,6 @@ body {
   cursor: pointer;
   width: 100px;
 }
-
 .dropbtn:hover {
   background-color: rgba(41, 127, 185, 0);
   color: #006cf8;
@@ -697,7 +680,6 @@ body {
 .dropbtn:focus {
   color: rgb(185, 185, 185);
 }
-
 .dropdown {
   position: relative;
   display: inline-block;
@@ -706,7 +688,6 @@ body {
   padding-top: 8px;
   font-family: "Roboto", sans-serif;
 }
-
 .dropdown-content {
   display: none;
   position: absolute;
@@ -736,15 +717,17 @@ body {
   .doPrintClassm,
   .buttons,
   #tag-box,
-  #title{
+  #title {
     display: none !important;
   }
   #editor {
     border: none !important;
     background-color: white;
   }
+  .box3 {
+    width: 100%;
+  }
 }
-
 @page {
   margin: 0mm;
 }
